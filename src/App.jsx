@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import React from 'react'
 import Intro from './pages/Intro'
 import Portfolio from './pages/Portfolio'
+import TopTicker from './components/TopTicker'
 
 import bgm from './assets/bgm.mp3'
 
@@ -46,6 +47,7 @@ const App = () => {
 
   return (
     <>
+      <TopTicker />
 
       {/* 배경 음악 */}
       <audio
