@@ -6,19 +6,33 @@ import ProjectPage from '../pages/ProjectPage'
 import Contact from '../pages/Contact'
 import Thanks from '../pages/Thanks'
 
+import pageFlipSound from '../assets/page-flip.mp3'
+
 const Book = ({ currentPage, setCurrentPage }) => {
+
+  const playPageSound = () => {
+    const audio = new Audio(pageFlipSound)
+
+    audio.volume = 0.4
+    audio.play()
+  }
+
 
   const prevPage = () => {
     if (currentPage > 0) {
+      playPageSound()
       setCurrentPage(currentPage - 1)
     }
   }
 
+
   const nextPage = () => {
     if (currentPage < 9) {
+      playPageSound()
       setCurrentPage(currentPage + 1)
     }
   }
+
 
   const renderPage = (pageNumber, side) => {
 
@@ -45,6 +59,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
 
     return null
   }
+
 
   const papers = []
 
@@ -75,6 +90,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
     )
   }
 
+
   return (
     <div className="book-area">
 
@@ -103,6 +119,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
         >
           <i className="bi bi-chevron-left"></i>
         </button>
+
 
         <button
           className="book-control-button next-button"
