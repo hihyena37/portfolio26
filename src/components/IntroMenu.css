@@ -3,11 +3,10 @@
 ========================= */
 
 .intro-menu-board {
-    position: relative;
+  position: relative;
+  width: min(720px, 80vw);
+  margin: 0 auto;
 
-    width: min(720px, 80vw);
-
-    margin: 0 auto;
 }
 
 
@@ -16,10 +15,16 @@
 ========================= */
 
 .intro-menu-bg {
-    display: block;
+  position: relative;
+  top: 200px;
+  
+  width: 100%;
+  aspect-ratio: 1430 / 1100;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 
-    width: 100%;
-    height: auto;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 1);
 }
 
 
@@ -28,19 +33,19 @@
 ========================= */
 
 .intro-nav {
-    position: absolute;
+  position: absolute;
 
-    top: 61%;
-    left: 50%;
+  top: 61%;
+  left: 50%;
 
-    transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 
-    width: 76%;
+  width: 76%;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    gap: 14px;
+  gap: 14px;
 }
 
 
@@ -49,39 +54,39 @@
 ========================= */
 
 .intro-menu-button {
-    position: relative;
+  position: relative;
 
-    width: 100%;
-    height: 66px;
+  width: 100%;
+  height: 66px;
 
-    padding: 0 22px;
+  padding: 0 22px;
 
-    display: grid;
-    grid-template-columns: 42px 1fr 28px;
-    align-items: center;
+  display: grid;
+  grid-template-columns: 42px 1fr 28px;
+  align-items: center;
 
-    border: 1px solid rgba(210, 181, 125, 0.7);
-    border-radius: 4px;
+  border: 1px solid rgba(210, 181, 125, 0.7);
+  border-radius: 4px;
 
-    background:
-        linear-gradient(180deg,
-            rgba(48, 49, 46, 0.96) 0%,
-            rgba(27, 29, 28, 0.98) 100%);
+  background:
+    linear-gradient(180deg,
+      rgba(48, 49, 46, 0.96) 0%,
+      rgba(27, 29, 28, 0.98) 100%);
 
-    color: #f0e4cc;
+  color: #f0e4cc;
 
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        0 3px 6px rgba(0, 0, 0, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 3px 6px rgba(0, 0, 0, 0.45);
 
-    cursor: pointer;
+  cursor: pointer;
 
-    transition:
-        transform 0.2s ease,
-        border-color 0.2s ease,
-        background 0.2s ease,
-        color 0.2s ease,
-        box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 
@@ -90,12 +95,12 @@
 ========================= */
 
 .menu-icon {
-    justify-self: start;
+  justify-self: start;
 
-    font-size: 24px;
-    line-height: 1;
+  font-size: 24px;
+  line-height: 1;
 
-    color: #ead8b3;
+  color: #ead8b3;
 }
 
 
@@ -104,13 +109,13 @@
 ========================= */
 
 .menu-label {
-    justify-self: center;
+  justify-self: center;
 
-    font-size: 19px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
 
-    line-height: 1;
+  line-height: 1;
 }
 
 
@@ -119,12 +124,12 @@
 ========================= */
 
 .menu-arrow {
-    justify-self: end;
+  justify-self: end;
 
-    font-size: 20px;
-    line-height: 1;
+  font-size: 20px;
+  line-height: 1;
 
-    transition: transform 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 
@@ -133,30 +138,30 @@
 ========================= */
 
 .intro-menu-button:hover {
-    transform: translateY(-2px);
+  transform: translateY(-2px);
 
-    border-color: #d5ad63;
+  border-color: #d5ad63;
 
-    background:
-        linear-gradient(180deg,
-            #fff4d5 0%,
-            #ead5a5 100%);
+  background:
+    linear-gradient(180deg,
+      #fff4d5 0%,
+      #ead5a5 100%);
 
-    color: #20180f;
+  color: #20180f;
 
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.7),
-        0 5px 10px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 5px 10px rgba(0, 0, 0, 0.4);
 }
 
 
 .intro-menu-button:hover .menu-icon {
-    color: #20180f;
+  color: #20180f;
 }
 
 
 .intro-menu-button:hover .menu-arrow {
-    transform: translateX(4px);
+  transform: translateX(4px);
 }
 
 
@@ -167,40 +172,40 @@
 
 @media (max-width: 1024px) {
 
-    .intro-menu-board {
-        width: min(620px, 84vw);
-    }
+  .intro-menu-board {
+    width: min(620px, 84vw);
+  }
 
 
-    .intro-nav {
-        width: 76%;
+  .intro-nav {
+    width: 76%;
 
-        gap: 12px;
-    }
-
-
-    .intro-menu-button {
-        height: 60px;
-
-        padding: 0 20px;
-
-        grid-template-columns: 38px 1fr 26px;
-    }
+    gap: 12px;
+  }
 
 
-    .menu-icon {
-        font-size: 22px;
-    }
+  .intro-menu-button {
+    height: 60px;
+
+    padding: 0 20px;
+
+    grid-template-columns: 38px 1fr 26px;
+  }
 
 
-    .menu-label {
-        font-size: 17px;
-    }
+  .menu-icon {
+    font-size: 22px;
+  }
 
 
-    .menu-arrow {
-        font-size: 18px;
-    }
+  .menu-label {
+    font-size: 17px;
+  }
+
+
+  .menu-arrow {
+    font-size: 18px;
+  }
 
 }
 
@@ -212,43 +217,43 @@
 
 @media (max-width: 767px) {
 
-    .intro-menu-board {
-        width: min(520px, 94vw);
-    }
+  .intro-menu-board {
+    width: min(520px, 94vw);
+  }
 
 
-    .intro-nav {
-        top: 61%;
+  .intro-nav {
+    top: 61%;
 
-        width: 78%;
+    width: 78%;
 
-        gap: 10px;
-    }
-
-
-    .intro-menu-button {
-        height: 52px;
-
-        padding: 0 16px;
-
-        grid-template-columns: 32px 1fr 22px;
-    }
+    gap: 10px;
+  }
 
 
-    .menu-icon {
-        font-size: 19px;
-    }
+  .intro-menu-button {
+    height: 52px;
+
+    padding: 0 16px;
+
+    grid-template-columns: 32px 1fr 22px;
+  }
 
 
-    .menu-label {
-        font-size: 15px;
-        letter-spacing: 0.06em;
-    }
+  .menu-icon {
+    font-size: 19px;
+  }
 
 
-    .menu-arrow {
-        font-size: 16px;
-    }
+  .menu-label {
+    font-size: 15px;
+    letter-spacing: 0.06em;
+  }
+
+
+  .menu-arrow {
+    font-size: 16px;
+  }
 
 }
 
@@ -260,39 +265,39 @@
 
 @media (max-width: 360px) {
 
-    .intro-menu-board {
-        width: 96vw;
-    }
+  .intro-menu-board {
+    width: 96vw;
+  }
 
 
-    .intro-nav {
-        width: 80%;
+  .intro-nav {
+    width: 80%;
 
-        gap: 8px;
-    }
-
-
-    .intro-menu-button {
-        height: 46px;
-
-        padding: 0 14px;
-
-        grid-template-columns: 28px 1fr 20px;
-    }
+    gap: 8px;
+  }
 
 
-    .menu-icon {
-        font-size: 17px;
-    }
+  .intro-menu-button {
+    height: 46px;
+
+    padding: 0 14px;
+
+    grid-template-columns: 28px 1fr 20px;
+  }
 
 
-    .menu-label {
-        font-size: 13px;
-    }
+  .menu-icon {
+    font-size: 17px;
+  }
 
 
-    .menu-arrow {
-        font-size: 14px;
-    }
+  .menu-label {
+    font-size: 13px;
+  }
+
+
+  .menu-arrow {
+    font-size: 14px;
+  }
 
 }

@@ -7,8 +7,6 @@ body,
 #root {
     width: 100%;
     min-height: 100%;
-    margin: 0;
-    padding: 0;
 }
 
 body {
@@ -21,6 +19,8 @@ body {
 ========================= */
 
 .intro {
+  background-image: url(../assets/bookshop1.gif);
+
     width: 100%;
     height: 100vh;
 
@@ -34,9 +34,7 @@ body {
 
     overflow: hidden;
 
-    box-sizing: border-box;
 }
-
 
 /* =========================
    TABLET
@@ -60,6 +58,9 @@ body {
 @media (max-width: 767px) {
 
     .intro {
+        /* 가운데 PORTFOLIO 글씨가 잘리지 않도록 확대 크기를 제한 */
+        background-size: clamp(100vw, 177.78vh, 300vw) auto;
+        background-color: #12213b;
         background-position: center center;
     }
 
@@ -78,3 +79,4 @@ body {
     }
 
 }
+

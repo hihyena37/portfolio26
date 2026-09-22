@@ -1,18 +1,46 @@
 /* =========================
+   HEADER WRAPPER
+========================= */
+
+.portfolio-content > header {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* =========================
    PORTFOLIO HEADER
 ========================= */
 
 .portfolio-nav {
-    width: 100%;
+  position: relative;
+  z-index: 500;
 
-    padding: 28px 64px 20px;
+  width: fit-content;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 48px;
+  margin: 0;
+  padding: 12px 28px;
 
-    box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 40px;
+
+  border: 1px solid rgba(255, 230, 190, 0.18);
+  border-radius: 999px;
+
+  background: rgba(24, 16, 10, 0.48);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 
@@ -21,20 +49,27 @@
 ========================= */
 
 .portfolio-nav button {
-    position: relative;
+  position: relative;
 
-    padding: 8px 0;
+  padding: 8px 0;
 
-    border: 0;
+  border: 0;
 
-    background: transparent;
-    color: #222;
+  background: transparent;
 
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
+  color: rgba(255, 245, 225, 0.78);
 
-    cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 
@@ -42,27 +77,34 @@
    HOVER
 ========================= */
 
+.portfolio-nav button:hover {
+  color: #fff3cf;
+
+  transform: translateY(-1px);
+}
+
+
 .portfolio-nav button::after {
-    content: '';
+  content: '';
 
-    position: absolute;
+  position: absolute;
 
-    left: 50%;
-    bottom: 0;
+  left: 50%;
+  bottom: 0;
 
-    width: 0;
-    height: 1px;
+  width: 0;
+  height: 1px;
 
-    background: #222;
+  background: #d8aa5b;
 
-    transform: translateX(-50%);
+  transform: translateX(-50%);
 
-    transition: width 0.25s ease;
+  transition: width 0.25s ease;
 }
 
 
 .portfolio-nav button:hover::after {
-    width: 100%;
+  width: 100%;
 }
 
 
@@ -71,14 +113,20 @@
 ========================= */
 
 .portfolio-nav button.active {
-    font-weight: 700;
+  color: #f7d48a;
+
+  font-weight: 700;
+
+  text-shadow:
+    0 0 8px rgba(216, 170, 91, 0.35);
 }
 
 
 .portfolio-nav button.active::after {
-    width: 100%;
+  width: 100%;
+  height: 2px;
 
-    height: 2px;
+  background: #d8aa5b;
 }
 
 
@@ -89,16 +137,16 @@
 
 @media (max-width: 1024px) {
 
-    .portfolio-nav {
-        padding: 24px 32px 18px;
+  .portfolio-nav {
+    padding: 8px 20px;
 
-        gap: 36px;
-    }
+    gap: 28px;
+  }
 
 
-    .portfolio-nav button {
-        font-size: 13px;
-    }
+  .portfolio-nav button {
+    font-size: 13px;
+  }
 
 }
 
@@ -110,19 +158,34 @@
 
 @media (max-width: 767px) {
 
-    .portfolio-nav {
-        padding: 20px 16px 16px;
-
-        gap: 20px;
-    }
+  .portfolio-content > header {
+    width: 100%;
+  }
 
 
-    .portfolio-nav button {
-        padding: 6px 0;
+  .portfolio-nav {
+    width: calc(80% - 32px);
 
-        font-size: 12px;
-        letter-spacing: 0.04em;
-    }
+    padding: 8px 24px;
+
+    gap: 0px;
+
+    justify-content: space-between;
+
+    border-radius: 16px;
+  }
+
+
+  .portfolio-nav button {
+    flex-shrink: 0;
+
+    padding: 8px 0;
+
+    font-size: 12px;
+    letter-spacing: 0.02em;
+
+    white-space: nowrap;
+  }
 
 }
 
@@ -134,16 +197,14 @@
 
 @media (max-width: 360px) {
 
-    .portfolio-nav {
-        padding-left: 12px;
-        padding-right: 12px;
-
-        gap: 14px;
-    }
+  .portfolio-nav {
+    width: calc(80% - 24px);
+  }
 
 
-    .portfolio-nav button {
-        font-size: 11px;
-    }
+  .portfolio-nav button {
+    font-size: 11px;
+    letter-spacing: 0;
+  }
 
 }

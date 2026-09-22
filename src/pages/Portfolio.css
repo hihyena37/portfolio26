@@ -1,0 +1,101 @@
+/* =========================
+   PORTFOLIO BACKGROUND
+========================= */
+
+.portfolio-bg {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+
+  overflow-x: hidden;
+}
+
+
+/* =========================
+   PORTFOLIO CONTENT
+   HEADER + BOOK
+========================= */
+
+.portfolio-content {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+
+  padding: 24px 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   TABLET
+   768px ~ 1024px
+========================= */
+
+@media (max-width: 1024px) {
+
+  .portfolio-content {
+    padding: 20px 0;
+
+    gap: 16px;
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+   361px ~ 767px
+========================= */
+
+@media (max-width: 767px) {
+
+  .portfolio-bg {
+    min-height: 100svh;
+
+    overflow-y: auto;
+  }
+
+
+  .portfolio-content {
+    min-height: 100svh;
+
+    padding: 20px 0;
+
+    justify-content: center;
+
+    gap: 12px;
+  }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+   360px 이하
+========================= */
+
+@media (max-width: 360px) {
+
+  .portfolio-content {
+    padding: 16px 0;
+
+    gap: 10px;
+  }
+
+}
