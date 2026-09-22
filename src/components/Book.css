@@ -1,0 +1,452 @@
+/* =========================
+   BOOK AREA
+========================= */
+
+.book-area {
+    width: 100%;
+    max-width: 1280px;
+
+    margin: 0 auto;
+    padding: 40px 64px 60px;
+
+    display: grid;
+    justify-items: center;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   BOOK
+========================= */
+
+.book {
+    position: relative;
+
+    grid-area: 1 / 1;
+
+    width: 100%;
+    max-width: 1200px;
+
+    aspect-ratio: 2 / 1.25;
+
+    perspective: 2000px;
+
+    z-index: 1;
+}
+
+
+/* =========================
+   BOOK SPINE
+========================= */
+
+.book::after {
+    content: '';
+
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    width: 6px;
+    height: 100%;
+
+    transform: translateX(-50%);
+
+    background: linear-gradient(to right,
+            rgba(0, 0, 0, 0.08),
+            rgba(0, 0, 0, 0.015),
+            rgba(0, 0, 0, 0.08));
+
+    pointer-events: none;
+
+    z-index: 100;
+}
+
+
+/* =========================
+   BASE PAGE
+========================= */
+
+.book-base {
+    position: absolute;
+
+    top: 0;
+
+    width: 50%;
+    height: 100%;
+
+    background: #f7f3ea;
+
+    overflow: hidden;
+}
+
+
+/* 왼쪽 페이지 */
+
+.left-page {
+    left: 0;
+
+    border-radius: 8px 0 0 8px;
+
+    box-shadow:
+        -6px 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+
+/* 오른쪽 페이지 */
+
+.right-page {
+    right: 0;
+
+    border-radius: 0 8px 8px 0;
+
+    box-shadow:
+        6px 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================
+   PAPER
+========================= */
+
+.paper {
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    width: 50%;
+    height: 100%;
+
+    transform-origin: left center;
+    transform-style: preserve-3d;
+
+    transition: transform 0.8s ease;
+}
+
+
+/* =========================
+   FRONT / BACK
+========================= */
+
+.front,
+.back {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: #f7f3ea;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    overflow: hidden;
+}
+
+
+/* 오른쪽 페이지 앞면 */
+
+.front {
+    transform: rotateY(0deg);
+
+    border-radius: 0 8px 8px 0;
+}
+
+
+/* 뒤집힌 페이지 뒷면 */
+
+.back {
+    transform: rotateY(180deg);
+
+    border-radius: 8px 0 0 8px;
+}
+
+
+/* =========================
+   FLIP
+========================= */
+
+.paper.flipped {
+    transform: rotateY(-180deg);
+}
+
+
+/* =========================
+   COMMON PAGE CONTENT
+   ABOUT / CONTACT / THANKS
+========================= */
+
+.book-page-content {
+    width: 100%;
+    height: 100%;
+
+    padding: 60px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   PREV / NEXT
+========================= */
+
+.book-controls {
+    grid-area: 1 / 1;
+
+    align-self: stretch;
+    justify-self: center;
+
+    width: min(1380px, calc(100% + 120px));
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    pointer-events: none;
+
+    z-index: 200;
+}
+
+
+.book-control-button {
+    width: 48px;
+    height: 48px;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.9);
+    color: #222;
+
+    font-size: 22px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    pointer-events: auto;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.book-control-button:hover:not(:disabled) {
+    transform: scale(1.08);
+
+    background: #fff;
+}
+
+
+.book-control-button:disabled {
+    opacity: 0.25;
+
+    cursor: default;
+}
+
+
+/* Bootstrap Icon 중앙정렬 */
+
+.book-control-button i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    font-size: 24px;
+    line-height: 1;
+}
+
+
+.book-control-button i::before {
+    vertical-align: 0;
+}
+
+
+/* =========================
+   TABLET
+   768px ~ 1024px
+========================= */
+
+@media (max-width: 1024px) {
+
+    .book-area {
+        min-height: calc(100vh - 80px);
+
+        padding: 32px;
+
+        align-content: center;
+    }
+
+    .book {
+        width: 100%;
+        max-width: 960px;
+    }
+
+    .book-page-content {
+        padding: 40px;
+    }
+
+    .book-controls {
+        width: calc(100% + 48px);
+    }
+
+    .book-control-button {
+        width: 44px;
+        height: 44px;
+
+        font-size: 20px;
+    }
+
+    .book-control-button i {
+        font-size: 22px;
+    }
+
+
+}
+
+
+/* =========================
+   MOBILE
+   361px ~ 767px
+========================= */
+
+@media (max-width: 767px) {
+
+    .book-area {
+        padding: 24px 16px 40px;
+    }
+
+
+    .book {
+        width: 100%;
+
+        aspect-ratio: 0.78;
+    }
+
+
+    /* 모바일에서는 책등 제거 */
+
+    .book::after {
+        display: none;
+    }
+
+
+    /* 왼쪽 페이지 숨김 */
+
+    .left-page {
+        display: none;
+    }
+
+
+    /* 오른쪽 페이지 전체 사용 */
+
+    .right-page {
+        left: 0;
+        right: auto;
+
+        width: 100%;
+
+        border-radius: 8px;
+
+        box-shadow:
+            0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+
+    /* 넘기는 종이도 전체 너비 */
+
+    .paper {
+        left: 0;
+
+        width: 100%;
+    }
+
+
+    .front,
+    .back {
+        border-radius: 8px;
+    }
+
+
+    .book-page-content {
+        padding: 24px;
+    }
+
+
+    /* 모바일에서는 화살표를 책 아래로 */
+
+    .book-controls {
+        grid-area: 2 / 1;
+
+        width: auto;
+
+        margin-top: 20px;
+
+        align-self: auto;
+
+        gap: 16px;
+
+        justify-content: center;
+
+        pointer-events: auto;
+    }
+
+
+    .book-control-button {
+        width: 44px;
+        height: 44px;
+    }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+   360px 이하
+========================= */
+
+@media (max-width: 360px) {
+
+    .book-area {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+
+    .book-page-content {
+        padding: 16px;
+    }
+
+
+    .book-controls {
+        gap: 12px;
+
+        margin-top: 16px;
+    }
+
+
+    .book-control-button {
+        width: 40px;
+        height: 40px;
+    }
+
+
+    .book-control-button i {
+        font-size: 20px;
+    }
+
+}
