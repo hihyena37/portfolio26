@@ -5,12 +5,12 @@
 html,
 body,
 #root {
-    width: 100%;
-    min-height: 100%;
+  width: 100%;
+  min-height: 100%;
 }
 
 body {
-    min-width: 320px;
+  min-width: 320px;
 }
 
 
@@ -21,19 +21,109 @@ body {
 .intro {
   background-image: url(../assets/bookshop1.gif);
 
-    width: 100%;
-    height: 100vh;
+  width: 100%;
+  height: 100vh;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 
-    overflow: hidden;
+  overflow: hidden;
 
+}
+
+/* =========================
+   TOP TICKER
+========================= */
+
+.intro-ticker {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  background: rgba(20, 14, 10, 0.9);
+
+  border-bottom: 1px solid rgba(220, 190, 140, 0.35);
+
+  z-index: 1000;
+}
+
+
+/* =========================
+   TICKER TRACK
+========================= */
+
+.intro-ticker-track {
+  display: flex;
+
+  width: max-content;
+
+  animation: introTickerMove 18s linear infinite;
+}
+
+
+/* =========================
+   TICKER GROUP
+========================= */
+
+.intro-ticker-group {
+  min-width: 100vw;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  flex-shrink: 0;
+
+  white-space: nowrap;
+
+  color: #f2dfb8;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  letter-spacing: 0.12em;
+}
+
+
+/* =========================
+   SYMBOL
+========================= */
+
+.ticker-symbol {
+  margin: 0 24px;
+
+  color: #d8aa5b;
+
+  font-size: 10px;
+}
+
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes introTickerMove {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 /* =========================
@@ -43,9 +133,18 @@ body {
 
 @media (max-width: 1024px) {
 
-    .intro {
-        background-position: center center;
-    }
+  .intro {
+    background-position: center center;
+  }
+
+  .intro-ticker-group {
+    font-size: 11px;
+  }
+
+
+  .ticker-symbol {
+    margin: 0 20px;
+  }
 
 }
 
@@ -57,12 +156,25 @@ body {
 
 @media (max-width: 767px) {
 
-    .intro {
-        /* 가운데 PORTFOLIO 글씨가 잘리지 않도록 확대 크기를 제한 */
-        background-size: clamp(100vw, 177.78vh, 300vw) auto;
-        background-color: #12213b;
-        background-position: center center;
-    }
+  .intro {
+    /* 가운데 PORTFOLIO 글씨가 잘리지 않도록 확대 크기를 제한 */
+    background-size: clamp(100vw, 177.78vh, 300vw) auto;
+    background-color: #12213b;
+    background-position: center center;
+  }
+
+  .intro-ticker-group {
+    font-size: 10px;
+
+    letter-spacing: 0.08em;
+  }
+
+
+  .ticker-symbol {
+    margin: 0 16px;
+
+    font-size: 9px;
+  }
 
 }
 
@@ -74,9 +186,17 @@ body {
 
 @media (max-width: 360px) {
 
-    .intro {
-        background-position: center center;
-    }
+  .intro {
+    background-position: center center;
+  }
+
+  .intro-ticker-group {
+    font-size: 9px;
+  }
+
+
+  .ticker-symbol {
+    margin: 0 12px;
+  }
 
 }
-

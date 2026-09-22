@@ -20,7 +20,7 @@ const App = () => {
   const audioRef = useRef(null)
 
 
-  const toggleMusic = () => {
+  const toggleMusic = async () => {
 
     if (!audioRef.current) return
 
@@ -31,8 +31,13 @@ const App = () => {
 
     } else {
 
-      audioRef.current.play()
-      setIsMusicOn(true)
+      audioRef.current.volume = 0.15
+      try {
+        await audioRef.current.play()
+        setIsMusicOn(true)
+      } catch {
+        setIsMusicOn(false)
+      }
 
     }
 
@@ -55,8 +60,13 @@ const App = () => {
         className="music-button"
         onClick={toggleMusic}
         aria-label={isMusicOn ? '음악 끄기' : '음악 켜기'}
+        aria-pressed={isMusicOn}
       >
+        <span className="music-label">
+          {isMusicOn ? '재즈 잠시 쉬기 ♫' : '재즈와 함께 둘러보기 ♫'}
+        </span>
         <i
+          aria-hidden="true"
           className={
             isMusicOn
               ? 'bi bi-volume-up-fill'

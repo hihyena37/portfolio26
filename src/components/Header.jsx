@@ -2,8 +2,16 @@ import React from 'react'
 import './Header.css'
 
 import pageFlipSound from '../assets/page-flip.mp3'
+import hoverSound from '../assets/hoverSound.mp3'
 
 const Header = ({ setPage, currentPage, setCurrentPage }) => {
+
+  const moveToIntro = () => {
+    const audio = new Audio(hoverSound)
+    audio.volume = 0.4
+    audio.play().catch(() => {})
+    setPage('intro')
+  }
 
   const playPageSound = () => {
     const audio = new Audio(pageFlipSound)
@@ -28,7 +36,7 @@ const Header = ({ setPage, currentPage, setCurrentPage }) => {
       <nav className="portfolio-nav">
 
         <button
-          onClick={() => setPage('intro')}
+          onClick={moveToIntro}
         >
           INTRO
         </button>
