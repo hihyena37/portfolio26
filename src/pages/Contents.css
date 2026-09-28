@@ -1,12 +1,13 @@
 .book-page-content.contents-page {
-  height: 100%;
+  position: relative;
 
-  padding: clamp(16px, 3vw, 36px);
+  width: 100%;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
 
-  color: #493725;
+  overflow: hidden;
 }
 
 
@@ -15,9 +16,11 @@
 ========================= */
 
 .contents-page h2 {
-  margin-bottom: 12px;
-
   flex-shrink: 0;
+
+  margin: 0 0 16px;
+
+  color: #493725;
 
   font-size: clamp(18px, 2vw, 24px);
   line-height: 1.2;
@@ -28,8 +31,15 @@
    DESCRIPTION
 ========================= */
 
-.contents-page p {
-  line-height: 1.8;
+.contents-left p {
+  width: 80%;
+
+  margin: 0;
+
+  color: #493725;
+
+  font-size: clamp(11px, 1vw, 14px);
+  line-height: 1.7;
 }
 
 
@@ -60,10 +70,12 @@
 .contents-list button {
   width: 100%;
   height: 100%;
+
   padding: 0 8px;
 
   display: flex;
   align-items: center;
+
   gap: 16px;
 
   border: 0;
@@ -74,11 +86,9 @@
   color: inherit;
 
   font: inherit;
-
   line-height: 1.3;
 
   text-align: left;
-
 }
 
 
@@ -95,7 +105,7 @@
 
   white-space: nowrap;
 
-  color: #8c683c;
+  color: var(--page-accent);
 
   font-variant-numeric: tabular-nums;
 }
@@ -106,7 +116,7 @@
 ========================= */
 
 .contents-list button:hover {
-  color: #8c683c;
+  color: var(--page-accent);
 
   background: rgba(140, 104, 60, 0.08);
 }
@@ -117,8 +127,32 @@
 ========================= */
 
 .contents-list button:focus-visible {
-  outline: 2px solid #8c683c;
+  outline: 2px solid var(--page-accent);
   outline-offset: 2px;
+}
+
+
+/* =========================
+   CONTENTS ILLUSTRATION
+========================= */
+
+.contents_imgbox {
+  width: 52%;
+  flex-shrink: 0;
+
+  margin-top: auto;
+  align-self: flex-start;
+
+}
+
+
+.contents_imgbox img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
 }
 
 
@@ -137,6 +171,11 @@
     min-width: 36px;
   }
 
+
+  .contents_imgbox {
+    width: 56%;
+  }
+
 }
 
 
@@ -145,16 +184,28 @@
 ========================= */
 
 @media (max-width: 767px) {
+  .contents-list {
+    font-size: 16px;
+  }
 
   .contents-list button {
     gap: 8px;
-
     padding: 0 4px;
   }
 
 
   .contents-number {
     min-width: 32px;
+  }
+
+
+  .contents-left p {
+    width: 100%;
+  }
+
+
+  .contents_imgbox {
+    width: 60%;
   }
 
 }

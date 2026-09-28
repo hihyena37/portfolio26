@@ -49,14 +49,21 @@ const Header = ({ setPage, currentPage, setCurrentPage }) => {
           ABOUT ME
         </button>
 
+        <button
+          className={currentPage === 1 ? 'active' : ''}
+          onClick={() => moveToPage(1)}
+        >
+          CONTENTS
+        </button>
+
 
         <button
           className={
-            currentPage >= 1 && currentPage <= 9
+            currentPage >= 2 && currentPage <= 9
               ? 'active'
               : ''
           }
-          onClick={() => moveToPage(1)}
+          onClick={() => moveToPage(2)}
         >
           PROJECT
         </button>

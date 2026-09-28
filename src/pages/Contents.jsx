@@ -16,30 +16,37 @@ const Contents = ({ side, onNavigate }) => (
       <h2>CONTENTS</h2>
     )}
 
-    {side === 'left' ? (
-      <p>
-        소개부터 여덟 가지 프로젝트까지, 저의 작업을 만나보세요.
-      </p>
-    ) : (
-      <ol className="contents-list" start={0}>
-        {entries.map((title, index) => (
-          <li key={title}>
-            <button
-              type="button"
-              onClick={() => onNavigate(index)}
-              aria-current={index === 1 ? 'page' : undefined}
-            >
-              <span className="contents-number">
-                {index}장
-              </span>
+    {side === 'left' ?
+      (
+        <p>
+          소개부터 여덟 가지 프로젝트까지, 저의 작업을 만나보세요.
+        </p>
+      ) : (
+        <ol className="contents-list" start={0}>
+          {entries.map((title, index) => (
+            <li key={title}>
+              <button
+                type="button"
+                onClick={() => onNavigate(index)}
+                aria-current={index === 1 ? 'page' : undefined}
+              >
+                <span className="contents-number">
+                  {index}장
+                </span>
 
-              <span>
-                {title}
-              </span>
-            </button>
-          </li>
-        ))}
-      </ol>
+                <span>
+                  {title}
+                </span>
+              </button>
+            </li>
+          ))}
+        </ol>
+      )}
+
+    {side === 'left' && (
+      <div className="contents_imgbox">
+        <img src={`${import.meta.env.BASE_URL}contents_img3.PNG`} alt="목차 일러스트" />
+      </div>
     )}
   </section>
 )

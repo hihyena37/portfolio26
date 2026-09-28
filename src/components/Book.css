@@ -19,6 +19,10 @@
 ========================= */
 
 .book {
+  --page-padding: clamp(16px, 3vw, 36px);
+  --page-text: #493725;
+  --page-accent: #8c683c;
+
   position: relative;
 
   grid-area: 1 / 1;
@@ -176,14 +180,28 @@
 
 /* =========================
    COMMON PAGE CONTENT
-   ABOUT / CONTACT / THANKS
+   CONTENTS / ABOUT / PROJECT / CONTACT / THANKS
 ========================= */
 
-.book-page-content {
+.book-page-content,
+.project-page {
   width: 100%;
   height: 100%;
 
-  padding: 60px;
+  padding: var(--page-padding);
+  color: var(--page-text);
+}
+
+.book-page-content h2 {
+  margin-bottom: 12px;
+  flex-shrink: 0;
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.2;
+}
+
+.book-page-content p,
+.project-page p {
+  line-height: 1.8;
 }
 
 
@@ -289,11 +307,6 @@
   }
 
 
-  .book-page-content {
-    padding: 40px;
-  }
-
-
   .book-controls {
     width: calc(100% + 48px);
   }
@@ -377,11 +390,6 @@
   }
 
 
-  .book-page-content {
-    padding: 24px;
-  }
-
-
   /* 모바일에서는 화살표를 책 아래로 */
 
   .book-controls {
@@ -418,11 +426,6 @@
 
   .book-area {
     padding: 0 12px 32px;
-  }
-
-
-  .book-page-content {
-    padding: 16px;
   }
 
 

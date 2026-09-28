@@ -164,11 +164,11 @@
 
 
   .portfolio-nav {
-    width: calc(80% - 32px);
+    width: calc(100% - 32px);
 
-    padding: 8px 24px;
+    padding: 8px 12px;
 
-    gap: 4px 12px;
+    gap: 4px 8px;
     flex-wrap: wrap;
 
     justify-content: space-between;
@@ -180,7 +180,7 @@
   .portfolio-nav button {
     flex-shrink: 0;
 
-    padding: 8px 0;
+    padding: 8px 12px;
 
     font-size: 12px;
     letter-spacing: 0.02em;
@@ -199,12 +199,14 @@
 @media (max-width: 360px) {
 
   .portfolio-nav {
-    width: calc(80% - 24px);
+    width: calc(100% - 24px);
   }
 
 
   .portfolio-nav button {
     font-size: 11px;
+
+    padding: 8px 12px;
     letter-spacing: 0;
   }
 
