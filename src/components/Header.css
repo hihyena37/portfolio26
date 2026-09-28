@@ -65,7 +65,7 @@
 
   white-space: nowrap;
 
-  cursor: pointer;
+  cursor: image-set(url('/cursor_hover.png') 1.333333x) 18 12, pointer;
 
   transition:
     color 0.2s ease,

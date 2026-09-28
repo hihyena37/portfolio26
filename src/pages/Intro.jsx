@@ -17,6 +17,17 @@ const Intro = ({ setPage, setCurrentPage }) => {
 
       <FloatingLeaves />
 
+      <div className="intro-title-info">
+        <h1>SEONG HYENA</h1>
+
+        <p className="intro-edition">
+          BOOKSHOP EDITION
+        </p>
+
+        <p className="intro-keywords">
+          DESIGN · CODE · INTERACTION
+        </p>
+      </div>
 
       <IntroMenu
         setPage={setPage}

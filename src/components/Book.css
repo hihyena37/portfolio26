@@ -198,6 +198,7 @@
   justify-self: center;
 
   width: min(1380px, calc(100% + 120px));
+  max-width: calc(100vw - 80px);
 
   display: flex;
   align-items: center;
@@ -228,7 +229,7 @@
   font-size: 22px;
   line-height: 1;
 
-  cursor: pointer;
+  cursor: image-set(url('/cursor_hover.png') 1.333333x) 18 12, pointer;
 
   pointer-events: auto;
 
@@ -247,8 +248,6 @@
 
 .book-control-button:disabled {
   opacity: 0.25;
-
-  cursor: default;
 }
 
 

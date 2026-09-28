@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+
 /* =========================
    PAGE RESET
 ========================= */
@@ -71,7 +73,7 @@ body {
 
   width: max-content;
 
-  animation: introTickerMove 18s linear infinite;
+  animation: introTickerMove 30s linear infinite;
 }
 
 
@@ -127,6 +129,69 @@ body {
 }
 
 /* =========================
+   INTRO TITLE INFO
+========================= */
+
+.intro-title-info {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  width: 100%;
+  text-align: center;
+  color: #f4d99b;
+
+  pointer-events: none;
+}
+
+
+/* NAME */
+
+.intro-title-info h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+
+  margin: 0;
+
+  letter-spacing: 0.22em;
+  line-height: 1.2;
+
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+
+/* BOOKSHOP EDITION */
+
+.intro-edition {
+  font-family: 'Cormorant Garamond', serif;
+
+  margin-top: 12px;
+
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+
+  color: #e7c783;
+}
+
+
+/* DESIGN · CODE · INTERACTION */
+
+.intro-keywords {
+  margin-top: 8px;
+
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.26em;
+
+  color: rgba(245, 222, 174, 0.82);
+}
+
+
+/* =========================
    TABLET
    768px ~ 1024px
 ========================= */
@@ -144,6 +209,24 @@ body {
 
   .ticker-symbol {
     margin: 0 20px;
+  }
+
+  .intro-title-info {
+    top: 12%;
+  }
+
+  .intro-title-info h1 {
+    font-size: 22px;
+  }
+
+  .intro-edition {
+    margin-top: 8px;
+
+    font-size: 11px;
+  }
+
+  .intro-keywords {
+    font-size: 9px;
   }
 
 }
@@ -176,6 +259,32 @@ body {
     font-size: 9px;
   }
 
+  .intro-title-info {
+    top: 12%;
+  }
+
+  .intro-title-info h1 {
+    font-size: 18px;
+
+    letter-spacing: 0.16em;
+  }
+
+  .intro-edition {
+    margin-top: 8px;
+
+    font-size: 12px;
+
+    letter-spacing: 0.22em;
+  }
+
+  .intro-keywords {
+    margin-top: 4px;
+
+    font-size: 10px;
+
+    letter-spacing: 0.16em;
+  }
+
 }
 
 
@@ -197,6 +306,18 @@ body {
 
   .ticker-symbol {
     margin: 0 12px;
+  }
+
+  .intro-title-info h1 {
+    font-size: 16px;
+  }
+
+  .intro-edition {
+    font-size: 12px;
+  }
+
+  .intro-keywords {
+    font-size: 10px;
   }
 
 }

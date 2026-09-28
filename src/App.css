@@ -18,6 +18,21 @@ img {
   max-width: 100%;
 }
 
+/* 기본 마우스 커서 */
+body {
+  cursor: image-set(url('/cursor.png') 1.333333x) 9 5, auto;
+}
+
+/* 클릭 가능한 요소 */
+a,
+button,
+[role='button'],
+input[type='button'],
+input[type='submit'],
+.clickable {
+  cursor: image-set(url('/cursor_hover.png') 1.333333x) 18 12, pointer;
+}
+
 
 /* =========================
    MUSIC BUTTON
@@ -44,7 +59,7 @@ img {
   background: rgba(20, 20, 20, 0.65);
   color: #fff;
 
-  cursor: pointer;
+  cursor: image-set(url('/cursor_hover.png') 1.333333x) 18 12, pointer;
 
   z-index: 9999;
 
