@@ -2,6 +2,7 @@ import React from 'react'
 import './Book.css'
 
 import AboutMe from '../pages/AboutMe'
+import Contents from '../pages/Contents'
 import ProjectPage from '../pages/ProjectPage'
 import Contact from '../pages/Contact'
 import Thanks from '../pages/Thanks'
@@ -27,7 +28,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
 
 
   const nextPage = () => {
-    if (currentPage < 9) {
+    if (currentPage < 11) {
       playPageSound()
       setCurrentPage(currentPage + 1)
     }
@@ -40,20 +41,28 @@ const Book = ({ currentPage, setCurrentPage }) => {
       return <AboutMe side={side} />
     }
 
-    if (pageNumber >= 1 && pageNumber <= 7) {
+    if (pageNumber === 1) {
+      return <Contents side={side} onNavigate={(targetPage) => {
+        if (targetPage === currentPage) return
+        playPageSound()
+        setCurrentPage(targetPage)
+      }} />
+    }
+
+    if (pageNumber >= 2 && pageNumber <= 9) {
       return (
         <ProjectPage
-          projectNumber={pageNumber}
+          projectNumber={pageNumber - 1}
           side={side}
         />
       )
     }
 
-    if (pageNumber === 8) {
+    if (pageNumber === 10) {
       return <Contact side={side} />
     }
 
-    if (pageNumber === 9) {
+    if (pageNumber === 11) {
       return <Thanks side={side} />
     }
 
@@ -63,7 +72,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
 
   const papers = []
 
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 11; i++) {
 
     const isFlipped = currentPage > i
 
@@ -74,7 +83,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
         style={{
           zIndex: isFlipped
             ? i + 1
-            : 20 - i
+            : 22 - i
         }}
       >
 
@@ -101,7 +110,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
         </div>
 
         <div className="book-base right-page">
-          {renderPage(9, 'right')}
+          {renderPage(11, 'right')}
         </div>
 
         {papers}
@@ -124,7 +133,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
         <button
           className="book-control-button next-button"
           onClick={nextPage}
-          disabled={currentPage === 9}
+          disabled={currentPage === 11}
           aria-label="다음 페이지"
         >
           <i className="bi bi-chevron-right"></i>

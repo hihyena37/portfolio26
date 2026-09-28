@@ -168,7 +168,8 @@
 
     padding: 8px 24px;
 
-    gap: 0px;
+    gap: 4px 12px;
+    flex-wrap: wrap;
 
     justify-content: space-between;
 

@@ -37,6 +37,11 @@ const ProjectPage = ({ projectNumber, side }) => {
       number: '07',
       title: 'PROJECT 07',
       link: 'https://example.com'
+    },
+    {
+      number: '08',
+      title: 'PROJECT 08',
+      link: 'https://example.com'
     }
   ]
 

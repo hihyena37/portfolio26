@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Spectral+SC:wght@400;500;600;700;800&display=swap');
+
 /* =========================
    INTRO MENU BOARD
 ========================= */
@@ -72,11 +74,9 @@
   border-radius: 4px;
 
   background:
-    linear-gradient(
-      180deg,
+    linear-gradient(180deg,
       rgba(48, 49, 46, 0.96) 0%,
-      rgba(27, 29, 28, 0.98) 100%
-    );
+      rgba(27, 29, 28, 0.98) 100%);
 
   color: #f0e4cc;
 
@@ -116,8 +116,10 @@
 .menu-label {
   justify-self: center;
 
+  font-family: 'Spectral SC', serif;
+
   font-size: 19px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.08em;
 
   line-height: 1;
@@ -148,11 +150,9 @@
   border-color: #d5ad63;
 
   background:
-    linear-gradient(
-      180deg,
+    linear-gradient(180deg,
       #fff4d5 0%,
-      #ead5a5 100%
-    );
+      #ead5a5 100%);
 
   color: #20180f;
 

@@ -80,7 +80,7 @@ const IntroMenu = ({ setPage, setCurrentPage }) => {
           className="intro-menu-button"
           onMouseEnter={playHoverSound}
           onClick={() => {
-            setCurrentPage(8)
+            setCurrentPage(10)
             setPage('portfolio')
           }}
         >
