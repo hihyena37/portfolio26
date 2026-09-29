@@ -29,16 +29,16 @@
   white-space: nowrap;
 }
 
-.about-left .writer h3{
-  font-size: clamp(18px, 2vw, 22px);
-}
-
-.writer .text p {
+.writer .text span {
   color: #493725;
   font-size: clamp(14px, 2vw, 18px);
   height: fit-content;
   padding-right: 12px;
   border-right: 2px solid #493725;
+}
+
+.about-left .writer h3 {
+  font-size: clamp(18px, 2vw, 22px);
 }
 
 .about-left .writer .imgbox {
@@ -56,11 +56,14 @@
    왼쪽-소개글
 ========================= */
 
-.about-left .introduction {
+.about-page .about-scroll {
   flex: 1;
   min-height: 0;
+  min-width: 0;
   overflow-y: auto;
   overflow-wrap: anywhere;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
 
   scrollbar-width: thin;
   scrollbar-color: #8c683c transparent;
@@ -83,4 +86,134 @@
   overflow-wrap: break-word;
   letter-spacing: 0.02em;
   padding-right: 16px;
+}
+
+/* =========================
+   오른쪽
+========================= */
+.about-right {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.about-right-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  padding-right: 16px;
+}
+
+.about-right-content .rightbox {
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
+.rightbox h3 {
+  width: fit-content;
+  border-left: 2px solid #493725;
+  padding-left: 12px;
+  margin-bottom: 16px;
+}
+
+.r1 p:first-of-type {
+  margin-bottom: 8px;
+}
+
+.r2 p:first-of-type {
+  margin-bottom: 8px;
+}
+
+/* =========================
+   오른쪽-스킬
+========================= */
+.skills_imgbox {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  width: 100%;
+}
+
+.skills_imgbox img {
+  width: 44px;
+  aspect-ratio: 1/1;
+}
+.about-single-page {
+  display: none;
+}
+
+.about-desktop-side {
+  height: 100%;
+}
+
+@media (max-width: 767px) {
+  .about-desktop-side {
+    display: none;
+  }
+
+  .about-single-page {
+    display: block;
+    height: 100%;
+  }
+
+  .about-combined {
+    display: flex;
+    min-height: 0;
+  }
+
+  .about-combined-content {
+    padding-right: 12px;
+  }
+
+  .about-combined .about-left,
+  .about-combined .about-right {
+    height: auto;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .about-combined .about-left {
+    margin-bottom: 32px;
+  }
+
+  .about-combined .introduction,
+  .about-combined .about-right-content {
+    flex: none;
+    overflow: visible;
+    scrollbar-gutter: auto;
+    padding-right: 0;
+  }
+
+  .about-combined .writer {
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
+    margin: 12px 0 24px;
+  }
+
+  .about-combined .writer .imgbox {
+    width: clamp(100px, 20vw, 160px);
+  }
+
+  .about-combined .writer .imgbox img {
+    max-height: 220px;
+  }
+
+  .about-combined .introduction p {
+    padding-right: 0;
+    font-size: 15px;
+  }
+
+  .about-combined .about-right-content {
+    gap: 28px;
+    font-size: 15px;
+  }
+
+  .about-combined .rightbox h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
 }

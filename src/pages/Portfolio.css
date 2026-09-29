@@ -15,7 +15,8 @@
   background-size: cover;
   background-position: center center;
 
-  overflow-x: hidden;
+  /* 책 회전 중 튀어나오는 영역이 임시 스크롤바를 만들지 않도록 처리 */
+  overflow: clip;
 }
 
 
@@ -68,7 +69,6 @@
   .portfolio-bg {
     min-height: 100svh;
 
-    overflow-y: auto;
   }
 
 

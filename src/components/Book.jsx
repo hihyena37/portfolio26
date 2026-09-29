@@ -38,6 +38,14 @@ const Book = ({ currentPage, setCurrentPage }) => {
   const renderPage = (pageNumber, side) => {
 
     if (pageNumber === 0) {
+      if (side === 'right') {
+        return (
+          <>
+            <div className="about-desktop-side"><AboutMe side="right" /></div>
+            <div className="about-single-page"><AboutMe side="combined" /></div>
+          </>
+        )
+      }
       return <AboutMe side={side} />
     }
 
