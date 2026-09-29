@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Contact.css'
 
 const Contact = ({ side }) => {
+
+  const [copied, setCopied] = useState(false)
+
+  const copyEmail = async () => {
+    await navigator.clipboard.writeText('hihyena37@gmail.com')
+
+    setCopied(true)
+
+    setTimeout(() => {
+      setCopied(false)
+    }, 1800)
+  }
+
 
   if (side === 'left') {
     return (
@@ -82,9 +95,11 @@ const Contact = ({ side }) => {
 
       <div className="contact-list">
 
-        <a
-          className="contact-item"
-          href="mailto:hihyena37@gmail.com"
+        {/* EMAIL */}
+        <button
+          type="button"
+          className="contact-item contact-email"
+          onClick={copyEmail}
         >
           <span className="contact-number">
             01
@@ -101,11 +116,18 @@ const Contact = ({ side }) => {
           </div>
 
           <span className="contact-arrow">
-            ↗
+            {copied ? '✓' : '↗'}
           </span>
-        </a>
+
+          {copied && (
+            <span className="copy-message">
+              이메일 주소가 복사되었습니다.
+            </span>
+          )}
+        </button>
 
 
+        {/* PHONE */}
         <a
           className="contact-item"
           href="tel:+821062960440"
@@ -130,6 +152,7 @@ const Contact = ({ side }) => {
         </a>
 
 
+        {/* GITHUB */}
         <a
           className="contact-item"
           href="https://github.com/hihyena37"

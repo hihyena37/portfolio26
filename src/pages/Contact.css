@@ -23,7 +23,6 @@
   flex-direction: column;
 }
 
-
 .contact-left h2 {
   flex-shrink: 0;
 }
@@ -41,7 +40,6 @@
   margin-top: clamp(32px, 5vw, 64px);
 }
 
-
 .contact-small-title {
   margin-bottom: 8px;
 
@@ -52,7 +50,6 @@
 
   color: #8c683c;
 }
-
 
 .contact-intro h3 {
   margin: 0;
@@ -68,7 +65,6 @@
   color: #493725;
 }
 
-
 .contact-description {
   margin-top: clamp(24px, 3vw, 36px);
 
@@ -80,7 +76,6 @@
 
   color: #594736;
 }
-
 
 .contact-description-sub {
   margin-top: 16px;
@@ -105,7 +100,6 @@
   pointer-events: none;
 }
 
-
 .contact-paper {
   position: absolute;
 
@@ -120,7 +114,6 @@
 
   transform: rotate(-4deg);
 }
-
 
 .contact-pen {
   position: absolute;
@@ -160,8 +153,7 @@
   flex-shrink: 0;
 }
 
-
-.contact-right-header > span {
+.contact-right-header>span {
   display: block;
 
   margin-bottom: 8px;
@@ -172,7 +164,6 @@
 
   color: #8c683c;
 }
-
 
 .contact-right-header h3 {
   margin: 0;
@@ -187,7 +178,6 @@
 
   color: #493725;
 }
-
 
 .contact-right-header p {
   margin-top: 12px;
@@ -213,16 +203,13 @@
   min-height: 0;
 }
 
-
 .contact-item {
   position: relative;
 
   display: grid;
 
   grid-template-columns:
-    36px
-    1fr
-    24px;
+    36px 1fr 24px;
 
   align-items: center;
 
@@ -244,11 +231,9 @@
     background 0.25s ease;
 }
 
-
 .contact-item:first-child {
   border-top: 1px solid rgba(73, 55, 37, 0.22);
 }
-
 
 .contact-number {
   align-self: start;
@@ -261,7 +246,6 @@
 
   color: #a0815d;
 }
-
 
 .contact-label {
   display: block;
@@ -277,7 +261,6 @@
   color: #8c683c;
 }
 
-
 .contact-item p {
   margin: 0;
 
@@ -288,13 +271,62 @@
   color: #493725;
 }
 
-
 .contact-arrow {
   font-size: clamp(16px, 1.5vw, 20px);
 
   color: #8c683c;
 
   transition: transform 0.25s ease;
+}
+
+
+/* =========================
+   EMAIL COPY BUTTON
+========================= */
+
+.contact-email {
+  width: 100%;
+
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+
+  background: transparent;
+
+  font-family: inherit;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.copy-message {
+  position: absolute;
+
+  right: 8px;
+  bottom: 8px;
+
+  font-size: 11px;
+
+  color: #8c683c;
+
+  letter-spacing: 0.02em;
+
+  animation: copyMessage 0.25s ease;
+}
+
+@keyframes copyMessage {
+  from {
+    opacity: 0;
+
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
 }
 
 
@@ -308,11 +340,9 @@
   background: rgba(140, 104, 60, 0.07);
 }
 
-
 .contact-item:hover .contact-arrow {
   transform:
-    translateX(4px)
-    translateY(-4px);
+    translateX(4px) translateY(-4px);
 }
 
 
@@ -350,18 +380,14 @@
     margin-top: 32px;
   }
 
-
   .contact-illustration {
     width: 76%;
     height: 30%;
   }
 
-
   .contact-item {
     grid-template-columns:
-      32px
-      1fr
-      20px;
+      32px 1fr 20px;
 
     gap: 12px;
   }
@@ -381,39 +407,84 @@
     padding-right: 8px;
   }
 
-
   .contact-right-header {
-    margin-top: 20px;
+    margin-top: 24px;
   }
 
+  .contact-right-header>span {
+    font-size: 11px;
+
+    letter-spacing: 0.16em;
+  }
+
+  .contact-right-header h3 {
+    font-size: 38px;
+
+    line-height: 1.05;
+  }
+
+  .contact-right-header p {
+    margin-top: 12px;
+
+    font-size: 15px;
+  }
 
   .contact-list {
-    margin-top: 32px;
+    margin-top: 36px;
 
-    flex: initial;
+    flex: 1;
+
+    min-height: 0;
   }
-
 
   .contact-item {
-    min-height: 84px;
+    flex: 1;
+
+    min-height: 100px;
 
     grid-template-columns:
-      28px
-      1fr
-      20px;
+      32px 1fr 24px;
 
-    gap: 8px;
+    gap: 12px;
+
+    padding: 16px 8px;
   }
 
+  .contact-number {
+    font-size: 14px;
+  }
+
+  .contact-label {
+    margin-bottom: 8px;
+
+    font-size: 12px;
+  }
+
+  .contact-item p {
+    font-size: 16px;
+  }
+
+  .contact-arrow {
+    font-size: 20px;
+  }
+
+  .copy-message {
+    right: 8px;
+    bottom: 6px;
+
+    font-size: 10px;
+  }
 
   .contact-footer {
-    margin-top: 28px;
+    margin-top: 24px;
 
     padding-bottom: 12px;
 
-    flex-direction: column;
+    flex-direction: row;
 
-    align-items: flex-start;
+    align-items: center;
+
+    font-size: 10px;
   }
 
 }
