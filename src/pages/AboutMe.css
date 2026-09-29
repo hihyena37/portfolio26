@@ -190,6 +190,7 @@
   .about-combined .writer {
     align-items: center;
     justify-content: flex-start;
+    align-items: start;
     gap: 24px;
     margin: 12px 0 24px;
   }

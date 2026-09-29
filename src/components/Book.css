@@ -192,6 +192,10 @@
   color: var(--page-text);
 }
 
+.mobile-page-title {
+  display: none;
+}
+
 .book-page-content h2 {
   margin-bottom: 12px;
   flex-shrink: 0;
@@ -333,6 +337,10 @@
 ========================= */
 
 @media (max-width: 767px) {
+
+  .mobile-page-title {
+    display: block;
+  }
 
   .book-area {
     padding: 0 16px 40px;

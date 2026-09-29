@@ -12,14 +12,12 @@ const entries = [
 
 const Contents = ({ side, onNavigate }) => (
   <section className={`book-page-content contents-page contents-${side}`}>
-    {side === 'left' && (
-      <h2>CONTENTS</h2>
-    )}
+    <h2 className={side === 'left' ? undefined : 'mobile-page-title'}>CONTENTS</h2>
 
     {side === 'left' ?
       (
         <p>
-          소개부터 여덟 가지 프로젝트까지, 저의 작업을 만나보세요.
+          디자인과 코드로 완성한 여덟 가지 프로젝트를 한 장씩 펼쳐보세요.
         </p>
       ) : (
         <ol className="contents-list" start={0}>

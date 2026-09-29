@@ -20,6 +20,7 @@ const Contact = ({ side }) => {
 
   return (
     <section className="book-page-content contact-page contact-right">
+      <h2 className="mobile-page-title">CONTACT</h2>
 
       <p>
         EMAIL

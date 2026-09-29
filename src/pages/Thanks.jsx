@@ -16,6 +16,7 @@ const Thanks = ({ side }) => {
 
   return (
     <section className="book-page-content thanks-page thanks-right">
+      <h2 className="mobile-page-title">THANK YOU</h2>
 
       <p>
         포트폴리오를 봐주셔서 감사합니다.
