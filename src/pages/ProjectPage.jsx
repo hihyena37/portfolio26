@@ -1,28 +1,51 @@
-import React from 'react'
+import { useEffect, useRef } from 'react'
 import './ProjectPage.css'
 
 const ProjectPage = ({ projectNumber, side }) => {
+  const scrollRef = useRef(null)
+
+  useEffect(() => {
+    const area = scrollRef.current
+    if (!area) return
+
+    // 3D 책 페이지 안에서 휠 입력을 이미지 스크롤에 전달
+    const handleWheel = (event) => {
+      if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return
+      if (area.scrollHeight <= area.clientHeight) return
+
+      const unit = event.deltaMode === 1 ? 20 : event.deltaMode === 2 ? area.clientHeight : 1
+      event.preventDefault()
+      area.scrollTop += event.deltaY * unit
+    }
+
+    area.addEventListener('wheel', handleWheel, { passive: false })
+    return () => area.removeEventListener('wheel', handleWheel)
+  }, [side, projectNumber])
+
   const projects = [
     {
       number: '01',
       title: '㈜영풍',
       desc: 'RESPONSIVE WEB DESIGN & PUBLISHING',
       logo: `${import.meta.env.BASE_URL}logo1.png`,
-      link: 'https://example.com'
+      image: `${import.meta.env.BASE_URL}project1_full.jpg`,
+      link: 'https://hihyena37.github.io/site/index.html'
     },
     {
       number: '02',
       title: '이솝 클론코딩',
       desc: 'RESPONSIVE CLONE CODING',
       logo: `${import.meta.env.BASE_URL}logo2.png`,
-      link: 'https://example.com'
+      image: `${import.meta.env.BASE_URL}project2_full.jpg`,
+      link: 'https://hihyena37.github.io/aesop/#'
     },
     {
       number: '03',
       title: '방꾸미기 게임',
       desc: 'REACT INTERACTIVE WEB',
       logo: `${import.meta.env.BASE_URL}logo3.PNG`,
-      link: 'https://example.com'
+      image: `${import.meta.env.BASE_URL}project3_full.jpg`,
+      link: 'https://hihyena37.github.io/Vibe_roomdeco/'
     },
     {
       number: '04',
@@ -124,9 +147,13 @@ const ProjectPage = ({ projectNumber, side }) => {
         target="_blank"
         rel="noreferrer"
         className="project-link"
+        ref={scrollRef}
       >
         <div className="project-image">
-          PROJECT IMAGE
+          <img
+            src={project.image}
+            alt={`${project.title} 프로젝트 미리보기`}
+          />
         </div>
       </a>
 
