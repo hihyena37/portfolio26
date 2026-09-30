@@ -37,6 +37,9 @@
 
   font-size: clamp(14px, 1vw, 16px);
   line-height: 1.7;
+
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .contents-left p>span{
