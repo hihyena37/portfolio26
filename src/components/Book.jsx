@@ -144,6 +144,12 @@ const Book = ({ currentPage, setCurrentPage }) => {
 
         {papers}
 
+        {currentPage > 0 && (
+          <div className="mobile-left-page" aria-hidden="true" inert>
+            {renderPage(currentPage, 'left')}
+          </div>
+        )}
+
         {mobileTurn && (
           <div
             key={`${mobileTurn.from}-${mobileTurn.to}`}
