@@ -2,6 +2,10 @@
    BOOK AREA
 ========================= */
 
+.mobile-book-turn {
+  display: none;
+}
+
 .book-area {
   width: 100%;
   max-width: 1400px;
@@ -408,6 +412,47 @@
     transform: none;
     backface-visibility: visible;
     -webkit-backface-visibility: visible;
+  }
+
+  /* 현재 페이지는 평면으로 두고, 전환용 레이어만 회전합니다. */
+  .mobile-book-turn {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    perspective: 1600px;
+    pointer-events: none;
+  }
+
+  .mobile-turn-page {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #f7f3ea;
+    transform-origin: left center;
+    backface-visibility: hidden;
+    box-shadow: 4px 0 18px rgba(0, 0, 0, 0.18);
+  }
+
+  .turn-next .turn-outgoing,
+  .turn-prev .turn-incoming {
+    z-index: 2;
+    animation: mobilePageTurn 0.65s ease-in-out both;
+  }
+
+  .turn-next .turn-incoming,
+  .turn-prev .turn-outgoing {
+    z-index: 1;
+  }
+
+  .turn-prev .turn-incoming {
+    animation-direction: reverse;
+  }
+
+  @keyframes mobilePageTurn {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(-100deg); }
   }
 
 

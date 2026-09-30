@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import './Book.css'
 
 import AboutMe from '../pages/AboutMe'
@@ -10,6 +10,27 @@ import Thanks from '../pages/Thanks'
 import pageFlipSound from '../assets/page-flip.mp3'
 
 const Book = ({ currentPage, setCurrentPage }) => {
+  const [previousPage, setPreviousPage] = useState(currentPage)
+  const [mobileTurn, setMobileTurn] = useState(null)
+
+  // 헤더나 목차로 이동할 때도 같은 페이지 전환을 적용합니다.
+  if (previousPage !== currentPage) {
+    setPreviousPage(currentPage)
+    const animate = window.matchMedia('(max-width: 767px)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    setMobileTurn(animate ? {
+      from: previousPage,
+      to: currentPage,
+      direction: currentPage > previousPage ? 'next' : 'prev',
+    } : null)
+  }
+
+  useEffect(() => {
+    if (!mobileTurn) return
+    // 탭 전환 등으로 animationend가 누락되어도 평면 상태로 복귀합니다.
+    const timeout = window.setTimeout(() => setMobileTurn(null), 900)
+    return () => window.clearTimeout(timeout)
+  }, [mobileTurn])
 
   const playPageSound = () => {
     const audio = new Audio(pageFlipSound)
@@ -122,6 +143,32 @@ const Book = ({ currentPage, setCurrentPage }) => {
         </div>
 
         {papers}
+
+        {mobileTurn && (
+          <div
+            key={`${mobileTurn.from}-${mobileTurn.to}`}
+            className={`mobile-book-turn turn-${mobileTurn.direction}`}
+            aria-hidden="true"
+            inert
+          >
+            <div
+              className="mobile-turn-page turn-outgoing"
+              onAnimationEnd={(event) => {
+                if (event.target === event.currentTarget) setMobileTurn(null)
+              }}
+            >
+              {renderPage(mobileTurn.from, 'right')}
+            </div>
+            <div
+              className="mobile-turn-page turn-incoming"
+              onAnimationEnd={(event) => {
+                if (event.target === event.currentTarget) setMobileTurn(null)
+              }}
+            >
+              {renderPage(mobileTurn.to, 'right')}
+            </div>
+          </div>
+        )}
 
       </div>
 

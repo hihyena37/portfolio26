@@ -59,13 +59,15 @@ const ProjectPage = ({ projectNumber, side }) => {
       title: '방과후ON',
       desc: 'UX/UI APP DESIGN',
       logo: `${import.meta.env.BASE_URL}logo5.png`,
-      link: 'https://example.com'
+      image: `${import.meta.env.BASE_URL}project5_full.jpg`,
+      link: `${import.meta.env.BASE_URL}project5_pdf.pdf`
     },
     {
       number: '06',
       title: '카무트 효소',
       desc: 'PRODUCT DETAIL PAGE',
       logo: `${import.meta.env.BASE_URL}logo6.png`,
+      image: `${import.meta.env.BASE_URL}project6_full.jpg`,
       link: 'https://example.com'
     },
     {
@@ -73,6 +75,7 @@ const ProjectPage = ({ projectNumber, side }) => {
       title: '아코소파',
       desc: 'PRODUCT DETAIL PAGE',
       logo: `${import.meta.env.BASE_URL}logo7.png`,
+      image: `${import.meta.env.BASE_URL}project7_full.jpg`,
       link: 'https://example.com'
     },
     {
