@@ -351,6 +351,7 @@
     width: 100%;
 
     aspect-ratio: 0.78;
+    perspective: none;
   }
 
 
@@ -389,6 +390,24 @@
     left: 0;
 
     width: 100%;
+    display: none;
+    transform: none;
+    transform-style: flat;
+    transition: none;
+  }
+
+  .paper.is-current {
+    display: block;
+  }
+
+  .paper .back {
+    display: none;
+  }
+
+  .paper .front {
+    transform: none;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
   }
 
 

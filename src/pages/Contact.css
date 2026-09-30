@@ -403,12 +403,19 @@
 
   .contact-right {
     overflow-y: auto;
+    overflow-x: hidden;
+    touch-action: pan-y pinch-zoom;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: #8c683c transparent;
 
     padding-right: 8px;
   }
 
   .contact-right-header {
-    margin-top: 24px;
+    margin-top: 12px;
   }
 
   .contact-right-header>span {
@@ -430,20 +437,20 @@
   }
 
   .contact-list {
-    margin-top: 36px;
+    margin-top: 20px;
 
-    flex: 1;
+    flex: 0 0 auto;
 
     min-height: 0;
   }
 
   .contact-item {
-    flex: 1;
+    flex: 0 0 auto;
 
     min-height: 100px;
 
     grid-template-columns:
-      32px 1fr 24px;
+      32px minmax(0, 1fr) 24px;
 
     gap: 12px;
 

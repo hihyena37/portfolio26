@@ -87,7 +87,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
     papers.push(
       <div
         key={i}
-        className={`paper ${isFlipped ? 'flipped' : ''}`}
+        className={`paper ${isFlipped ? 'flipped' : ''} ${currentPage === i ? 'is-current' : ''}`}
         style={{
           zIndex: isFlipped
             ? i + 1

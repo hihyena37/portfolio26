@@ -61,6 +61,8 @@
   min-height: 0;
   min-width: 0;
   overflow-y: auto;
+  touch-action: pan-y pinch-zoom;
+  -webkit-overflow-scrolling: touch;
   overflow-wrap: anywhere;
   overscroll-behavior-y: contain;
   scrollbar-gutter: stable;
