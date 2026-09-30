@@ -39,6 +39,11 @@
   line-height: 1.7;
 }
 
+.contents-left p>span{
+  font-size: 14px;
+  color: #8c683c;
+}
+
 
 /* =========================
    CONTENTS LIST

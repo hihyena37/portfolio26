@@ -17,7 +17,10 @@ const Contents = ({ side, onNavigate }) => (
     {side === 'left' ?
       (
         <p>
-          디자인과 코드로 완성한 여덟 가지 프로젝트를 한 장씩 펼쳐보세요.
+          디자인과 코드로 완성한 여덟 가지 프로젝트를 한 장씩 펼쳐보세요. <br />
+          <span>
+            모든 프로젝트 기여도 : 100%
+          </span>
         </p>
       ) : (
         <ol className="contents-list" start={0}>
