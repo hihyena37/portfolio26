@@ -28,7 +28,7 @@ const ProjectPage = ({ projectNumber, side }) => {
       title: '㈜영풍',
       desc: 'RESPONSIVE WEB DESIGN & PUBLISHING',
       logo: `${import.meta.env.BASE_URL}logo1.png`,
-      image: `${import.meta.env.BASE_URL}project1_full.jpg`,
+      image: `${import.meta.env.BASE_URL}project1_full.png`,
       link: 'https://hihyena37.github.io/site/index.html'
     },
     {
