@@ -52,6 +52,7 @@ const ProjectPage = ({ projectNumber, side }) => {
       title: '숲나들e',
       desc: 'UX/UI APP REDESIGN',
       logo: `${import.meta.env.BASE_URL}logo4.png`,
+      image: `${import.meta.env.BASE_URL}project4_full.jpg`,
       link: 'https://example.com'
     },
     {
