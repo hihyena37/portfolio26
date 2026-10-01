@@ -6,12 +6,12 @@ import FloatingLeaves from '../components/FloatingLeaves'
 import './intro.css'
 import bookshop1 from '../assets/bookshop1.gif'
 
-const Intro = ({ setPage, setCurrentPage }) => {
+const Intro = ({ setPage, setCurrentPage, playOpening }) => {
   return (
     <main
-      className="intro"
+      className={`intro${playOpening ? ' intro-opening' : ''}`}
       style={{
-        backgroundImage: `url(${bookshop1})`
+        '--intro-background': `url(${bookshop1})`
       }}
     >
 

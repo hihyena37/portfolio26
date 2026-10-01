@@ -10,6 +10,7 @@ import bgm from './assets/bgm.mp3'
 const App = () => {
 
   const [page, setPage] = useState('intro')
+  const [hasLeftIntro, setHasLeftIntro] = useState(false)
 
   // 책에서 현재 보고 있는 페이지
   const [currentPage, setCurrentPage] = useState(0)
@@ -80,7 +81,11 @@ const App = () => {
 
       {page === 'intro' && (
         <Intro
-          setPage={setPage}
+          playOpening={!hasLeftIntro}
+          setPage={(nextPage) => {
+            if (nextPage !== 'intro') setHasLeftIntro(true)
+            setPage(nextPage)
+          }}
           setCurrentPage={setCurrentPage}
         />
       )}
