@@ -50,7 +50,7 @@ const Contents = ({ side, onNavigate }) => (
 
     {side === 'left' && (
       <div className="contents_imgbox">
-        <img src={`${import.meta.env.BASE_URL}contents_img3.PNG`} alt="목차 일러스트" />
+        <img src={`${import.meta.env.BASE_URL}book.gif`} alt="목차 일러스트" />
       </div>
     )}
   </section>
