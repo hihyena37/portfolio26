@@ -69,7 +69,7 @@ const IntroMenu = ({ setPage, setCurrentPage }) => {
           <i className="bi bi-book-fill menu-icon"></i>
 
           <span className="menu-label">
-            PROJECT
+            WORKS
           </span>
 
           <i className="bi bi-chevron-right menu-arrow"></i>

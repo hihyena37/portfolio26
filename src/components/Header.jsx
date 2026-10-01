@@ -65,7 +65,7 @@ const Header = ({ setPage, currentPage, setCurrentPage }) => {
           }
           onClick={() => moveToPage(2)}
         >
-          PROJECT
+          WORKS
         </button>
 
 

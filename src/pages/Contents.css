@@ -211,3 +211,8 @@
   }
 
 }
+/* 긴 작업명을 좁은 화면에서도 읽기 쉽게 배치 */
+.contents-list button > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}

@@ -1,6 +1,18 @@
 import { useEffect, useRef } from 'react'
 import './ProjectPage.css'
 
+const ProjectDetails = ({ project }) => (
+  <div className="project-details">
+    <p className="project-summary">{project.summary}</p>
+    <dl className="project-meta">
+      <div><dt>담당 역할</dt><dd>{project.role}</dd></div>
+      <div><dt>기여도</dt><dd>100%</dd></div>
+      <div><dt>사용 도구</dt><dd>{project.tools}</dd></div>
+      {project.ai && <div><dt>AI 도구</dt><dd>{project.ai}</dd></div>}
+    </dl>
+  </div>
+)
+
 const ProjectPage = ({ projectNumber, side }) => {
   const scrollRef = useRef(null)
 
@@ -27,6 +39,10 @@ const ProjectPage = ({ projectNumber, side }) => {
       number: '01',
       title: '㈜영풍',
       desc: 'RESPONSIVE WEB DESIGN & PUBLISHING',
+      summary: '기존 기업 웹사이트를 새롭게 디자인하고, 반응형 웹으로 구현한 리디자인 프로젝트입니다.',
+      role: '웹 디자인 · 퍼블리싱',
+      tools: 'HTML · CSS · JavaScript · jQuery',
+      ai: 'Codex',
       logo: `${import.meta.env.BASE_URL}logo1.png`,
       image: `${import.meta.env.BASE_URL}project1_full.png`,
       link: 'https://hihyena37.github.io/site/index.html'
@@ -35,6 +51,10 @@ const ProjectPage = ({ projectNumber, side }) => {
       number: '02',
       title: '이솝 클론코딩',
       desc: 'RESPONSIVE CLONE CODING',
+      summary: '이솝의 기존 웹사이트를 바탕으로 화면을 구현한 반응형 클론 코딩 프로젝트입니다.',
+      role: '클론 코딩 · 퍼블리싱',
+      tools: 'HTML · CSS · JavaScript · jQuery',
+      ai: 'Codex',
       logo: `${import.meta.env.BASE_URL}logo2.png`,
       image: `${import.meta.env.BASE_URL}project2_full.jpg`,
       link: 'https://hihyena37.github.io/aesop/#'
@@ -43,6 +63,10 @@ const ProjectPage = ({ projectNumber, side }) => {
       number: '03',
       title: '오늘 뭐먹지?',
       desc: 'VIBE CODING-REACT RANDOM MEAL PICKER',
+      summary: '사용자가 선택한 조건을 바탕으로 오늘의 메뉴를 추천하는 창작 웹사이트입니다. AI를 활용한 바이브 코딩 방식으로 React 기반 인터랙티브 서비스를 구현했습니다.',
+      role: 'AI 활용 웹 제작',
+      tools: 'React',
+      ai: 'Antigravity AI · Claude AI',
       logo: `${import.meta.env.BASE_URL}logo3.PNG`,
       image: `${import.meta.env.BASE_URL}project3_full.jpg`,
       link: 'https://hihyena37.github.io/Vibe_today-meal/'
@@ -51,6 +75,10 @@ const ProjectPage = ({ projectNumber, side }) => {
       number: '04',
       title: '숲나들e',
       desc: 'UX/UI APP REDESIGN',
+      summary: '기존 숲나들e 앱을 대상으로 화면을 새롭게 디자인한 UX/UI 리디자인 프로젝트입니다.',
+      role: '앱 UX/UI 리디자인',
+      tools: 'Figma · Photoshop',
+      ai: 'Codex',
       logo: `${import.meta.env.BASE_URL}logo4.png`,
       image: `${import.meta.env.BASE_URL}project4_full.jpg`,
       link: 'https://example.com'
@@ -59,22 +87,34 @@ const ProjectPage = ({ projectNumber, side }) => {
       number: '05',
       title: '방과후ON',
       desc: 'UX/UI APP DESIGN',
+      summary: '방과후ON이라는 새로운 앱의 화면을 디자인한 창작 UX/UI 프로젝트입니다.',
+      role: '앱 UX/UI 디자인',
+      tools: 'Figma · Photoshop · Illustrator',
+      ai: '',
       logo: `${import.meta.env.BASE_URL}logo5.png`,
       image: `${import.meta.env.BASE_URL}project5_full.jpg`,
       link: `${import.meta.env.BASE_URL}project5_pdf.pdf`
     },
     {
       number: '06',
-      title: '카무트 효소',
+      title: '그레인온 카무트효소',
       desc: 'PRODUCT DETAIL PAGE',
+      summary: '그레인온 카무트효소의 기존 상품 상세페이지를 새롭게 디자인한 프로젝트입니다.',
+      role: '상세페이지 리디자인',
+      tools: 'Figma · Photoshop',
+      ai: 'Codex',
       logo: `${import.meta.env.BASE_URL}logo6.png`,
       image: `${import.meta.env.BASE_URL}project6_full.jpg`,
       link: 'https://example.com'
     },
     {
       number: '07',
-      title: '아코소파',
+      title: '일룸 아코 소파',
       desc: 'PRODUCT DETAIL PAGE',
+      summary: '일룸 아코 소파의 기존 상품 상세페이지를 새롭게 디자인한 프로젝트입니다.',
+      role: '상세페이지 리디자인',
+      tools: 'Figma · Photoshop',
+      ai: 'Codex',
       logo: `${import.meta.env.BASE_URL}logo7.png`,
       image: `${import.meta.env.BASE_URL}project7_full.jpg`,
       link: 'https://example.com'
@@ -83,6 +123,10 @@ const ProjectPage = ({ projectNumber, side }) => {
       number: '08',
       title: '네트워킹 DAY',
       desc: '㈜클라인 외주작업 · POSTER & BANNER DESIGN',
+      summary: '㈜클라인의 외주 의뢰로 제작한 네트워킹 DAY 포스터와 배너 디자인 프로젝트입니다.',
+      role: '포스터 · 배너 디자인',
+      tools: 'Figma · Photoshop',
+      ai: 'Codex',
       logo: `${import.meta.env.BASE_URL}logo8.png`,
       image: `${import.meta.env.BASE_URL}project8_full.png`,
       link: `${import.meta.env.BASE_URL}project8_pdf.pdf`
@@ -95,9 +139,9 @@ const ProjectPage = ({ projectNumber, side }) => {
     return (
       <section className="project-page project-left">
 
-        <div className="project-info">
+        <div className="project-info" ref={scrollRef} tabIndex={0} aria-label="프로젝트 소개">
           <span className="project-number">
-            PROJECT {project.number}
+            WORK {project.number}
           </span>
 
           <h2 className="project-title">
@@ -107,6 +151,8 @@ const ProjectPage = ({ projectNumber, side }) => {
           <p className='project-desc'>
             {project.desc}
           </p>
+
+          <ProjectDetails project={project} />
 
           <div className="project-logo">
             <img
@@ -128,7 +174,7 @@ const ProjectPage = ({ projectNumber, side }) => {
 
         <div>
           <span className="project-number">
-            PROJECT {project.number}
+            WORK {project.number}
           </span>
 
           <h2 className="project-title">
@@ -146,13 +192,18 @@ const ProjectPage = ({ projectNumber, side }) => {
       </div>
 
 
+      <div className={`project-preview-scroll${projectNumber === 3 ? ' project-preview-fill' : ''}`} ref={scrollRef}>
+        <details className="mobile-project-details">
+          <summary>프로젝트 소개 · 담당 역할</summary>
+          <ProjectDetails project={project} />
+        </details>
+
       {/* 프로젝트 이미지 */}
       <a
         href={project.link}
         target="_blank"
         rel="noreferrer"
         className="project-link"
-        ref={scrollRef}
       >
         <div className="project-image">
           <img
@@ -161,6 +212,7 @@ const ProjectPage = ({ projectNumber, side }) => {
           />
         </div>
       </a>
+      </div>
 
     </section>
   )

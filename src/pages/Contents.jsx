@@ -3,9 +3,14 @@ import './Contents.css'
 const entries = [
   'ABOUT ME',
   'CONTENTS',
-  ...Array.from({ length: 8 }, (_, index) =>
-    `PROJECT ${String(index + 1).padStart(2, '0')}`
-  ),
+  'Web Redesign',
+  'Aesop Clone Coding',
+  'Meal Picker · Vibe Coding',
+  '숲나들e · App Redesign',
+  '방과후ON · App Design',
+  'Kamut Enzyme · Detail Page',
+  'Aco Sofa · Detail Page',
+  'Networking Day · Poster & Banner',
   'CONTACT',
   'THANK YOU',
 ]
@@ -17,10 +22,7 @@ const Contents = ({ side, onNavigate }) => (
     {side === 'left' ?
       (
         <p>
-          디자인과 코드로 완성한 여덟 가지 프로젝트를 한 장씩 펼쳐보세요. <br />
-          <span>
-            모든 프로젝트 기여도 : 100%
-          </span>
+          디자인과 코드로 완성한 여덟 가지 작업을 한 장씩 펼쳐보세요.
         </p>
       ) : (
         <ol className="contents-list" start={0}>
@@ -36,7 +38,9 @@ const Contents = ({ side, onNavigate }) => (
                 </span>
 
                 <span>
-                  {title}
+                  {index >= 2 && index <= 9
+                    ? `WORK ${String(index - 1).padStart(2, '0')} · ${title}`
+                    : title}
                 </span>
               </button>
             </li>
