@@ -53,7 +53,12 @@ const AboutMe = ({ side, compact = false }) => {
 
         <div className="introduction about-scroll" ref={scrollRef} tabIndex={compact ? undefined : 0} role="region" aria-label="자기소개">
           <h3>
-            <span>이</span>야기를 화면에 담다 : Stories on Screen
+            <span className="intro-ko">
+              <strong>이</strong>야기를 화면에 담다 <span>:</span>
+            </span>
+            <span className="intro-en">
+              Stories on Screen
+            </span>
           </h3>
 
           <p>
@@ -69,54 +74,54 @@ const AboutMe = ({ side, compact = false }) => {
     <section className="book-page-content about-page about-right">
       <div className="about-right-content about-scroll" ref={scrollRef} tabIndex={compact ? undefined : 0} role="region" aria-label="학력, 교육 및 기술">
 
-      <div className="rightbox r1">
-        <h3>EDUCATION</h3>
-        <p>2016 ─ 구미여자고등학교 졸업</p>
-        <p>2024 ─ 대구가톨릭대학교 디지털디자인과 졸업</p>
-      </div>
-
-      <div className="rightbox r2">
-        <h3>TRAINING</h3>
-        <p>
-          2025. 07 ─ 2026. 02 <br />
-          SBS아카데미컴퓨터아트학원 웹디자인과정 수업 이수
-        </p>
-
-        <p>
-          2026. 05 ─ 2026. 10 <br />
-          SBS아카데미컴퓨터아트학원 웹퍼블리셔 과정 국비 수업 이수
-        </p>
-      </div>
-
-      <div className="rightbox r3">
-        <h3>CERTIFICATE</h3>
-        <p>
-          2025. 12 ─ 웹디자인개발 기능사 취득
-        </p>
-      </div>
-
-      <div className="rightbox r4">
-        <h3>SKILLS</h3>
-        <div className="skills_imgbox">
-          <img src={`${import.meta.env.BASE_URL}ps.png`} alt="ps" />
-
-          <img src={`${import.meta.env.BASE_URL}ai.png`} alt="ai" />
-
-          <img src={`${import.meta.env.BASE_URL}figma.png`} alt="figma" />
-
-          <img src={`${import.meta.env.BASE_URL}html.png`} alt="html" />
-
-          <img src={`${import.meta.env.BASE_URL}css.png`} alt="css" />
-
-          <img src={`${import.meta.env.BASE_URL}js.png`} alt="js" />
-
-          <img src={`${import.meta.env.BASE_URL}jq.png`} alt="jq" />
-
-          <img src={`${import.meta.env.BASE_URL}react.png`} alt="re" />
-
-          <img src={`${import.meta.env.BASE_URL}codex.png`} alt="codex" />
+        <div className="rightbox r1">
+          <h3>EDUCATION</h3>
+          <p>2016 ─ 구미여자고등학교 졸업</p>
+          <p>2024 ─ 대구가톨릭대학교 디지털디자인과 졸업</p>
         </div>
-      </div>
+
+        <div className="rightbox r2">
+          <h3>TRAINING</h3>
+          <p>
+            2025. 07 ─ 2026. 02 <br />
+            SBS아카데미컴퓨터아트학원 웹디자인과정 수업 이수
+          </p>
+
+          <p>
+            2026. 05 ─ 2026. 10 <br />
+            SBS아카데미컴퓨터아트학원 웹퍼블리셔 과정 국비 수업 이수
+          </p>
+        </div>
+
+        <div className="rightbox r3">
+          <h3>CERTIFICATE</h3>
+          <p>
+            2025. 12 ─ 웹디자인개발 기능사 취득
+          </p>
+        </div>
+
+        <div className="rightbox r4">
+          <h3>SKILLS</h3>
+          <div className="skills_imgbox">
+            <img src={`${import.meta.env.BASE_URL}ps.png`} alt="ps" />
+
+            <img src={`${import.meta.env.BASE_URL}ai.png`} alt="ai" />
+
+            <img src={`${import.meta.env.BASE_URL}figma.png`} alt="figma" />
+
+            <img src={`${import.meta.env.BASE_URL}html.png`} alt="html" />
+
+            <img src={`${import.meta.env.BASE_URL}css.png`} alt="css" />
+
+            <img src={`${import.meta.env.BASE_URL}js.png`} alt="js" />
+
+            <img src={`${import.meta.env.BASE_URL}jq.png`} alt="jq" />
+
+            <img src={`${import.meta.env.BASE_URL}react.png`} alt="re" />
+
+            <img src={`${import.meta.env.BASE_URL}codex.png`} alt="codex" />
+          </div>
+        </div>
 
       </div>
     </section>
