@@ -41,11 +41,11 @@ const ProjectPage = ({ projectNumber, side }) => {
     },
     {
       number: '03',
-      title: '방꾸미기 게임',
-      desc: 'REACT INTERACTIVE WEB',
+      title: '오늘 뭐먹지?',
+      desc: 'VIBE CODING-REACT RANDOM MEAL PICKER',
       logo: `${import.meta.env.BASE_URL}logo3.PNG`,
       image: `${import.meta.env.BASE_URL}project3_full.jpg`,
-      link: 'https://hihyena37.github.io/Vibe_roomdeco/'
+      link: 'https://hihyena37.github.io/Vibe_today-meal/'
     },
     {
       number: '04',
