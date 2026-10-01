@@ -37,7 +37,7 @@
   overflow-wrap: break-word;
 }
 
-.contents-left p>span{
+.contents-left p>span {
   font-size: 14px;
   color: #8c683c;
 }
@@ -134,7 +134,7 @@
 ========================= */
 
 .contents_imgbox {
-  width: 52%;
+  width: 68%;
   flex-shrink: 0;
 
   margin-top: auto;
@@ -170,7 +170,7 @@
 
 
   .contents_imgbox {
-    width: 56%;
+    width: 60%;
   }
 
 }
@@ -206,8 +206,14 @@
   }
 
 }
+
 /* 긴 작업명을 좁은 화면에서도 읽기 쉽게 배치 */
-.contents-list button > span:last-child {
+.contents-list button>span:last-child {
   min-width: 0;
   overflow-wrap: anywhere;
+
+  font-family: 'DM Serif Display','Noto Sans KR', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+
 }
