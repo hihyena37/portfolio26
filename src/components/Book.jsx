@@ -12,6 +12,7 @@ import pageFlipSound from '../assets/page-flip.mp3'
 const Book = ({ currentPage, setCurrentPage }) => {
   const [previousPage, setPreviousPage] = useState(currentPage)
   const [mobileTurn, setMobileTurn] = useState(null)
+  const [desktopTurn, setDesktopTurn] = useState(null)
 
   // 헤더나 목차로 이동할 때도 같은 페이지 전환을 적용합니다.
   if (previousPage !== currentPage) {
@@ -23,7 +24,18 @@ const Book = ({ currentPage, setCurrentPage }) => {
       to: currentPage,
       direction: currentPage > previousPage ? 'next' : 'prev',
     } : null)
+    setDesktopTurn(window.matchMedia('(min-width: 768px)').matches ? {
+      from: previousPage,
+      to: currentPage,
+    } : null)
   }
+
+  useEffect(() => {
+    if (!desktopTurn) return
+    // 회전이 끝날 때까지 움직이는 책장을 다른 책장보다 위에 유지합니다.
+    const timeout = window.setTimeout(() => setDesktopTurn(null), 850)
+    return () => window.clearTimeout(timeout)
+  }, [desktopTurn])
 
   useEffect(() => {
     if (!mobileTurn) return
@@ -104,13 +116,18 @@ const Book = ({ currentPage, setCurrentPage }) => {
   for (let i = 0; i < 11; i++) {
 
     const isFlipped = currentPage > i
+    const isTurning = desktopTurn &&
+      i >= Math.min(desktopTurn.from, desktopTurn.to) &&
+      i < Math.max(desktopTurn.from, desktopTurn.to)
 
     papers.push(
       <div
         key={i}
         className={`paper ${isFlipped ? 'flipped' : ''} ${currentPage === i ? 'is-current' : ''}`}
         style={{
-          zIndex: isFlipped
+          zIndex: isTurning
+            ? (desktopTurn.to > desktopTurn.from ? 60 - i : 40 + i)
+            : isFlipped
             ? i + 1
             : 22 - i
         }}
