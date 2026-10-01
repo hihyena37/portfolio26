@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './ProjectPage.css'
 
 const ProjectDetails = ({ project }) => (
@@ -15,6 +15,35 @@ const ProjectDetails = ({ project }) => (
 
 const ProjectPage = ({ projectNumber, side }) => {
   const scrollRef = useRef(null)
+  const previewImageRef = useRef(null)
+  const [showScrollHint, setShowScrollHint] = useState(false)
+
+  useEffect(() => {
+    if (side !== 'right') return
+    const area = scrollRef.current
+    const image = previewImageRef.current
+    if (!area || !image) return
+    const updateHint = () => {
+      setShowScrollHint(area.scrollTop <= 1 && image.complete && image.naturalHeight > 0
+        && area.clientHeight > 0 && image.clientHeight > area.clientHeight + 2)
+    }
+    const onScroll = () => {
+      updateHint()
+    }
+    const observer = new ResizeObserver(updateHint)
+    observer.observe(area)
+    observer.observe(image)
+    image.addEventListener('load', updateHint)
+    image.addEventListener('error', updateHint)
+    area.addEventListener('scroll', onScroll, { passive: true })
+    updateHint()
+    return () => {
+      observer.disconnect()
+      image.removeEventListener('load', updateHint)
+      image.removeEventListener('error', updateHint)
+      area.removeEventListener('scroll', onScroll)
+    }
+  }, [side, projectNumber])
 
   useEffect(() => {
     const area = scrollRef.current
@@ -134,6 +163,12 @@ const ProjectPage = ({ projectNumber, side }) => {
   ]
 
   const project = projects[projectNumber - 1]
+  const hasProjectLink = project.link && !project.link.startsWith('https://example.com')
+  const isPdfPending = projectNumber === 4 && !hasProjectLink
+  const viewUrl = hasProjectLink ? project.link : project.image
+  const viewLabel = isPdfPending ? '작업 PDF 보기' : !hasProjectLink
+    ? '작업 이미지 크게 보기'
+    : project.link.endsWith('.pdf') ? '작업 PDF 보기' : '사이트 보기'
 
   if (side === 'left') {
     return (
@@ -192,6 +227,7 @@ const ProjectPage = ({ projectNumber, side }) => {
       </div>
 
 
+      <div className="project-preview-frame">
       <div className={`project-preview-scroll${projectNumber === 3 ? ' project-preview-fill' : ''}`} ref={scrollRef}>
         <details className="mobile-project-details">
           <summary>프로젝트 소개 · 담당 역할</summary>
@@ -199,19 +235,38 @@ const ProjectPage = ({ projectNumber, side }) => {
         </details>
 
       {/* 프로젝트 이미지 */}
-      <a
-        href={project.link}
-        target="_blank"
-        rel="noreferrer"
-        className="project-link"
-      >
+      <div className="project-link">
         <div className="project-image">
           <img
             src={project.image}
+            ref={previewImageRef}
             alt={`${project.title} 프로젝트 미리보기`}
           />
         </div>
-      </a>
+      </div>
+      </div>
+
+      {showScrollHint && (
+        <div className="project-scroll-hint" role="img" aria-label="아래로 스크롤하여 작업 더 보기">
+          <i className="bi bi-mouse" aria-hidden="true"></i>
+        </div>
+      )}
+      </div>
+
+      <div className="project-actions">
+        {isPdfPending ? (
+          <button className="project-view-button" type="button" disabled>
+            <span>{viewLabel}</span>
+            <i className="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+          </button>
+        ) : (
+        <a className="project-view-button" href={viewUrl} target="_blank" rel="noopener noreferrer"
+          aria-label={`${project.title} ${viewLabel} (새 탭)`}>
+          <span>{viewLabel}</span>
+          <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+        </a>
+        )}
+        <span className="project-view-hint">{isPdfPending ? 'PDF 준비 중' : '새 탭에서 열립니다'}</span>
       </div>
 
     </section>
