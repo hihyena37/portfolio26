@@ -6,7 +6,7 @@ const ProjectDetails = ({ project }) => (
     <p className="project-summary">{project.summary}</p>
     <dl className="project-meta">
       <div><dt>담당 역할</dt><dd>{project.role}</dd></div>
-      <div><dt>기여도</dt><dd>100%</dd></div>
+      <div><dt>기여도</dt><dd>100% · {project.workType || 'Personal Project'}</dd></div>
       <div><dt>사용 도구</dt><dd>{project.tools}</dd></div>
       {project.ai && <div><dt>AI 도구</dt><dd>{project.ai}</dd></div>}
     </dl>
@@ -91,7 +91,7 @@ const ProjectPage = ({ projectNumber, side }) => {
     {
       number: '03',
       title: '오늘 뭐먹지?',
-      desc: 'VIBE CODING-REACT RANDOM MEAL PICKER',
+      desc: 'VIBE CODING · REACT MEAL RECOMMENDATION',
       summary: '사용자가 선택한 조건을 바탕으로 오늘의 메뉴를 추천하는 창작 웹사이트입니다. AI를 활용한 바이브 코딩 방식으로 React 기반 인터랙티브 서비스를 구현했습니다.',
       role: 'AI 활용 웹 제작',
       tools: 'React',
@@ -150,6 +150,7 @@ const ProjectPage = ({ projectNumber, side }) => {
     },
     {
       number: '08',
+      workType: 'Client Work',
       title: '네트워킹 DAY',
       desc: '㈜클라인 외주작업 · POSTER & BANNER DESIGN',
       summary: '㈜클라인의 외주 의뢰로 제작한 네트워킹 DAY 포스터와 배너 디자인 프로젝트입니다.',
