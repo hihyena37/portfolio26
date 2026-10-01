@@ -81,9 +81,10 @@ const ProjectPage = ({ projectNumber, side }) => {
     {
       number: '08',
       title: '네트워킹 DAY',
-      desc: 'POSTER & BANNER DESIGN',
+      desc: '㈜클라인 외주작업 · POSTER & BANNER DESIGN',
       logo: `${import.meta.env.BASE_URL}logo8.png`,
-      link: 'https://example.com'
+      image: `${import.meta.env.BASE_URL}project8_full.png`,
+      link: `${import.meta.env.BASE_URL}project8_pdf.pdf`
     }
   ]
 
