@@ -13,10 +13,12 @@ const Book = ({ currentPage, setCurrentPage }) => {
   const [previousPage, setPreviousPage] = useState(currentPage)
   const [mobileTurn, setMobileTurn] = useState(null)
   const [desktopTurn, setDesktopTurn] = useState(null)
+  const [crossedSheets, setCrossedSheets] = useState([])
 
   // 헤더나 목차로 이동할 때도 같은 페이지 전환을 적용합니다.
   if (previousPage !== currentPage) {
     setPreviousPage(currentPage)
+    setCrossedSheets([])
     const animate = window.matchMedia('(max-width: 767px)').matches &&
       !window.matchMedia('(prefers-reduced-motion: reduce)').matches
     setMobileTurn(animate ? {
@@ -32,9 +34,19 @@ const Book = ({ currentPage, setCurrentPage }) => {
 
   useEffect(() => {
     if (!desktopTurn) return
-    // 회전이 끝날 때까지 움직이는 책장을 다른 책장보다 위에 유지합니다.
-    const timeout = window.setTimeout(() => setDesktopTurn(null), 850)
-    return () => window.clearTimeout(timeout)
+    const count = Math.abs(desktopTurn.to - desktopTurn.from)
+    const step = count > 1 ? Math.min(60, 300 / (count - 1)) : 0
+    const timers = Array.from({ length: count }, (_, order) => {
+      const sheet = desktopTurn.to > desktopTurn.from
+        ? desktopTurn.from + order
+        : desktopTurn.from - 1 - order
+      // 종이가 책등을 통과한 뒤에는 도착하는 쪽의 쌓임 순서를 사용합니다.
+      return window.setTimeout(() => {
+        setCrossedSheets((sheets) => [...sheets, sheet])
+      }, 400 + order * step)
+    })
+    timers.push(window.setTimeout(() => setDesktopTurn(null), 850 + (count - 1) * step))
+    return () => timers.forEach(window.clearTimeout)
   }, [desktopTurn])
 
   useEffect(() => {
@@ -119,13 +131,19 @@ const Book = ({ currentPage, setCurrentPage }) => {
     const isTurning = desktopTurn &&
       i >= Math.min(desktopTurn.from, desktopTurn.to) &&
       i < Math.max(desktopTurn.from, desktopTurn.to)
+    const count = desktopTurn ? Math.abs(desktopTurn.to - desktopTurn.from) : 0
+    const order = isTurning
+      ? (desktopTurn.to > desktopTurn.from ? i - desktopTurn.from : desktopTurn.from - 1 - i)
+      : 0
+    const delay = count > 1 ? order * Math.min(60, 300 / (count - 1)) : 0
 
     papers.push(
       <div
         key={i}
         className={`paper ${isFlipped ? 'flipped' : ''} ${currentPage === i ? 'is-current' : ''}`}
         style={{
-          zIndex: isTurning
+          transitionDelay: isTurning ? `${delay}ms` : '0ms',
+          zIndex: isTurning && !crossedSheets.includes(i)
             ? (desktopTurn.to > desktopTurn.from ? 60 - i : 40 + i)
             : isFlipped
             ? i + 1

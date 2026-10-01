@@ -113,6 +113,8 @@ const AboutMe = ({ side, compact = false }) => {
           <img src={`${import.meta.env.BASE_URL}jq.png`} alt="jq" />
 
           <img src={`${import.meta.env.BASE_URL}react.png`} alt="re" />
+
+          <img src={`${import.meta.env.BASE_URL}codex.png`} alt="codex" />
         </div>
       </div>
 

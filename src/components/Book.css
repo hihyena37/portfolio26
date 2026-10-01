@@ -129,7 +129,7 @@
   transform-origin: left center;
   transform-style: preserve-3d;
 
-  transition: transform 0.8s ease;
+  transition: transform 0.8s ease-in-out;
 }
 
 
