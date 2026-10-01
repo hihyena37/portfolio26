@@ -204,8 +204,14 @@
 .book-page-content h2 {
   margin-bottom: 12px;
   flex-shrink: 0;
-  font-size: clamp(18px, 2vw, 24px);
   line-height: 1.2;
+
+  font-family: 'Spectral SC', serif;
+  font-size: clamp(24px, 2vw, 28px);
+  font-weight: 800;
+
+  transform: scaleY(1.15);
+  transform-origin: left center;
 }
 
 .book-page-content p,
