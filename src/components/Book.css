@@ -426,6 +426,58 @@
    CONTENTS / ABOUT / PROJECT / CONTACT / THANKS
 ========================= */
 
+.book.is-cover-closing > .paper,
+.book.is-cover-closing > .left-page,
+.book.is-cover-closing > .mobile-left-page,
+.book.is-cover-closing .book-hardcover-left {
+  visibility: hidden;
+}
+
+.book.is-cover-closing .book-cover {
+  background: transparent;
+  box-shadow: none;
+  transform-origin: 1.923076923% center;
+}
+
+.book-closing-page {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0 8px 8px 0;
+  background: #f7f3ea;
+  z-index: 30;
+}
+
+@media (min-width: 768px) {
+  .book.is-cover-closing {
+    animation: desktopBookEnter var(--cover-open-duration) ease-in-out reverse both;
+  }
+
+  .book.is-cover-closing .book-cover {
+    left: 49%;
+    animation: desktopCoverOpen var(--cover-open-duration) ease-in-out reverse both;
+  }
+
+  .book.is-cover-closing::after {
+    z-index: 160;
+    animation: bookSpineReveal var(--cover-open-duration) linear reverse both;
+  }
+}
+
+@media (max-width: 767px) {
+  .book-closing-page {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  .book.is-cover-closing .book-cover {
+    animation: mobileCoverOpen var(--cover-open-duration) ease-in-out reverse both;
+  }
+}
+
 .book-page-content,
 .project-page {
   width: 100%;
@@ -793,6 +845,7 @@
 .front,
 .back,
 .book-cover-inside,
+.book-closing-page,
 .mobile-left-page,
 .mobile-turn-page {
   background-color: #f7f3ea;

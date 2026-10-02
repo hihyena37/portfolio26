@@ -10,7 +10,6 @@ import bgm from './assets/bgm.mp3'
 const App = () => {
 
   const [page, setPage] = useState('intro')
-  const [hasLeftIntro, setHasLeftIntro] = useState(false)
 
   // 책에서 현재 보고 있는 페이지
   const [currentPage, setCurrentPage] = useState(0)
@@ -27,7 +26,6 @@ const App = () => {
   const enterBook = () => {
     setCurrentPage(0)
     setIsCoverClosed(true)
-    setHasLeftIntro(true)
     setPage('portfolio')
   }
 
@@ -91,7 +89,7 @@ const App = () => {
 
       {page === 'intro' && (
         <Intro
-          playOpening={!hasLeftIntro}
+          playOpening={true}
           onEnterBook={enterBook}
         />
       )}

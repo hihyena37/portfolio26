@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Portfolio.css'
 
 import Header from '../components/Header'
@@ -7,6 +7,7 @@ import Book from '../components/Book'
 import bg2 from '../assets/bg2.jpg'
 
 const Portfolio = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) => {
+  const [isCoverClosing, setIsCoverClosing] = useState(false)
   return (
     <div
       className="portfolio-bg"
@@ -16,6 +17,7 @@ const Portfolio = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsC
       <div className="portfolio-content">
 
         <Header
+          disabled={isCoverClosing}
           setPage={setPage}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
@@ -24,6 +26,8 @@ const Portfolio = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsC
         />
 
         <Book
+          isCoverClosing={isCoverClosing}
+          setIsCoverClosing={setIsCoverClosing}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           isCoverClosed={isCoverClosed}

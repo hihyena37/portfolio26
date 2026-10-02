@@ -4,7 +4,7 @@ import './Header.css'
 import pageFlipSound from '../assets/page-flip.mp3'
 import hoverSound from '../assets/hoverSound.mp3'
 
-const Header = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) => {
+const Header = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, disabled = false }) => {
 
   const moveToIntro = () => {
     const audio = new Audio(hoverSound)
@@ -39,7 +39,7 @@ const Header = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsCove
 
 
   return (
-    <header>
+    <header inert={disabled}>
 
       <nav className="portfolio-nav">
 

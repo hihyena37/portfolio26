@@ -10,9 +10,10 @@ import Thanks from '../pages/Thanks'
 import pageFlipSound from '../assets/page-flip.mp3'
 import coverSound from '../assets/cover-sound.mp3'
 
-const COVER_OPEN_DURATION = 3000
+const COVER_OPEN_DURATION = 2000
+const COVER_CLOSE_DURATION = COVER_OPEN_DURATION
 
-const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) => {
+const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, isCoverClosing, setIsCoverClosing }) => {
   // 진입 시 자동으로 표지를 엽니다. (PC: 오른쪽 이동 + 열림, 모바일: 제자리에서 왼쪽으로 열림)
   const [isCoverOpening, setIsCoverOpening] = useState(isCoverClosed)
   const openingCover = isCoverClosed && isCoverOpening
@@ -20,6 +21,42 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
   const [mobileTurn, setMobileTurn] = useState(null)
   const [desktopTurn, setDesktopTurn] = useState(null)
   const [crossedSheets, setCrossedSheets] = useState([])
+
+  const finishClosing = () => {
+    setIsCoverClosing(false)
+    setIsCoverClosed(true)
+    setIsCoverOpening(false)
+    setPreviousPage(0)
+    setCurrentPage(0)
+    setMobileTurn(null)
+    setDesktopTurn(null)
+    setCrossedSheets([])
+  }
+
+  useEffect(() => {
+    if (!isCoverClosing) return
+    const audio = new Audio(coverSound)
+    audio.volume = 0.4
+    audio.play().catch(() => {})
+    const finish = () => {
+      setIsCoverClosing(false)
+      setIsCoverClosed(true)
+      setIsCoverOpening(false)
+      setPreviousPage(0)
+      setCurrentPage(0)
+      setMobileTurn(null)
+      setDesktopTurn(null)
+      setCrossedSheets([])
+    }
+    const timeout = window.setTimeout(finish, COVER_CLOSE_DURATION + 250)
+    const query = window.matchMedia('(max-width: 767px)')
+    query.addEventListener('change', finish)
+    return () => {
+      window.clearTimeout(timeout)
+      query.removeEventListener('change', finish)
+      audio.pause()
+    }
+  }, [isCoverClosing, setIsCoverClosing, setIsCoverClosed, setCurrentPage])
 
   useEffect(() => {
     if (!openingCover) return
@@ -92,6 +129,12 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
 
 
   const prevPage = () => {
+    if (isCoverClosed || openingCover || isCoverClosing) return
+    if (currentPage === 0) {
+      if (desktopTurn || mobileTurn) return
+      setIsCoverClosing(true)
+      return
+    }
     if (currentPage > 0) {
       playPageSound()
       setCurrentPage(currentPage - 1)
@@ -102,9 +145,8 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
   // 표지를 열면 currentPage 0(ABOUT ME)이 그대로 보입니다.
   const openCover = () => {
     // 자동으로 열리는 중에는 중복 클릭을 무시합니다.
-    if (openingCover) return
-    playPageSound()
-    setIsCoverClosed(false)
+    if (openingCover || isCoverClosing) return
+    setIsCoverOpening(true)
   }
 
 
@@ -209,10 +251,10 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
     <div className="book-area">
 
       <div
-        className={`book${isCoverClosed ? ' is-cover-closed' : ''}${openingCover ? ' is-cover-opening' : ''}`}
-        style={{ '--cover-open-duration': `${COVER_OPEN_DURATION}ms` }}
-        inert={openingCover}
-        aria-busy={openingCover}
+        className={`book${isCoverClosed ? ' is-cover-closed' : ''}${openingCover ? ' is-cover-opening' : ''}${isCoverClosing ? ' is-cover-closing' : ''}`}
+        style={{ '--cover-open-duration': `${isCoverClosing ? COVER_CLOSE_DURATION : COVER_OPEN_DURATION}ms` }}
+        inert={openingCover || isCoverClosing}
+        aria-busy={openingCover || isCoverClosing}
       >
 
         {/* 펼친 뒤에도 속지 아래에 남아 있는 하드커버 */}
@@ -221,13 +263,23 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
           <span className="book-hardcover-right"></span>
         </div>
 
-        {isCoverClosed && (
+        {isCoverClosing && (
+          <div className="book-closing-page" aria-hidden="true">
+            {renderPage(currentPage, 'right')}
+          </div>
+        )}
+
+        {(isCoverClosed || isCoverClosing) && (
           <button
             type="button"
             className="book-cover"
             onClick={openCover}
             aria-label="책 표지 열기"
             onAnimationEnd={(event) => {
+              if (event.target === event.currentTarget && isCoverClosing) {
+                finishClosing()
+                return
+              }
               if (event.target === event.currentTarget && openingCover) {
                 setIsCoverOpening(false)
                 setIsCoverClosed(false)
@@ -244,7 +296,7 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
             </span>
             <span className="book-cover-back" aria-hidden="true">
               <span className="book-cover-inside">
-                {renderPage(0, 'left')}
+                {renderPage(isCoverClosing ? currentPage : 0, 'left')}
               </span>
             </span>
           </button>
@@ -298,8 +350,9 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
         <button
           className="book-control-button prev-button"
           onClick={prevPage}
-          disabled={isCoverClosed || currentPage === 0}
-          aria-label="이전 페이지"
+          disabled={isCoverClosing || isCoverClosed || (currentPage === 0 && Boolean(desktopTurn || mobileTurn))}
+          aria-label={currentPage === 0 ? '책 덮기' : '이전 페이지'}
+          title={currentPage === 0 ? '책 덮기' : '이전 페이지'}
         >
           <i className="bi bi-chevron-left"></i>
         </button>
@@ -308,7 +361,7 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
         <button
           className="book-control-button next-button"
           onClick={nextPage}
-          disabled={openingCover || (!isCoverClosed && currentPage === 12)}
+          disabled={isCoverClosing || openingCover || (!isCoverClosed && currentPage === 12)}
           aria-label="다음 페이지"
         >
           <i className="bi bi-chevron-right"></i>
