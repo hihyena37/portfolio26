@@ -322,6 +322,18 @@
 
 /* 중앙의 한 권에서 오른쪽으로 이동하며 기존 2페이지 위치에 펼쳐집니다. */
 @media (min-width: 768px) {
+  /* 표지가 열리는 도중에도 책등이 서서히 드러나도록 합니다. */
+  .book.is-cover-opening::after {
+    display: block;
+    z-index: 160;
+    animation: bookSpineReveal var(--cover-open-duration) linear both;
+  }
+
+  @keyframes bookSpineReveal {
+    0%, 40% { opacity: 0; }
+    70%, 100% { opacity: 1; }
+  }
+
   .book.is-cover-opening {
     animation: desktopBookEnter var(--cover-open-duration) ease-in-out both;
   }
@@ -361,6 +373,13 @@
 }
 
 @media (max-width: 767px) {
+  /* 회전하는 속지에도 펼친 상태와 같은 안쪽 가장자리 음영을 유지합니다. */
+  .book-cover-inside {
+    border-radius: 8px;
+    border-right: 1px solid rgba(73, 55, 37, 0.18);
+    box-shadow: inset -6px 0 10px rgba(73, 55, 37, 0.08);
+  }
+
   /* 화면 밖으로 펼쳐진 왼쪽 종이 뒤에도 표지를 이어 줍니다. */
   .book-hardcover-left {
     left: -102%;
@@ -768,4 +787,17 @@
     font-size: 20px;
   }
 
+}
+
+.book-base,
+.front,
+.back,
+.book-cover-inside,
+.mobile-left-page,
+.mobile-turn-page {
+  background-color: #f7f3ea;
+  background-image: url('/pagebg.png');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 }

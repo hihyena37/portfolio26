@@ -8,6 +8,7 @@ import Contact from '../pages/Contact'
 import Thanks from '../pages/Thanks'
 
 import pageFlipSound from '../assets/page-flip.mp3'
+import coverSound from '../assets/cover-sound.mp3'
 
 const COVER_OPEN_DURATION = 3000
 
@@ -22,7 +23,7 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
 
   useEffect(() => {
     if (!openingCover) return
-    const audio = new Audio(pageFlipSound)
+    const audio = new Audio(coverSound)
     audio.volume = 0.4
     audio.play().catch(() => {})
     const finish = () => {
