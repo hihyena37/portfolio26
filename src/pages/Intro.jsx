@@ -6,7 +6,7 @@ import FloatingLeaves from '../components/FloatingLeaves'
 import './intro.css'
 import bookshop1 from '../assets/bookshop1.gif'
 
-const Intro = ({ setPage, setCurrentPage, playOpening }) => {
+const Intro = ({ onEnterBook, playOpening }) => {
   return (
     <main
       className={`intro${playOpening ? ' intro-opening' : ''}`}
@@ -30,8 +30,7 @@ const Intro = ({ setPage, setCurrentPage, playOpening }) => {
       </div>
 
       <IntroMenu
-        setPage={setPage}
-        setCurrentPage={setCurrentPage}
+        onEnterBook={onEnterBook}
       />
 
     </main>

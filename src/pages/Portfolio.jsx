@@ -6,7 +6,7 @@ import Book from '../components/Book'
 
 import bg2 from '../assets/bg2.jpg'
 
-const Portfolio = ({ setPage, currentPage, setCurrentPage }) => {
+const Portfolio = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) => {
   return (
     <div
       className="portfolio-bg"
@@ -19,11 +19,15 @@ const Portfolio = ({ setPage, currentPage, setCurrentPage }) => {
           setPage={setPage}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
+          isCoverClosed={isCoverClosed}
+          setIsCoverClosed={setIsCoverClosed}
         />
 
         <Book
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
+          isCoverClosed={isCoverClosed}
+          setIsCoverClosed={setIsCoverClosed}
         />
 
       </div>

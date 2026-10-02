@@ -1,318 +1,155 @@
-@import url('https://fonts.googleapis.com/css2?family=Spectral+SC:wght@400;500;600;700;800&display=swap');
-
-/* =========================
-   INTRO MENU BOARD
-========================= */
-
+/* 서점 앞 바닥에 벤치가 놓이도록 중앙 하단에 배치 */
 .intro-menu-board {
-  position: relative;
-
-  width: min(660px, 72vw);
-
-  margin: 0 auto;
-
-  transform: translateY(180px);
+  position: absolute;
+  left: 50%;
+  bottom: 2%;
+  /* 1320px에서 약 422px, 768px에서도 약 381px을 유지 */
+  width: clamp(360px, calc(324px + 7.45vw), 460px);
+  transform: translateX(-50%);
+  z-index: 6;
 }
-
-
-/* =========================
-   BOARD IMAGE
-========================= */
-
-.intro-menu-bg {
-  width: 100%;
-
-  aspect-ratio: 1430 / 1100;
-
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-
-  /* box-shadow:
-    0 12px 24px rgba(0, 0, 0, 0.8); */
-}
-
-
-/* =========================
-   INTRO NAV
-========================= */
 
 .intro-nav {
-  position: absolute;
-
-  top: 60%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-
-  width: 76%;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 24px;
+  width: 100%;
 }
-
-
-/* =========================
-   MENU BUTTON
-========================= */
 
 .intro-menu-button {
   position: relative;
+  display: block;
 
   width: 100%;
-  height: 68px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: image-set(url('/cursor_hover.png') 1.333333x) 18 12, pointer;
+  -webkit-tap-highlight-color: transparent;
+}
 
-  padding: 0 24px;
+.intro-menu-image {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+}
+
+/* 벤치 다리 아래의 넓고 부드러운 접지 그림자 */
+.intro-menu-button::before {
+  content: '';
+  position: absolute;
+  left: -5%;
+  top: 86%;
+  width: 110%;
+  height: 14%;
+  background: radial-gradient(ellipse at center,
+      rgba(15, 10, 7, 0.8) 0%,
+      rgba(15, 10, 7, 0.5) 40%,
+      rgba(15, 10, 7, 0) 74%);
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+/* 벤치 양쪽 다리가 바닥에 닿는 곳은 더 좁고 진하게 */
+.intro-menu-button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 89%;
+  width: 100%;
+  height: 5%;
+  background:
+    radial-gradient(ellipse 12% 48% at 7% 50%, rgba(12, 8, 5, 0.85), transparent),
+    radial-gradient(ellipse 12% 48% at 94% 50%, rgba(12, 8, 5, 0.85), transparent);
+  filter: blur(1.5px);
+  pointer-events: none;
+}
+
+.intro-menu-invitation {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+
+  padding: 8px 20px;
+  border-radius: 50px;
+  background-color: #023c5775;
 
   display: grid;
-  grid-template-columns: 40px 1fr 28px;
-  align-items: center;
+  transform: translateX(-50%);
+  animation: introInvitationFloat 3s ease-in-out infinite;
+  color: #f4d99b;
+  font-family: 'Spectral SC', Georgia, serif;
+  font-size: clamp(16px, 1.4vw, 18px);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  white-space: nowrap;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  z-index: 2;
+}
 
-  border: 1px solid rgba(210, 181, 125, 0.7);
+.intro-menu-invitation>span {
+  grid-area: 1 / 1;
+  transition: opacity 0.2s ease;
+}
+
+.intro-invitation-hover {
+  opacity: 0;
+}
+
+.intro-menu-button:is(:hover, :focus-visible) .intro-invitation-default {
+  opacity: 0;
+}
+
+.intro-menu-button:is(:hover, :focus-visible) .intro-invitation-hover {
+  opacity: 1;
+}
+
+@keyframes introInvitationFloat {
+
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+
+  50% {
+    transform: translate(-50%, -7px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-menu-invitation {
+    animation: none;
+  }
+}
+
+.intro-menu-image-hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.intro-menu-button:hover>.intro-menu-image,
+.intro-menu-button:focus-visible>.intro-menu-image {
+  opacity: 0;
+}
+
+.intro-menu-button:hover>.intro-menu-image-hover,
+.intro-menu-button:focus-visible>.intro-menu-image-hover {
+  opacity: 1;
+}
+
+.intro-menu-button:focus-visible {
+  outline: 2px solid #f4d99b;
+  outline-offset: 4px;
   border-radius: 4px;
-
-  background:
-    linear-gradient(180deg,
-      rgba(48, 49, 46, 0.96) 0%,
-      rgba(27, 29, 28, 0.98) 100%);
-
-  color: #f0e4cc;
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 4px 8px rgba(0, 0, 0, 0.45);
-
-  cursor: image-set(url('/cursor_hover.png') 1.333333x) 18 12, pointer;
-
-  transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease,
-    color 0.2s ease,
-    box-shadow 0.2s ease;
 }
 
-
-/* =========================
-   ICON
-========================= */
-
-.menu-icon {
-  justify-self: start;
-
-  font-size: 24px;
-  line-height: 1;
-
-  color: #ead8b3;
-}
-
-
-/* =========================
-   LABEL
-========================= */
-
-.menu-label {
-  justify-self: center;
-
-  font-family: 'Spectral SC', serif;
-
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-
-  line-height: 1;
-}
-
-
-/* =========================
-   ARROW
-========================= */
-
-.menu-arrow {
-  justify-self: end;
-
-  font-size: 20px;
-  line-height: 1;
-
-  transition: transform 0.2s ease;
-}
-
-
-/* =========================
-   HOVER
-========================= */
-
-.intro-menu-button:hover {
-  transform: translateY(-4px);
-
-  border-color: #d5ad63;
-
-  background:
-    linear-gradient(180deg,
-      #fff4d5 0%,
-      #ead5a5 100%);
-
-  color: #20180f;
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    0 8px 12px rgba(0, 0, 0, 0.4);
-}
-
-
-.intro-menu-button:hover .menu-icon {
-  color: #20180f;
-}
-
-
-.intro-menu-button:hover .menu-arrow {
-  transform: translateX(4px);
-}
-
-
-/* =========================
-   TABLET
-   768px ~ 1024px
-========================= */
-
-@media (max-width: 1024px) {
-
-  .intro-menu-board {
-    width: min(620px, 84vw);
-
-    transform: translateY(160px);
-  }
-
-
-  .intro-nav {
-    top: 60%;
-
-    width: 76%;
-
-    gap: 16px;
-  }
-
-
-  .intro-menu-button {
-    height: 60px;
-
-    padding: 0 20px;
-
-    grid-template-columns: 36px 1fr 24px;
-  }
-
-
-  .menu-icon {
-    font-size: 22px;
-  }
-
-
-  .menu-label {
-    font-size: 17px;
-  }
-
-
-  .menu-arrow {
-    font-size: 18px;
-  }
-
-}
-
-
-/* =========================
-   MOBILE
-   361px ~ 767px
-========================= */
-
+/* 모바일에서도 바닥 쪽 중앙에 배치 */
 @media (max-width: 767px) {
-
   .intro-menu-board {
-    width: min(520px, 94vw);
-
-    transform: translateY(120px);
+    width: clamp(260px, calc(176px + 27vw), 382px);
   }
-
-
-  .intro-nav {
-    top: 60%;
-
-    width: 80%;
-
-    gap: 12px;
-  }
-
-
-  .intro-menu-button {
-    height: 52px;
-
-    padding: 0 16px;
-
-    grid-template-columns: 32px 1fr 20px;
-  }
-
-
-  .menu-icon {
-    font-size: 19px;
-  }
-
-
-  .menu-label {
-    font-size: 15px;
-    letter-spacing: 0.06em;
-  }
-
-
-  .menu-arrow {
-    font-size: 16px;
-  }
-
-}
-
-
-/* =========================
-   SMALL MOBILE
-   360px 이하
-========================= */
-
-@media (max-width: 360px) {
-
-  .intro-menu-board {
-    width: 96vw;
-
-    transform: translateY(96px);
-  }
-
-
-  .intro-nav {
-    width: 80%;
-
-    gap: 8px;
-  }
-
-
-  .intro-menu-button {
-    height: 48px;
-
-    padding: 0 12px;
-
-    grid-template-columns: 28px 1fr 20px;
-  }
-
-
-  .menu-icon {
-    font-size: 17px;
-  }
-
-
-  .menu-label {
-    font-size: 13px;
-  }
-
-
-  .menu-arrow {
-    font-size: 14px;
-  }
-
 }

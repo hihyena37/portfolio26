@@ -15,11 +15,21 @@ const App = () => {
   // 책에서 현재 보고 있는 페이지
   const [currentPage, setCurrentPage] = useState(0)
 
+  // 책 표지 닫힘 여부 (currentPage와 별개로 관리)
+  const [isCoverClosed, setIsCoverClosed] = useState(true)
+
   // 음악 ON / OFF 상태
   const [isMusicOn, setIsMusicOn] = useState(false)
 
   // audio 태그 제어용
   const audioRef = useRef(null)
+
+  const enterBook = () => {
+    setCurrentPage(0)
+    setIsCoverClosed(true)
+    setHasLeftIntro(true)
+    setPage('portfolio')
+  }
 
 
   const toggleMusic = async () => {
@@ -48,7 +58,7 @@ const App = () => {
 
   return (
     <>
-      <TopTicker />
+      {page === 'intro' && <TopTicker />}
 
       {/* 배경 음악 */}
       <audio
@@ -82,11 +92,7 @@ const App = () => {
       {page === 'intro' && (
         <Intro
           playOpening={!hasLeftIntro}
-          setPage={(nextPage) => {
-            if (nextPage !== 'intro') setHasLeftIntro(true)
-            setPage(nextPage)
-          }}
-          setCurrentPage={setCurrentPage}
+          onEnterBook={enterBook}
         />
       )}
 
@@ -96,6 +102,8 @@ const App = () => {
           setPage={setPage}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
+          isCoverClosed={isCoverClosed}
+          setIsCoverClosed={setIsCoverClosed}
         />
       )}
 

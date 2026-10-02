@@ -184,6 +184,163 @@
 
 
 /* =========================
+   BOOK COVER (닫힌 표지)
+========================= */
+
+/* 표지가 닫혀 있으면 기존 책 내용은 숨깁니다. (공간은 유지) */
+.book.is-cover-closed > :not(.book-cover) {
+  visibility: hidden;
+}
+
+.book.is-cover-closed::after {
+  display: none;
+}
+
+/* 종이보다 큰 커버가 책을 펼친 뒤에도 가장자리에 남습니다. */
+.book-hardcover {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.book-hardcover-left,
+.book-hardcover-right {
+  position: absolute;
+  top: -1.5%;
+  width: 52%;
+  height: 103%;
+  background: #493725;
+  box-shadow:
+    0 3px 0 #3a2b1d,
+    0 5px 0 #2f2318,
+    0 14px 30px rgba(0, 0, 0, 0.3);
+}
+
+.book-hardcover-left {
+  left: -1%;
+  border-radius: 12px 4px 4px 12px;
+}
+
+.book-hardcover-right {
+  left: 49%;
+  border-radius: 4px 12px 12px 4px;
+}
+
+.book-cover {
+  --cover-color: #493725;
+
+  position: absolute;
+
+  /* 한 페이지 크기보다 살짝 크게, 책 영역 중앙에 배치 */
+  top: -1.5%;
+  left: 24%;
+
+  width: 52%;
+  height: 103%;
+
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 4px 12px 12px 4px;
+
+  background: var(--cover-color);
+
+  /* 하드커버 두께감 */
+  box-shadow:
+    inset 6px 0 10px rgba(0, 0, 0, 0.25),
+    inset -2px 0 0 rgba(255, 255, 255, 0.06),
+    4px 0 0 #3a2b1d,
+    6px 2px 0 #2f2318,
+    0 14px 30px rgba(0, 0, 0, 0.35);
+
+  cursor: image-set(url('/cursor_hover.png') 1.333333x) 18 12, pointer;
+
+  z-index: 150;
+}
+
+/* 표지 이미지 자리 (위치 확인용) */
+.book-cover-front {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #493725;
+  border-radius: inherit;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.book-cover-image-placeholder {
+  display: block;
+
+  width: 70%;
+  height: 60%;
+
+  border: 1px dashed rgba(240, 228, 204, 0.45);
+  border-radius: 4px;
+}
+
+/* 중앙의 한 권에서 오른쪽으로 이동하며 기존 2페이지 위치에 펼쳐집니다. */
+@media (min-width: 768px) {
+  .book.is-cover-opening {
+    animation: desktopBookEnter 2s ease-in-out both;
+  }
+
+  .book.is-cover-opening > .paper,
+  .book.is-cover-opening > .right-page,
+  .book.is-cover-opening > .book-hardcover {
+    visibility: visible;
+  }
+
+  .book.is-cover-opening > .left-page,
+  .book.is-cover-opening .book-hardcover-left {
+    animation: desktopAboutReveal 2s linear both;
+  }
+
+  .book.is-cover-opening .book-cover {
+    left: 49%;
+    transform-origin: 2% center;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    animation: desktopCoverOpen 2s ease-in-out both;
+  }
+
+  @keyframes desktopBookEnter {
+    from { transform: translateX(-25%); }
+    to { transform: translateX(0); }
+  }
+
+  @keyframes desktopCoverOpen {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(-180deg); }
+  }
+
+  @keyframes desktopAboutReveal {
+    0%, 49.99% { visibility: hidden; opacity: 0; }
+    50%, 100% { visibility: visible; opacity: 1; }
+  }
+}
+
+@media (max-width: 767px) {
+  .book-hardcover-left {
+    display: none;
+  }
+
+  .book-hardcover-right {
+    left: -2%;
+    width: 104%;
+  }
+}
+
+
+/* =========================
    COMMON PAGE CONTENT
    CONTENTS / ABOUT / PROJECT / CONTACT / THANKS
 ========================= */
@@ -482,6 +639,14 @@
   .front,
   .back {
     border-radius: 8px;
+  }
+
+
+  /* 모바일에서는 한 페이지 전체 크기 기준으로 표지 표시 */
+  .book-cover {
+    left: -2%;
+
+    width: 104%;
   }
 
 

@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import './IntroMenu.css'
 
-import introMenuBg from '../assets/intromenubg.png'
 import hoverSound from '../assets/hoverSound.mp3'
 
-const IntroMenu = ({ setPage, setCurrentPage }) => {
+const IntroMenu = ({ onEnterBook }) => {
   const hoverSoundsRef = useRef(new Set())
 
   useEffect(() => {
@@ -32,65 +31,21 @@ const IntroMenu = ({ setPage, setCurrentPage }) => {
   return (
     <div className="intro-menu-board">
 
-      <img
-        src={introMenuBg}
-        alt=""
-        className="intro-menu-bg"
-      />
-
       <nav className="intro-nav">
 
         <button
+          type="button"
           className="intro-menu-button"
+          aria-label="책 보러가기"
           onMouseEnter={playHoverSound}
-          onClick={() => {
-            setCurrentPage(0)
-            setPage('portfolio')
-          }}
+          onClick={onEnterBook}
         >
-          <i className="bi bi-person-fill menu-icon"></i>
-
-          <span className="menu-label">
-            ABOUT ME
+          <span className="intro-menu-invitation" aria-hidden="true">
+            <span className="intro-invitation-default">COME CLOSER</span>
+            <span className="intro-invitation-hover">OPEN THE BOOK</span>
           </span>
-
-          <i className="bi bi-chevron-right menu-arrow"></i>
-        </button>
-
-
-        <button
-          className="intro-menu-button"
-          onMouseEnter={playHoverSound}
-          onClick={() => {
-            setCurrentPage(1)
-            setPage('portfolio')
-          }}
-        >
-          <i className="bi bi-book-fill menu-icon"></i>
-
-          <span className="menu-label">
-            WORKS
-          </span>
-
-          <i className="bi bi-chevron-right menu-arrow"></i>
-        </button>
-
-
-        <button
-          className="intro-menu-button"
-          onMouseEnter={playHoverSound}
-          onClick={() => {
-            setCurrentPage(11)
-            setPage('portfolio')
-          }}
-        >
-          <i className="bi bi-envelope-fill menu-icon"></i>
-
-          <span className="menu-label">
-            CONTACT
-          </span>
-
-          <i className="bi bi-chevron-right menu-arrow"></i>
+          <img src={`${import.meta.env.BASE_URL}infomenu.png`} alt="" className="intro-menu-image" draggable="false" />
+          <img src={`${import.meta.env.BASE_URL}infomenu_hover_aligned.png`} alt="" className="intro-menu-image intro-menu-image-hover" draggable="false" />
         </button>
 
       </nav>

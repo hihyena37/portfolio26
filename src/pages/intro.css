@@ -332,7 +332,8 @@ body {
   pointer-events: none;
   background-image: var(--intro-background);
   background-repeat: inherit;
-  background-position: inherit;
+  /* 화면 비율이 달라도 서점 바닥과 캐릭터의 기준점을 하단에 고정 */
+  background-position: center bottom;
   background-size: inherit;
 }
 

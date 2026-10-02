@@ -4,7 +4,7 @@ import './Header.css'
 import pageFlipSound from '../assets/page-flip.mp3'
 import hoverSound from '../assets/hoverSound.mp3'
 
-const Header = ({ setPage, currentPage, setCurrentPage }) => {
+const Header = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) => {
 
   const moveToIntro = () => {
     const audio = new Audio(hoverSound)
@@ -22,6 +22,14 @@ const Header = ({ setPage, currentPage, setCurrentPage }) => {
 
 
   const moveToPage = (targetPage) => {
+
+    // 표지가 닫혀 있으면 표지를 열고 해당 페이지로 이동합니다.
+    if (isCoverClosed) {
+      playPageSound()
+      setIsCoverClosed(false)
+      setCurrentPage(targetPage)
+      return
+    }
 
     if (currentPage === targetPage) return
 
