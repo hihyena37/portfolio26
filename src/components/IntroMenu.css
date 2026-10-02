@@ -7,11 +7,11 @@
 .intro-menu-board {
   position: relative;
 
-  width: min(720px, 80vw);
+  width: min(660px, 72vw);
 
   margin: 0 auto;
 
-  transform: translateY(200px);
+  transform: translateY(180px);
 }
 
 
