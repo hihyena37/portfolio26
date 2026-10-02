@@ -9,6 +9,8 @@ import Thanks from '../pages/Thanks'
 
 import pageFlipSound from '../assets/page-flip.mp3'
 
+const COVER_OPEN_DURATION = 3000
+
 const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) => {
   // 진입 시 자동으로 표지를 엽니다. (PC: 오른쪽 이동 + 열림, 모바일: 제자리에서 왼쪽으로 열림)
   const [isCoverOpening, setIsCoverOpening] = useState(isCoverClosed)
@@ -27,7 +29,8 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
       setIsCoverOpening(false)
       setIsCoverClosed(false)
     }
-    const timeout = window.setTimeout(finish, 2050)
+    // animationend가 누락된 경우에만 애니메이션 종료 후 정리합니다.
+    const timeout = window.setTimeout(finish, COVER_OPEN_DURATION + 250)
     // 열리는 도중 PC/모바일 구간이 바뀌면 열린 상태로 마무리합니다.
     const mobileQuery = window.matchMedia('(max-width: 767px)')
     mobileQuery.addEventListener('change', finish)
@@ -206,6 +209,7 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
 
       <div
         className={`book${isCoverClosed ? ' is-cover-closed' : ''}${openingCover ? ' is-cover-opening' : ''}`}
+        style={{ '--cover-open-duration': `${COVER_OPEN_DURATION}ms` }}
         inert={openingCover}
         aria-busy={openingCover}
       >
@@ -236,6 +240,11 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
                 alt=""
                 draggable={false}
               />
+            </span>
+            <span className="book-cover-back" aria-hidden="true">
+              <span className="book-cover-inside">
+                {renderPage(0, 'left')}
+              </span>
             </span>
           </button>
         )}

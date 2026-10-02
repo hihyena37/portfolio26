@@ -261,6 +261,7 @@
   cursor: image-set(url('/cursor_hover.png') 1.333333x) 18 12, pointer;
 
   z-index: 150;
+  transform-style: preserve-3d;
 }
 
 /* 표지 전체를 이미지로 채웁니다. */
@@ -284,10 +285,45 @@
   border-radius: inherit;
 }
 
+/* 앞면이 시야에서 사라진 뒤에도 안쪽 면이 이어서 회전합니다. */
+.book-cover-back {
+  position: absolute;
+  inset: 0;
+  background: #493725;
+  border-radius: 12px 4px 4px 12px;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  text-align: left;
+  font: inherit;
+  color: var(--page-text);
+  /* 책등을 넘어 오른쪽 속지를 덮는 표지 여분은 보이지 않게 합니다. */
+  clip-path: inset(0 calc(100% / 52) 0 0);
+}
+
+/* 회전 틀의 갈색 바탕이 책 중심에 남지 않도록 각 면에서만 그립니다. */
+.book.is-cover-opening .book-cover {
+  background: transparent;
+  box-shadow: none;
+}
+
+.book.is-cover-opening .book-cover-front {
+  box-shadow: inset 6px 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.book-cover-inside {
+  position: absolute;
+  inset: calc(100% * 1.5 / 103) calc(100% / 52);
+  display: block;
+  overflow: hidden;
+  background: #f7f3ea;
+  border-radius: 8px 0 0 8px;
+}
+
 /* 중앙의 한 권에서 오른쪽으로 이동하며 기존 2페이지 위치에 펼쳐집니다. */
 @media (min-width: 768px) {
   .book.is-cover-opening {
-    animation: desktopBookEnter 2s ease-in-out both;
+    animation: desktopBookEnter var(--cover-open-duration) ease-in-out both;
   }
 
   .book.is-cover-opening > .paper,
@@ -298,16 +334,14 @@
 
   .book.is-cover-opening > .left-page,
   .book.is-cover-opening .book-hardcover-left {
-    animation: desktopAboutReveal 2s linear both;
+    animation: desktopAboutReveal var(--cover-open-duration) linear both;
   }
 
   .book.is-cover-opening .book-cover {
     left: 49%;
-    transform-origin: 2% center;
+    transform-origin: 1.923076923% center;
     transform-style: preserve-3d;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    animation: desktopCoverOpen 2s ease-in-out both;
+    animation: desktopCoverOpen var(--cover-open-duration) ease-in-out both;
   }
 
   @keyframes desktopBookEnter {
@@ -321,8 +355,8 @@
   }
 
   @keyframes desktopAboutReveal {
-    0%, 49.99% { visibility: hidden; opacity: 0; }
-    50%, 100% { visibility: visible; opacity: 1; }
+    0%, 99.99% { visibility: hidden; opacity: 0; }
+    100% { visibility: visible; opacity: 1; }
   }
 }
 
@@ -346,26 +380,24 @@
   }
 
   .book.is-cover-opening .book-cover {
-    transform-origin: left center;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    animation: mobileCoverOpen 2s ease-in-out both;
+    transform-origin: 1.923076923% center;
+    animation: mobileCoverOpen var(--cover-open-duration) ease-in-out both;
   }
 
-  /* PC처럼 표지가 절반(90°)을 넘어가는 순간 왼쪽 페이지가 나타납니다. */
+  /* 회전하는 표지 안쪽을 다 펼친 뒤 고정 페이지로 연결합니다. */
   .book.is-cover-opening > .mobile-left-page,
   .book.is-cover-opening .book-hardcover-left {
-    animation: mobileLeftReveal 2s linear both;
+    animation: mobileLeftReveal var(--cover-open-duration) linear both;
   }
 
   @keyframes mobileCoverOpen {
-    0%, 10% { transform: perspective(1600px) rotateY(0deg); }
+    0% { transform: perspective(1600px) rotateY(0deg); }
     100% { transform: perspective(1600px) rotateY(-180deg); }
   }
 
   @keyframes mobileLeftReveal {
-    0%, 54.99% { visibility: hidden; opacity: 0; }
-    55%, 100% { visibility: visible; opacity: 1; }
+    0%, 99.99% { visibility: hidden; opacity: 0; }
+    100% { visibility: visible; opacity: 1; }
   }
 }
 
