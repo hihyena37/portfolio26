@@ -10,10 +10,8 @@ import Thanks from '../pages/Thanks'
 import pageFlipSound from '../assets/page-flip.mp3'
 
 const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) => {
-  // PC/태블릿 진입 시에만 자동으로 표지를 엽니다. 모바일은 기존 동작 유지.
-  const [isCoverOpening, setIsCoverOpening] = useState(() =>
-    isCoverClosed && window.matchMedia('(min-width: 768px)').matches
-  )
+  // 진입 시 자동으로 표지를 엽니다. (PC: 오른쪽 이동 + 열림, 모바일: 제자리에서 왼쪽으로 열림)
+  const [isCoverOpening, setIsCoverOpening] = useState(isCoverClosed)
   const openingCover = isCoverClosed && isCoverOpening
   const [previousPage, setPreviousPage] = useState(currentPage)
   const [mobileTurn, setMobileTurn] = useState(null)
@@ -30,12 +28,12 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
       setIsCoverClosed(false)
     }
     const timeout = window.setTimeout(finish, 2050)
+    // 열리는 도중 PC/모바일 구간이 바뀌면 열린 상태로 마무리합니다.
     const mobileQuery = window.matchMedia('(max-width: 767px)')
-    const onResize = (event) => { if (event.matches) finish() }
-    mobileQuery.addEventListener('change', onResize)
+    mobileQuery.addEventListener('change', finish)
     return () => {
       window.clearTimeout(timeout)
-      mobileQuery.removeEventListener('change', onResize)
+      mobileQuery.removeEventListener('change', finish)
       audio.pause()
     }
   }, [openingCover, setIsCoverClosed])
@@ -99,6 +97,8 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
 
   // 표지를 열면 currentPage 0(ABOUT ME)이 그대로 보입니다.
   const openCover = () => {
+    // 자동으로 열리는 중에는 중복 클릭을 무시합니다.
+    if (openingCover) return
     playPageSound()
     setIsCoverClosed(false)
   }
@@ -246,11 +246,9 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
 
         {papers}
 
-        {currentPage > 0 && (
-          <div className="mobile-left-page" aria-hidden="true" inert>
-            {renderPage(currentPage, 'left')}
-          </div>
-        )}
+        <div className="mobile-left-page" aria-hidden="true" inert>
+          {renderPage(currentPage, 'left')}
+        </div>
 
         {mobileTurn && (
           <div

@@ -337,6 +337,35 @@
     left: -2%;
     width: 104%;
   }
+
+  /* 모바일: 책은 제자리에 두고 표지 앞면만 왼쪽으로 펼칩니다. */
+  .book.is-cover-opening > .paper,
+  .book.is-cover-opening > .right-page,
+  .book.is-cover-opening > .book-hardcover {
+    visibility: visible;
+  }
+
+  .book.is-cover-opening .book-cover {
+    transform-origin: left center;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    animation: mobileCoverOpen 2s ease-in-out both;
+  }
+
+  /* PC처럼 표지가 절반(90°)을 넘어가는 순간 왼쪽 페이지가 나타납니다. */
+  .book.is-cover-opening > .mobile-left-page {
+    animation: mobileLeftReveal 2s linear both;
+  }
+
+  @keyframes mobileCoverOpen {
+    0%, 10% { transform: perspective(1600px) rotateY(0deg); }
+    100% { transform: perspective(1600px) rotateY(-180deg); }
+  }
+
+  @keyframes mobileLeftReveal {
+    0%, 54.99% { visibility: hidden; opacity: 0; }
+    55%, 100% { visibility: visible; opacity: 1; }
+  }
 }
 
 
