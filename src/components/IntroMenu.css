@@ -2,9 +2,9 @@
 .intro-menu-board {
   position: absolute;
   left: 50%;
-  bottom: 2%;
+  bottom: 4%;
   /* 1320px에서 약 422px, 768px에서도 약 381px을 유지 */
-  width: clamp(360px, calc(324px + 7.45vw), 460px);
+  width: clamp(380px, calc(344px + 7.85vw), 520px);
   transform: translateX(-50%);
   z-index: 6;
 }

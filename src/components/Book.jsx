@@ -229,9 +229,13 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) 
               }
             }}
           >
-            {/* 표지 이미지는 이 자리에 넣을 예정 */}
             <span className="book-cover-front">
-              <span className="book-cover-image-placeholder"></span>
+              <img
+                className="book-cover-image"
+                src={`${import.meta.env.BASE_URL}book-cover.jpg`}
+                alt=""
+                draggable={false}
+              />
             </span>
           </button>
         )}

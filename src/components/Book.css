@@ -263,7 +263,7 @@
   z-index: 150;
 }
 
-/* 표지 이미지 자리 (위치 확인용) */
+/* 표지 전체를 이미지로 채웁니다. */
 .book-cover-front {
   position: absolute;
   inset: 0;
@@ -276,14 +276,12 @@
   -webkit-backface-visibility: hidden;
 }
 
-.book-cover-image-placeholder {
+.book-cover-image {
   display: block;
-
-  width: 70%;
-  height: 60%;
-
-  border: 1px dashed rgba(240, 228, 204, 0.45);
-  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: inherit;
 }
 
 /* 중앙의 한 권에서 오른쪽으로 이동하며 기존 2페이지 위치에 펼쳐집니다. */
@@ -329,8 +327,10 @@
 }
 
 @media (max-width: 767px) {
+  /* 화면 밖으로 펼쳐진 왼쪽 종이 뒤에도 표지를 이어 줍니다. */
   .book-hardcover-left {
-    display: none;
+    left: -102%;
+    width: 104%;
   }
 
   .book-hardcover-right {
@@ -353,7 +353,8 @@
   }
 
   /* PC처럼 표지가 절반(90°)을 넘어가는 순간 왼쪽 페이지가 나타납니다. */
-  .book.is-cover-opening > .mobile-left-page {
+  .book.is-cover-opening > .mobile-left-page,
+  .book.is-cover-opening .book-hardcover-left {
     animation: mobileLeftReveal 2s linear both;
   }
 
