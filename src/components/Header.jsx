@@ -59,7 +59,7 @@ const Header = ({ setPage, currentPage, setCurrentPage }) => {
 
         <button
           className={
-            currentPage >= 2 && currentPage <= 9
+            currentPage >= 2 && currentPage <= 10
               ? 'active'
               : ''
           }
@@ -70,8 +70,8 @@ const Header = ({ setPage, currentPage, setCurrentPage }) => {
 
 
         <button
-          className={currentPage >= 10 ? 'active' : ''}
-          onClick={() => moveToPage(10)}
+          className={currentPage >= 11 ? 'active' : ''}
+          onClick={() => moveToPage(11)}
         >
           CONTACT
         </button>

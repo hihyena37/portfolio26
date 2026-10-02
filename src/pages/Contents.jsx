@@ -5,6 +5,7 @@ const entries = [
   'CONTENTS',
   'Web Redesign',
   'Aesop Clone Coding',
+  'Korea Festival · Vibe Coding',
   'Meal Picker · Vibe Coding',
   '숲나들e · App Redesign',
   '방과후ON · App Design',
@@ -22,7 +23,7 @@ const Contents = ({ side, onNavigate }) => (
     {side === 'left' ?
       (
         <p>
-          디자인과 코드로 완성한 여덟 가지 작업을 한 장씩 펼쳐보세요.
+          디자인과 코드로 완성한 아홉 가지 작업을 한 장씩 펼쳐보세요.
         </p>
       ) : (
         <ol className="contents-list" start={0}>
@@ -38,7 +39,7 @@ const Contents = ({ side, onNavigate }) => (
                 </span>
 
                 <span>
-                  {index >= 2 && index <= 9
+                  {index >= 2 && index <= 10
                     ? `WORK ${String(index - 1).padStart(2, '0')} · ${title}`
                     : title}
                 </span>

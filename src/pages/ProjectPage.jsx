@@ -90,57 +90,58 @@ const ProjectPage = ({ projectNumber, side }) => {
     },
     {
       number: '03',
+      title: '대한민국 축제 대시보드',
+      desc: 'VIBE CODING · FESTIVAL DASHBOARD',
+      summary: '대한민국 축제를 주제로 제작한 바이브 코딩 대시보드 프로젝트입니다.',
+      role: 'AI 활용 웹 제작',
+      tools: 'React',
+      ai: 'Codex · Claude AI',
+      logo: `${import.meta.env.BASE_URL}logo3.png`,
+      image: `${import.meta.env.BASE_URL}project3_full.jpg`,
+      link: 'https://hihyena37.github.io/Vibe_korea-festival-dashboard/',
+      viewLabel: '사이트 보기'
+    },
+    {
+      number: '04',
       title: '오늘 뭐먹지?',
       desc: 'VIBE CODING · REACT MEAL RECOMMENDATION',
       summary: '사용자가 선택한 조건을 바탕으로 오늘의 메뉴를 추천하는 창작 웹사이트입니다. AI를 활용한 바이브 코딩 방식으로 React 기반 인터랙티브 서비스를 구현했습니다.',
       role: 'AI 활용 웹 제작',
       tools: 'React',
       ai: 'Antigravity AI · Claude AI',
-      logo: `${import.meta.env.BASE_URL}logo3.PNG`,
-      image: `${import.meta.env.BASE_URL}project3_full.jpg`,
+      logo: `${import.meta.env.BASE_URL}logo4.PNG`,
+      image: `${import.meta.env.BASE_URL}project4_full.jpg`,
       link: 'https://hihyena37.github.io/Vibe_today-meal/'
     },
     {
-      number: '04',
+      number: '05',
       title: '숲나들e',
       desc: 'UX/UI APP REDESIGN',
       summary: '기존 숲나들e 앱을 대상으로 화면을 새롭게 디자인한 UX/UI 리디자인 프로젝트입니다.',
       role: '앱 UX/UI 리디자인',
       tools: 'Figma · Photoshop',
       ai: 'Codex',
-      logo: `${import.meta.env.BASE_URL}logo4.png`,
-      image: `${import.meta.env.BASE_URL}project4_full.jpg`,
+      logo: `${import.meta.env.BASE_URL}logo5.png`,
+      image: `${import.meta.env.BASE_URL}project5_full.jpg`,
       link: 'https://example.com'
     },
     {
-      number: '05',
+      number: '06',
       title: '방과후ON',
       desc: 'UX/UI APP DESIGN',
       summary: '방과후ON이라는 새로운 앱의 화면을 디자인한 창작 UX/UI 프로젝트입니다.',
       role: '앱 UX/UI 디자인',
       tools: 'Figma · Photoshop · Illustrator',
       ai: '',
-      logo: `${import.meta.env.BASE_URL}logo5.png`,
-      image: `${import.meta.env.BASE_URL}project5_full.jpg`,
-      link: `${import.meta.env.BASE_URL}project5_pdf.pdf`
-    },
-    {
-      number: '06',
-      title: '그레인온 카무트효소',
-      desc: 'PRODUCT DETAIL PAGE',
-      summary: '그레인온 카무트효소의 기존 상품 상세페이지를 새롭게 디자인한 프로젝트입니다.',
-      role: '상세페이지 리디자인',
-      tools: 'Figma · Photoshop',
-      ai: 'Codex',
       logo: `${import.meta.env.BASE_URL}logo6.png`,
       image: `${import.meta.env.BASE_URL}project6_full.jpg`,
-      link: 'https://example.com'
+      link: `${import.meta.env.BASE_URL}project6_pdf.pdf`
     },
     {
       number: '07',
-      title: '일룸 아코 소파',
+      title: '그레인온 카무트효소',
       desc: 'PRODUCT DETAIL PAGE',
-      summary: '일룸 아코 소파의 기존 상품 상세페이지를 새롭게 디자인한 프로젝트입니다.',
+      summary: '그레인온 카무트효소의 기존 상품 상세페이지를 새롭게 디자인한 프로젝트입니다.',
       role: '상세페이지 리디자인',
       tools: 'Figma · Photoshop',
       ai: 'Codex',
@@ -150,6 +151,18 @@ const ProjectPage = ({ projectNumber, side }) => {
     },
     {
       number: '08',
+      title: '일룸 아코 소파',
+      desc: 'PRODUCT DETAIL PAGE',
+      summary: '일룸 아코 소파의 기존 상품 상세페이지를 새롭게 디자인한 프로젝트입니다.',
+      role: '상세페이지 리디자인',
+      tools: 'Figma · Photoshop',
+      ai: 'Codex',
+      logo: `${import.meta.env.BASE_URL}logo8.png`,
+      image: `${import.meta.env.BASE_URL}project8_full.jpg`,
+      link: 'https://example.com'
+    },
+    {
+      number: '09',
       workType: 'Client Work',
       title: '네트워킹 DAY',
       desc: '㈜클라인 외주작업 · POSTER & BANNER DESIGN',
@@ -157,19 +170,19 @@ const ProjectPage = ({ projectNumber, side }) => {
       role: '포스터 · 배너 디자인',
       tools: 'Figma · Photoshop',
       ai: 'Codex',
-      logo: `${import.meta.env.BASE_URL}logo8.png`,
-      image: `${import.meta.env.BASE_URL}project8_full.png`,
-      link: `${import.meta.env.BASE_URL}project8_pdf.pdf`
+      logo: `${import.meta.env.BASE_URL}logo9.png`,
+      image: `${import.meta.env.BASE_URL}project9_full.png`,
+      link: `${import.meta.env.BASE_URL}project9_pdf.pdf`
     }
   ]
 
   const project = projects[projectNumber - 1]
   const hasProjectLink = project.link && !project.link.startsWith('https://example.com')
-  const isPdfPending = projectNumber === 4 && !hasProjectLink
+  const isPdfPending = projectNumber === 5 && !hasProjectLink
   const viewUrl = hasProjectLink ? project.link : project.image
-  const viewLabel = isPdfPending ? '작업 PDF 보기' : !hasProjectLink
+  const viewLabel = project.viewLabel || (isPdfPending ? '작업 PDF 보기' : !hasProjectLink
     ? '작업 이미지 크게 보기'
-    : project.link.endsWith('.pdf') ? '작업 PDF 보기' : '사이트 보기'
+    : project.link.endsWith('.pdf') ? '작업 PDF 보기' : '사이트 보기')
 
   if (side === 'left') {
     return (
@@ -229,7 +242,7 @@ const ProjectPage = ({ projectNumber, side }) => {
 
 
       <div className="project-preview-frame">
-      <div className={`project-preview-scroll${projectNumber === 3 ? ' project-preview-fill' : ''}`} ref={scrollRef}>
+      <div className={`project-preview-scroll${projectNumber === 4 ? ' project-preview-fill' : ''}`} ref={scrollRef}>
         <details className="mobile-project-details">
           <summary>프로젝트 소개 · 담당 역할</summary>
           <ProjectDetails project={project} />

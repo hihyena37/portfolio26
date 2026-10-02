@@ -73,7 +73,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
 
 
   const nextPage = () => {
-    if (currentPage < 11) {
+    if (currentPage < 12) {
       playPageSound()
       setCurrentPage(currentPage + 1)
     }
@@ -102,7 +102,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
       }} />
     }
 
-    if (pageNumber >= 2 && pageNumber <= 9) {
+    if (pageNumber >= 2 && pageNumber <= 10) {
       return (
         <ProjectPage
           projectNumber={pageNumber - 1}
@@ -111,11 +111,11 @@ const Book = ({ currentPage, setCurrentPage }) => {
       )
     }
 
-    if (pageNumber === 10) {
+    if (pageNumber === 11) {
       return <Contact side={side} />
     }
 
-    if (pageNumber === 11) {
+    if (pageNumber === 12) {
       return <Thanks side={side} />
     }
 
@@ -125,7 +125,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
 
   const papers = []
 
-  for (let i = 0; i < 11; i++) {
+  for (let i = 0; i < 12; i++) {
 
     const isFlipped = currentPage > i
     const isTurning = desktopTurn &&
@@ -147,7 +147,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
             ? (desktopTurn.to > desktopTurn.from ? 60 - i : 40 + i)
             : isFlipped
             ? i + 1
-            : 22 - i
+            : 24 - i
         }}
       >
 
@@ -174,7 +174,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
         </div>
 
         <div className="book-base right-page">
-          {renderPage(11, 'right')}
+          {renderPage(12, 'right')}
         </div>
 
         {papers}
@@ -229,7 +229,7 @@ const Book = ({ currentPage, setCurrentPage }) => {
         <button
           className="book-control-button next-button"
           onClick={nextPage}
-          disabled={currentPage === 11}
+          disabled={currentPage === 12}
           aria-label="다음 페이지"
         >
           <i className="bi bi-chevron-right"></i>

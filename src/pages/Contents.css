@@ -51,7 +51,7 @@
   list-style: none;
 
   display: grid;
-  grid-template-rows: repeat(12, minmax(0, 1fr));
+  grid-template-rows: repeat(13, minmax(0, 1fr));
 
   min-height: 0;
   flex: 1;
