@@ -37,13 +37,13 @@
 
   z-index: 2;
 
-  margin-top: clamp(32px, 5vw, 64px);
+  margin-top: clamp(32px, calc(var(--portfolio-vw, 1vw) * 5), 64px);
 }
 
 .contact-small-title {
   margin-bottom: 8px;
 
-  font-size: clamp(10px, 1vw, 12px);
+  font-size: clamp(10px, calc(var(--portfolio-vw, 1vw) * 1), 12px);
   font-weight: 600;
 
   letter-spacing: 0.18em;
@@ -56,7 +56,7 @@
 
   font-family: 'Cormorant Garamond', serif;
 
-  font-size: clamp(28px, 3.5vw, 46px);
+  font-size: clamp(28px, calc(var(--portfolio-vw, 1vw) * 3.5), 46px);
   font-weight: 600;
 
   line-height: 1.05;
@@ -66,9 +66,9 @@
 }
 
 .contact-description {
-  margin-top: clamp(24px, 3vw, 36px);
+  margin-top: clamp(24px, calc(var(--portfolio-vw, 1vw) * 3), 36px);
 
-  font-size: clamp(13px, 1.2vw, 16px);
+  font-size: clamp(13px, calc(var(--portfolio-vw, 1vw) * 1.2), 16px);
 
   line-height: 1.8;
 
@@ -148,7 +148,7 @@
 ========================= */
 
 .contact-right-header {
-  margin-top: clamp(16px, 3vw, 36px);
+  margin-top: clamp(16px, calc(var(--portfolio-vw, 1vw) * 3), 36px);
 
   flex-shrink: 0;
 }
@@ -158,7 +158,7 @@
 
   margin-bottom: 8px;
 
-  font-size: clamp(9px, 0.9vw, 11px);
+  font-size: clamp(9px, calc(var(--portfolio-vw, 1vw) * 0.9), 11px);
 
   letter-spacing: 0.18em;
 
@@ -170,7 +170,7 @@
 
   font-family: 'Cormorant Garamond', serif;
 
-  font-size: clamp(28px, 3vw, 42px);
+  font-size: clamp(28px, calc(var(--portfolio-vw, 1vw) * 3), 42px);
 
   font-weight: 600;
 
@@ -182,7 +182,7 @@
 .contact-right-header p {
   margin-top: 12px;
 
-  font-size: clamp(12px, 1vw, 14px);
+  font-size: clamp(12px, calc(var(--portfolio-vw, 1vw) * 1), 14px);
 
   color: #806b55;
 }
@@ -193,7 +193,7 @@
 ========================= */
 
 .contact-list {
-  margin-top: clamp(32px, 5vw, 56px);
+  margin-top: clamp(32px, calc(var(--portfolio-vw, 1vw) * 5), 56px);
 
   display: flex;
   flex-direction: column;
@@ -215,7 +215,7 @@
 
   gap: 16px;
 
-  min-height: clamp(76px, 9vw, 108px);
+  min-height: clamp(76px, calc(var(--portfolio-vw, 1vw) * 9), 108px);
 
   padding: 12px 4px;
 
@@ -252,7 +252,7 @@
 
   margin-bottom: 6px;
 
-  font-size: clamp(10px, 1vw, 12px);
+  font-size: clamp(10px, calc(var(--portfolio-vw, 1vw) * 1), 12px);
 
   font-weight: 600;
 
@@ -264,7 +264,7 @@
 .contact-item p {
   margin: 0;
 
-  font-size: clamp(12px, 1.2vw, 15px);
+  font-size: clamp(12px, calc(var(--portfolio-vw, 1vw) * 1.2), 15px);
 
   word-break: break-all;
 
@@ -272,7 +272,7 @@
 }
 
 .contact-arrow {
-  font-size: clamp(16px, 1.5vw, 20px);
+  font-size: clamp(16px, calc(var(--portfolio-vw, 1vw) * 1.5), 20px);
 
   color: #8c683c;
 
@@ -362,7 +362,7 @@
 
   padding-top: 16px;
 
-  font-size: clamp(8px, 0.8vw, 10px);
+  font-size: clamp(8px, calc(var(--portfolio-vw, 1vw) * 0.8), 10px);
 
   letter-spacing: 0.12em;
 

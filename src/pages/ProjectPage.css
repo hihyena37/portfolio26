@@ -268,7 +268,7 @@
 .project-details {
   width: 100%;
   margin-top: 20px;
-  font-size: clamp(14px, 1.1vw, 16px);
+  font-size: clamp(14px, calc(var(--portfolio-vw, 1vw) * 1.1), 16px);
   word-break: keep-all;
   overflow-wrap: anywhere;
 }

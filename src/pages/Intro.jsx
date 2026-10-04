@@ -1,4 +1,3 @@
-import React from 'react'
 
 import IntroMenu from '../components/IntroMenu'
 import FloatingLeaves from '../components/FloatingLeaves'

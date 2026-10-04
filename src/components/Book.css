@@ -24,7 +24,7 @@
 ========================= */
 
 .book {
-  --page-padding: clamp(16px, 3vw, 36px);
+  --page-padding: clamp(16px, calc(var(--portfolio-vw, 1vw) * 3), 36px);
   --page-text: #493725;
   --page-accent: #8c683c;
 
@@ -497,7 +497,7 @@
   line-height: 1.2;
 
   font-family: 'Spectral SC', serif;
-  font-size: clamp(24px, 2vw, 28px);
+  font-size: clamp(24px, calc(var(--portfolio-vw, 1vw) * 2), 28px);
   font-weight: 800;
 
   transform: scaleY(1.15);
@@ -521,7 +521,7 @@
   justify-self: center;
 
   width: min(1380px, calc(100% + 120px));
-  max-width: calc(100vw - 80px);
+  max-width: calc(calc(var(--portfolio-vw, 1vw) * 100) - 80px);
 
   display: flex;
   align-items: center;

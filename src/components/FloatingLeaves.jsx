@@ -1,4 +1,3 @@
-import React from 'react'
 import './FloatingLeaves.css'
 
 import leaf1 from '../assets/leaf1.png'

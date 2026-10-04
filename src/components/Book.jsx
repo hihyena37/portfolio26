@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import './Book.css'
 
 import AboutMe from '../pages/AboutMe'
@@ -11,7 +11,6 @@ import pageFlipSound from '../assets/page-flip.mp3'
 import coverSound from '../assets/cover-sound.mp3'
 
 const COVER_OPEN_DURATION = 2000
-const COVER_CLOSE_DURATION = COVER_OPEN_DURATION
 
 const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, isCoverClosing, setIsCoverClosing }) => {
   // 진입 시 자동으로 표지를 엽니다. (PC: 오른쪽 이동 + 열림, 모바일: 제자리에서 왼쪽으로 열림)
@@ -22,7 +21,7 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, is
   const [desktopTurn, setDesktopTurn] = useState(null)
   const [crossedSheets, setCrossedSheets] = useState([])
 
-  const finishClosing = () => {
+  const finishClosing = useCallback(() => {
     setIsCoverClosing(false)
     setIsCoverClosed(true)
     setIsCoverOpening(false)
@@ -31,32 +30,22 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, is
     setMobileTurn(null)
     setDesktopTurn(null)
     setCrossedSheets([])
-  }
+  }, [setIsCoverClosing, setIsCoverClosed, setCurrentPage])
 
   useEffect(() => {
     if (!isCoverClosing) return
     const audio = new Audio(coverSound)
     audio.volume = 0.4
     audio.play().catch(() => {})
-    const finish = () => {
-      setIsCoverClosing(false)
-      setIsCoverClosed(true)
-      setIsCoverOpening(false)
-      setPreviousPage(0)
-      setCurrentPage(0)
-      setMobileTurn(null)
-      setDesktopTurn(null)
-      setCrossedSheets([])
-    }
-    const timeout = window.setTimeout(finish, COVER_CLOSE_DURATION + 250)
+    const timeout = window.setTimeout(finishClosing, COVER_OPEN_DURATION + 250)
     const query = window.matchMedia('(max-width: 767px)')
-    query.addEventListener('change', finish)
+    query.addEventListener('change', finishClosing)
     return () => {
       window.clearTimeout(timeout)
-      query.removeEventListener('change', finish)
+      query.removeEventListener('change', finishClosing)
       audio.pause()
     }
-  }, [isCoverClosing, setIsCoverClosing, setIsCoverClosed, setCurrentPage])
+  }, [isCoverClosing, finishClosing])
 
   useEffect(() => {
     if (!openingCover) return
@@ -252,7 +241,7 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, is
 
       <div
         className={`book${isCoverClosed ? ' is-cover-closed' : ''}${openingCover ? ' is-cover-opening' : ''}${isCoverClosing ? ' is-cover-closing' : ''}`}
-        style={{ '--cover-open-duration': `${isCoverClosing ? COVER_CLOSE_DURATION : COVER_OPEN_DURATION}ms` }}
+        style={{ '--cover-open-duration': `${COVER_OPEN_DURATION}ms` }}
         inert={openingCover || isCoverClosing}
         aria-busy={openingCover || isCoverClosing}
       >

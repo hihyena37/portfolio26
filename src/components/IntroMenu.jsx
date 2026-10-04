@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import './IntroMenu.css'
 
 import hoverSound from '../assets/hoverSound.mp3'

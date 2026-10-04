@@ -1,4 +1,3 @@
-import React from 'react'
 
 const TopTicker = () => (
       <div className="intro-ticker">

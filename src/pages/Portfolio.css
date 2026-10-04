@@ -43,6 +43,21 @@
 }
 
 
+/* PC에서는 책·글씨·메뉴를 같은 비율로 축소합니다. */
+@media (min-width: 1025px) {
+  .portfolio-content {
+    --portfolio-vw: 25.6px;
+    width: 1400px;
+    min-height: 0;
+    flex-shrink: 0;
+    zoom: var(--portfolio-scale, 1);
+  }
+
+  .portfolio-content .book-controls {
+    max-width: calc((100vw - 24px) / var(--portfolio-scale, 1));
+  }
+}
+
 /* =========================
    TABLET
    768px ~ 1024px
@@ -66,19 +81,7 @@
 
 @media (max-width: 767px) {
 
-  .portfolio-bg {
-    min-height: 100svh;
-
-  }
-
-
   .portfolio-content {
-    min-height: 100svh;
-
-    padding: 60px 0 20px;
-
-    justify-content: center;
-
     gap: 12px;
   }
 

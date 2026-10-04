@@ -25,7 +25,7 @@ const ProjectPage = ({ projectNumber, side }) => {
     if (!area || !image) return
     const updateHint = () => {
       setShowScrollHint(area.scrollTop <= 1 && image.complete && image.naturalHeight > 0
-        && area.clientHeight > 0 && image.clientHeight > area.clientHeight + 2)
+        && area.clientHeight > 0 && area.scrollHeight > area.clientHeight + 2)
     }
     const onScroll = () => {
       updateHint()
@@ -33,6 +33,8 @@ const ProjectPage = ({ projectNumber, side }) => {
     const observer = new ResizeObserver(updateHint)
     observer.observe(area)
     observer.observe(image)
+    const details = area.querySelector('.mobile-project-details')
+    if (details) observer.observe(details)
     image.addEventListener('load', updateHint)
     image.addEventListener('error', updateHint)
     area.addEventListener('scroll', onScroll, { passive: true })

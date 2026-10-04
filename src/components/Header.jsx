@@ -1,4 +1,3 @@
-import React from 'react'
 import './Header.css'
 
 import pageFlipSound from '../assets/page-flip.mp3'
