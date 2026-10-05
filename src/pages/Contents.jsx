@@ -16,7 +16,7 @@ const entries = [
   'THANK YOU',
 ]
 
-const Contents = ({ side, onNavigate }) => (
+const Contents = ({ side, onNavigate, illustration }) => (
   <section className={`book-page-content contents-page contents-${side}`}>
     <h2 className={side === 'left' ? undefined : 'mobile-page-title'}>CONTENTS</h2>
 
@@ -31,7 +31,7 @@ const Contents = ({ side, onNavigate }) => (
             <li key={title}>
               <button
                 type="button"
-                onClick={() => onNavigate(index)}
+                onClick={() => onNavigate?.(index)}
                 aria-current={index === 1 ? 'page' : undefined}
               >
                 <span className="contents-number">
@@ -51,7 +51,13 @@ const Contents = ({ side, onNavigate }) => (
 
     {side === 'left' && (
       <div className="contents_imgbox">
-        <img src={`${import.meta.env.BASE_URL}book.gif`} alt="목차 일러스트" />
+        {/* 미니북 미리보기 안에서는 다시 미니북을 그리지 않고 정적인 장식으로 대체합니다. */}
+        {illustration || (
+          <div className="contents-static-book" aria-hidden="true">
+            <span></span>
+            <span></span>
+          </div>
+        )}
       </div>
     )}
   </section>

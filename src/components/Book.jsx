@@ -6,6 +6,7 @@ import Contents from '../pages/Contents'
 import ProjectPage from '../pages/ProjectPage'
 import Contact from '../pages/Contact'
 import Thanks from '../pages/Thanks'
+import MiniBookPreview from './MiniBookPreview'
 
 import pageFlipSound from '../assets/page-flip.mp3'
 import coverSound from '../assets/cover-sound.mp3'
@@ -167,7 +168,10 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, is
     }
 
     if (pageNumber === 1) {
-      return <Contents side={side} onNavigate={(targetPage) => {
+      // 미니북은 실제 책의 페이지 상태와 별개로 자동 재생합니다.
+      return <Contents side={side} illustration={side === 'left' && (
+        <MiniBookPreview active={currentPage === 1 && !isCoverClosed && !isCoverClosing} />
+      )} onNavigate={(targetPage) => {
         if (targetPage === currentPage) return
         playPageSound()
         setCurrentPage(targetPage)
