@@ -125,7 +125,7 @@ const ProjectPage = ({ projectNumber, side }) => {
       ai: 'Codex',
       logo: `${import.meta.env.BASE_URL}logo5.png`,
       image: `${import.meta.env.BASE_URL}project5_full.jpg`,
-      link: 'https://example.com'
+      link: `${import.meta.env.BASE_URL}project5_pdf.pdf`
     },
     {
       number: '06',
