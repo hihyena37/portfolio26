@@ -3,7 +3,7 @@ import './Header.css'
 import pageFlipSound from '../assets/page-flip.mp3'
 import hoverSound from '../assets/hoverSound.mp3'
 
-const Header = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, disabled = false }) => {
+const Header = ({ setPage, currentPage, setCurrentPage, isCoverClosed, openCoverTo, disabled = false }) => {
 
   const moveToIntro = () => {
     const audio = new Audio(hoverSound)
@@ -22,11 +22,9 @@ const Header = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsCove
 
   const moveToPage = (targetPage) => {
 
-    // 표지가 닫혀 있으면 표지를 열고 해당 페이지로 이동합니다.
+    // 표지가 닫혀 있으면 표지를 먼저 연 뒤 해당 페이지로 넘깁니다. (Book에서 처리)
     if (isCoverClosed) {
-      playPageSound()
-      setIsCoverClosed(false)
-      setCurrentPage(targetPage)
+      openCoverTo(targetPage)
       return
     }
 
@@ -37,11 +35,14 @@ const Header = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsCove
   }
 
 
+  // 표지가 덮여 있거나 덮이는 중(disabled)에는 모든 책갈피를 내려 둡니다.
+  const isBookOpen = !isCoverClosed && !disabled
+
   const menus = [
-    { label: 'ABOUT ME', page: 0, active: currentPage === 0 },
-    { label: 'CONTENTS', page: 1, active: currentPage === 1 },
-    { label: 'WORKS', page: 2, active: currentPage >= 2 && currentPage <= 10 },
-    { label: 'CONTACT', page: 11, active: currentPage >= 11 },
+    { label: 'ABOUT ME', page: 0, active: isBookOpen && currentPage === 0 },
+    { label: 'CONTENTS', page: 1, active: isBookOpen && currentPage === 1 },
+    { label: 'WORKS', page: 2, active: isBookOpen && currentPage >= 2 && currentPage <= 10 },
+    { label: 'CONTACT', page: 11, active: isBookOpen && currentPage >= 11 },
   ]
 
 

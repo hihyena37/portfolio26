@@ -13,10 +13,28 @@ import coverSound from '../assets/cover-sound.mp3'
 
 const COVER_OPEN_DURATION = 2000
 
-const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, isCoverClosing, setIsCoverClosing }) => {
+const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, isCoverClosing, setIsCoverClosing, coverTarget = null, setCoverTarget }) => {
   // 진입 시 자동으로 표지를 엽니다. (PC: 오른쪽 이동 + 열림, 모바일: 제자리에서 왼쪽으로 열림)
   const [isCoverOpening, setIsCoverOpening] = useState(isCoverClosed)
   const openingCover = isCoverClosed && isCoverOpening
+
+  // 표지가 닫힌 상태에서 헤더 메뉴를 누르면 먼저 표지 여는 애니메이션을 시작합니다.
+  if (coverTarget !== null && isCoverClosed && !isCoverOpening && !isCoverClosing) {
+    setIsCoverOpening(true)
+  }
+
+  // 표지가 다 열린 뒤, 요청된 페이지가 있으면 일반 페이지 넘김으로 이동합니다.
+  const finishOpening = useCallback(() => {
+    setIsCoverOpening(false)
+    setIsCoverClosed(false)
+    if (coverTarget === null) return
+    setCoverTarget?.(null)
+    if (coverTarget === 0) return
+    const audio = new Audio(pageFlipSound)
+    audio.volume = 0.4
+    audio.play().catch(() => {})
+    setCurrentPage(coverTarget)
+  }, [coverTarget, setCoverTarget, setIsCoverClosed, setCurrentPage])
   const [previousPage, setPreviousPage] = useState(currentPage)
   const [mobileTurn, setMobileTurn] = useState(null)
   const [desktopTurn, setDesktopTurn] = useState(null)
@@ -53,21 +71,21 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
     const audio = new Audio(coverSound)
     audio.volume = 0.4
     audio.play().catch(() => {})
-    const finish = () => {
-      setIsCoverOpening(false)
-      setIsCoverClosed(false)
-    }
+    return () => audio.pause()
+  }, [openingCover])
+
+  useEffect(() => {
+    if (!openingCover) return
     // animationend가 누락된 경우에만 애니메이션 종료 후 정리합니다.
-    const timeout = window.setTimeout(finish, COVER_OPEN_DURATION + 250)
+    const timeout = window.setTimeout(finishOpening, COVER_OPEN_DURATION + 250)
     // 열리는 도중 PC/모바일 구간이 바뀌면 열린 상태로 마무리합니다.
     const mobileQuery = window.matchMedia('(max-width: 767px)')
-    mobileQuery.addEventListener('change', finish)
+    mobileQuery.addEventListener('change', finishOpening)
     return () => {
       window.clearTimeout(timeout)
-      mobileQuery.removeEventListener('change', finish)
-      audio.pause()
+      mobileQuery.removeEventListener('change', finishOpening)
     }
-  }, [openingCover, setIsCoverClosed])
+  }, [openingCover, finishOpening])
 
   // 헤더나 목차로 이동할 때도 같은 페이지 전환을 적용합니다.
   if (previousPage !== currentPage) {
@@ -276,8 +294,7 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
                 return
               }
               if (event.target === event.currentTarget && openingCover) {
-                setIsCoverOpening(false)
-                setIsCoverClosed(false)
+                finishOpening()
               }
             }}
           >

@@ -33,7 +33,7 @@ const ProjectPage = ({ projectNumber, side, magnify = false }) => {
   const frameRef = useRef(null)
   const magnifierLayerRef = useRef(null)
   const magnifierRef = useRef(null)
-  const magnifierLensRef = useRef(null)
+  const magnifierImageRef = useRef(null)
   const pointerRef = useRef(null)
   const [showScrollHint, setShowScrollHint] = useState(false)
   const [isMagnifying, setIsMagnifying] = useState(false)
@@ -49,10 +49,13 @@ const ProjectPage = ({ projectNumber, side, magnify = false }) => {
     const image = previewImageRef.current
     const layer = magnifierLayerRef.current
     const magnifier = magnifierRef.current
-    const lens = magnifierLensRef.current
-    if (!frame || !area || !image || !layer || !magnifier || !lens) return
+    const lensImage = magnifierImageRef.current
+    if (!frame || !area || !image || !layer || !magnifier || !lensImage) return
 
+    let frameRequest = 0
     const hide = () => {
+      window.cancelAnimationFrame(frameRequest)
+      frameRequest = 0
       pointerRef.current = null
       setIsMagnifying(false)
     }
@@ -116,12 +119,24 @@ const ProjectPage = ({ projectNumber, side, magnify = false }) => {
       const badgeReach = radius * 0.78 + 16
       magnifier.style.setProperty('--badge-x', x + badgeReach > visibleRight ? -1 : 1)
       magnifier.style.setProperty('--badge-y', y + badgeReach > visibleBottom ? -1 : 1)
-      Object.assign(lens.style, {
-        backgroundImage: `url("${image.currentSrc || image.src}")`,
-        backgroundSize: `${drawnWidth * MAGNIFIER_ZOOM}px ${drawnHeight * MAGNIFIER_ZOOM}px`,
-        backgroundPosition: `${radius - contentX * MAGNIFIER_ZOOM}px ${radius - contentY * MAGNIFIER_ZOOM}px`,
-      })
+      // 아주 긴 이미지(숲나들e·방과후ON 등)도 매번 다시 그리지 않도록
+      // 렌즈 안 이미지는 크기가 바뀔 때만 갱신하고 위치는 transform으로만 옮깁니다.
+      const zoomedWidth = `${drawnWidth * MAGNIFIER_ZOOM}px`
+      const zoomedHeight = `${drawnHeight * MAGNIFIER_ZOOM}px`
+      if (lensImage.style.width !== zoomedWidth) lensImage.style.width = zoomedWidth
+      if (lensImage.style.height !== zoomedHeight) lensImage.style.height = zoomedHeight
+      lensImage.style.transform =
+        `translate3d(${radius - contentX * MAGNIFIER_ZOOM}px, ${radius - contentY * MAGNIFIER_ZOOM}px, 0)`
       setIsMagnifying(true)
+    }
+
+    // 마우스 이벤트가 프레임보다 자주 와도 화면 갱신당 한 번만 계산합니다.
+    const scheduleUpdate = () => {
+      if (frameRequest) return
+      frameRequest = window.requestAnimationFrame(() => {
+        frameRequest = 0
+        update()
+      })
     }
 
     const onPointerMove = (event) => {
@@ -130,28 +145,28 @@ const ProjectPage = ({ projectNumber, side, magnify = false }) => {
         return
       }
       pointerRef.current = { x: event.clientX, y: event.clientY }
-      update()
+      scheduleUpdate()
     }
 
     area.addEventListener('pointermove', onPointerMove)
     area.addEventListener('pointerleave', hide)
     // 휠 스크롤 뒤에도 커서 아래 위치를 다시 계산합니다.
-    area.addEventListener('scroll', update, { passive: true })
+    area.addEventListener('scroll', scheduleUpdate, { passive: true })
     // 창 크기나 책 배율이 바뀌면 이전 좌표의 돋보기를 숨깁니다.
     const resizeObserver = new ResizeObserver(hide)
     resizeObserver.observe(frame)
     resizeObserver.observe(image)
     window.addEventListener('resize', hide)
     window.addEventListener('blur', hide)
-    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('scroll', scheduleUpdate, { passive: true })
     return () => {
       resizeObserver.disconnect()
       window.removeEventListener('resize', hide)
       window.removeEventListener('blur', hide)
-      window.removeEventListener('scroll', update)
+      window.removeEventListener('scroll', scheduleUpdate)
       area.removeEventListener('pointermove', onPointerMove)
       area.removeEventListener('pointerleave', hide)
-      area.removeEventListener('scroll', update)
+      area.removeEventListener('scroll', scheduleUpdate)
       hide()
     }
   }, [magnifierOn, projectNumber])
@@ -378,7 +393,10 @@ const ProjectPage = ({ projectNumber, side, magnify = false }) => {
 
 
       <div className="project-preview-frame" ref={frameRef}>
-      <div className={`project-preview-scroll${projectNumber === 4 ? ' project-preview-fill' : ''}`} ref={scrollRef}>
+      <div
+        className={`project-preview-scroll${projectNumber === 4 ? ' project-preview-fill' : ''}${showMagnifier ? ' is-magnifying' : ''}`}
+        ref={scrollRef}
+      >
         <details className="mobile-project-details">
           <summary>프로젝트 소개 · 담당 역할</summary>
           <ProjectDetails project={project} />
@@ -403,7 +421,9 @@ const ProjectPage = ({ projectNumber, side, magnify = false }) => {
           aria-hidden="true"
         >
           <div className="project-magnifier" ref={magnifierRef}>
-            <div className="project-magnifier-lens" ref={magnifierLensRef}></div>
+            <div className="project-magnifier-lens">
+              <img src={project.image} ref={magnifierImageRef} alt="" draggable={false} />
+            </div>
             <span className="project-magnifier-badge">
               <i className="bi bi-zoom-in"></i>
             </span>

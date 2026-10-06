@@ -233,3 +233,18 @@
   letter-spacing: 0.04em;
 
 }
+
+/* 좁은 모바일에서도 긴 작업명이 한 줄에 들어가도록 글씨를 줄입니다. */
+@media (max-width: 456px) {
+  .contents-list {
+    font-size: clamp(12px, calc(var(--portfolio-vw, 1vw) * 3.3), 15px);
+  }
+
+  .contents-list button {
+    gap: 6px;
+  }
+
+  .contents-list button>span:last-child {
+    letter-spacing: 0.02em;
+  }
+}

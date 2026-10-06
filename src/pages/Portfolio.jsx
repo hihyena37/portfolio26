@@ -13,6 +13,8 @@ const getDesktopScale = () => Math.max(960 / 1272,
 
 const Portfolio = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed }) => {
   const [isCoverClosing, setIsCoverClosing] = useState(false)
+  // 표지가 닫힌 상태에서 헤더 메뉴로 요청한 페이지 (표지가 열린 뒤 넘깁니다)
+  const [coverTarget, setCoverTarget] = useState(null)
   const [desktopScale, setDesktopScale] = useState(getDesktopScale)
 
   useEffect(() => {
@@ -37,9 +39,11 @@ const Portfolio = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsC
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
               isCoverClosed={isCoverClosed}
-              setIsCoverClosed={setIsCoverClosed}
+              openCoverTo={setCoverTarget}
             />
           )}
+          coverTarget={coverTarget}
+          setCoverTarget={setCoverTarget}
           isCoverClosing={isCoverClosing}
           setIsCoverClosing={setIsCoverClosing}
           currentPage={currentPage}

@@ -337,7 +337,8 @@ body {
   background-size: inherit;
 }
 
-.intro-opening::before {
+.intro-opening::before,
+.intro-opening .intro-light {
   animation: introBackgroundEnter 0.9s ease-out both;
 }
 
@@ -367,8 +368,45 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .intro-opening::before,
+  .intro-opening .intro-light,
   .intro-opening .intro-title-info,
   .intro-opening .intro-menu-board {
     animation: none;
   }
+}
+
+/* =========================
+   INTRO LIGHT
+   캐릭터 머리 위~상체 주변에 떨어지는 따뜻한 조명.
+   화면 위에서 빛을 겹치되 클릭과 터치는 통과시킵니다.
+   transform은 Intro.jsx의 마우스 추적(translate3d)이 사용하므로
+   중앙 정렬은 음수 margin으로 처리합니다.
+========================= */
+
+.intro-light {
+  --intro-light-width: clamp(420px, 50vw, 700px);
+  --intro-light-height: clamp(300px, 36vw, 500px);
+
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  z-index: 20;
+
+  width: var(--intro-light-width);
+  height: var(--intro-light-height);
+  margin-left: calc(var(--intro-light-width) / -2);
+  margin-top: calc(var(--intro-light-height) / -2);
+
+  /* closest-side로 요소 가장자리 전에 완전히 투명해져 경계가 보이지 않습니다. */
+  background: radial-gradient(closest-side,
+      rgba(255, 220, 150, 0.18) 0%,
+      rgba(255, 216, 145, 0.13) 18%,
+      rgba(255, 210, 135, 0.075) 40%,
+      rgba(255, 210, 135, 0.035) 60%,
+      rgba(255, 210, 135, 0.012) 80%,
+      rgba(255, 210, 135, 0.003) 92%,
+      transparent 100%);
+
+  pointer-events: none;
+  will-change: transform;
 }
