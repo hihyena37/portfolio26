@@ -1,5 +1,19 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import './ProjectPage.css'
+
+// 돋보기: 최대 지름(px, 책 축소 비율 기준)과 확대 배율
+// 이미지 표시 영역이 좁으면 그 안에 들어오도록 지름을 줄입니다.
+const MAGNIFIER_SIZE = 300
+const MAGNIFIER_ZOOM = 2
+// hover와 정밀 포인터가 있는 태블릿 이상에서만 켭니다.
+const magnifierQuery = '(min-width: 768px) and (hover: hover) and (pointer: fine)'
+
+const subscribeMagnifierQuery = (callback) => {
+  const query = window.matchMedia(magnifierQuery)
+  query.addEventListener('change', callback)
+  return () => query.removeEventListener('change', callback)
+}
+const getMagnifierSupported = () => window.matchMedia(magnifierQuery).matches
 
 const ProjectDetails = ({ project }) => (
   <div className="project-details">
@@ -13,10 +27,123 @@ const ProjectDetails = ({ project }) => (
   </div>
 )
 
-const ProjectPage = ({ projectNumber, side }) => {
+const ProjectPage = ({ projectNumber, side, magnify = false }) => {
   const scrollRef = useRef(null)
   const previewImageRef = useRef(null)
+  const frameRef = useRef(null)
+  const magnifierLayerRef = useRef(null)
+  const magnifierRef = useRef(null)
+  const magnifierLensRef = useRef(null)
+  const pointerRef = useRef(null)
   const [showScrollHint, setShowScrollHint] = useState(false)
+  const [isMagnifying, setIsMagnifying] = useState(false)
+  const magnifierSupported = useSyncExternalStore(subscribeMagnifierQuery, getMagnifierSupported, () => false)
+  // 현재 펼쳐진 오른쪽 페이지에서만 동작하며, 미니북 미리보기는 magnify가 없어 제외됩니다.
+  const magnifierOn = side === 'right' && magnify && magnifierSupported
+  const showMagnifier = magnifierOn && isMagnifying
+
+  useEffect(() => {
+    if (!magnifierOn) return
+    const frame = frameRef.current
+    const area = scrollRef.current
+    const image = previewImageRef.current
+    const layer = magnifierLayerRef.current
+    const magnifier = magnifierRef.current
+    const lens = magnifierLensRef.current
+    if (!frame || !area || !image || !layer || !magnifier || !lens) return
+
+    const hide = () => {
+      pointerRef.current = null
+      setIsMagnifying(false)
+    }
+
+    const update = () => {
+      const point = pointerRef.current
+      if (!point) return
+      if (!image.naturalWidth || !frame.offsetWidth) {
+        hide()
+        return
+      }
+
+      // PC의 CSS zoom 등으로 화면 크기와 레이아웃 크기가 다를 수 있어 실제 표시 배율로 환산합니다.
+      const frameRect = frame.getBoundingClientRect()
+      const scale = frameRect.width / frame.offsetWidth || 1
+      const toX = (value) => (value - frameRect.left) / scale
+      const toY = (value) => (value - frameRect.top) / scale
+      const imageRect = image.getBoundingClientRect()
+      const areaRect = area.getBoundingClientRect()
+
+      const imageLeft = toX(imageRect.left)
+      const imageTop = toY(imageRect.top)
+      const imageWidth = imageRect.width / scale
+      const imageHeight = imageRect.height / scale
+
+      // 스크롤 영역 안에서 실제로 보이는 이미지 부분(스크롤바 제외)
+      const areaLeft = toX(areaRect.left) + area.clientLeft
+      const areaTop = toY(areaRect.top) + area.clientTop
+      const visibleLeft = Math.max(imageLeft, areaLeft)
+      const visibleTop = Math.max(imageTop, areaTop)
+      const visibleRight = Math.min(imageLeft + imageWidth, areaLeft + area.clientWidth)
+      const visibleBottom = Math.min(imageTop + imageHeight, areaTop + area.clientHeight)
+
+      const x = toX(point.x)
+      const y = toY(point.y)
+      if (x < visibleLeft || x > visibleRight || y < visibleTop || y > visibleBottom) {
+        setIsMagnifying(false)
+        return
+      }
+
+      // object-fit: cover, object-position: center top 기준으로 그려진 이미지 영역
+      const drawScale = Math.max(imageWidth / image.naturalWidth, imageHeight / image.naturalHeight)
+      const drawnWidth = image.naturalWidth * drawScale
+      const drawnHeight = image.naturalHeight * drawScale
+      const contentX = x - imageLeft - (imageWidth - drawnWidth) / 2
+      const contentY = y - imageTop
+
+      // 레이어를 보이는 이미지 영역에 맞춰 잘라 가장자리에서도 빈 배경이 보이지 않게 합니다.
+      Object.assign(layer.style, {
+        left: `${visibleLeft}px`,
+        top: `${visibleTop}px`,
+        width: `${visibleRight - visibleLeft}px`,
+        height: `${visibleBottom - visibleTop}px`,
+      })
+
+      const size = Math.min(MAGNIFIER_SIZE, visibleRight - visibleLeft, visibleBottom - visibleTop)
+      const radius = size / 2
+      magnifier.style.setProperty('--magnifier-size', `${size}px`)
+      magnifier.style.transform = `translate(${x - visibleLeft - radius}px, ${y - visibleTop - radius}px)`
+      // 배지가 오른쪽·아래 가장자리에서 잘리면 반대쪽 테두리로 옮깁니다.
+      const badgeReach = radius * 0.78 + 16
+      magnifier.style.setProperty('--badge-x', x + badgeReach > visibleRight ? -1 : 1)
+      magnifier.style.setProperty('--badge-y', y + badgeReach > visibleBottom ? -1 : 1)
+      Object.assign(lens.style, {
+        backgroundImage: `url("${image.currentSrc || image.src}")`,
+        backgroundSize: `${drawnWidth * MAGNIFIER_ZOOM}px ${drawnHeight * MAGNIFIER_ZOOM}px`,
+        backgroundPosition: `${radius - contentX * MAGNIFIER_ZOOM}px ${radius - contentY * MAGNIFIER_ZOOM}px`,
+      })
+      setIsMagnifying(true)
+    }
+
+    const onPointerMove = (event) => {
+      if (event.pointerType !== 'mouse') {
+        hide()
+        return
+      }
+      pointerRef.current = { x: event.clientX, y: event.clientY }
+      update()
+    }
+
+    area.addEventListener('pointermove', onPointerMove)
+    area.addEventListener('pointerleave', hide)
+    // 휠 스크롤 뒤에도 커서 아래 위치를 다시 계산합니다.
+    area.addEventListener('scroll', update, { passive: true })
+    return () => {
+      area.removeEventListener('pointermove', onPointerMove)
+      area.removeEventListener('pointerleave', hide)
+      area.removeEventListener('scroll', update)
+      hide()
+    }
+  }, [magnifierOn, projectNumber])
 
   useEffect(() => {
     if (side !== 'right') return
@@ -243,7 +370,7 @@ const ProjectPage = ({ projectNumber, side }) => {
       </div>
 
 
-      <div className="project-preview-frame">
+      <div className="project-preview-frame" ref={frameRef}>
       <div className={`project-preview-scroll${projectNumber === 4 ? ' project-preview-fill' : ''}`} ref={scrollRef}>
         <details className="mobile-project-details">
           <summary>프로젝트 소개 · 담당 역할</summary>
@@ -262,7 +389,22 @@ const ProjectPage = ({ projectNumber, side }) => {
       </div>
       </div>
 
-      {showScrollHint && (
+      {magnifierOn && (
+        <div
+          className={`project-magnifier-layer${showMagnifier ? ' is-active' : ''}`}
+          ref={magnifierLayerRef}
+          aria-hidden="true"
+        >
+          <div className="project-magnifier" ref={magnifierRef}>
+            <div className="project-magnifier-lens" ref={magnifierLensRef}></div>
+            <span className="project-magnifier-badge">
+              <i className="bi bi-zoom-in"></i>
+            </span>
+          </div>
+        </div>
+      )}
+
+      {showScrollHint && !showMagnifier && (
         <div className="project-scroll-hint" role="img" aria-label="아래로 스크롤하여 작업 더 보기">
           <i className="bi bi-mouse" aria-hidden="true"></i>
         </div>

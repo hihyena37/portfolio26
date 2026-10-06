@@ -12,7 +12,8 @@
   max-width: 1400px;
 
   margin: 0 auto;
-  padding: 0 64px 60px;
+  /* 위쪽 여백은 책 위로 올라온 책갈피 자리입니다. */
+  padding: 200px 64px 60px;
 
   display: grid;
   justify-items: center;
@@ -40,6 +41,21 @@
   perspective: 2000px;
 
   z-index: 1;
+}
+
+
+/* =========================
+   BOOKMARK LAYER
+   표지(-1)와 속지(1 이상) 사이에 배치합니다.
+========================= */
+
+.book-bookmarks {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 0;
 }
 
 
@@ -76,6 +92,7 @@
 ========================= */
 
 .book-base {
+  z-index: 1;
   position: absolute;
 
   top: 0;
@@ -187,8 +204,8 @@
    BOOK COVER (닫힌 표지)
 ========================= */
 
-/* 표지가 닫혀 있으면 기존 책 내용은 숨깁니다. (공간은 유지) */
-.book.is-cover-closed > :not(.book-cover) {
+/* 완전히 닫힌 동안만 숨기고, 열기 시작하면 속지는 바로 드러냅니다. */
+.book.is-cover-closed:not(.is-cover-opening) > :not(.book-cover):not(.book-bookmarks) {
   visibility: hidden;
 }
 
@@ -354,6 +371,11 @@
     transform-origin: 1.923076923% center;
     transform-style: preserve-3d;
     animation: desktopCoverOpen var(--cover-open-duration) ease-in-out both;
+  }
+
+  /* 책갈피 레이어도 책과 같은 이동을 따라 닫힘(중앙) ↔ 펼침(오른쪽)을 잇습니다. */
+  .book.is-cover-closed:not(.is-cover-opening) > .book-bookmarks {
+    transform: translateX(-25%);
   }
 
   @keyframes desktopBookEnter {
@@ -602,7 +624,7 @@
 @media (max-width: 1024px) {
 
   .book-area {
-    padding: 0 32px 48px;
+    padding: 180px 32px 48px;
   }
 
 
@@ -644,7 +666,7 @@
   }
 
   .book-area {
-    padding: 0 16px 40px;
+    padding: 160px 16px 40px;
   }
 
 
@@ -654,6 +676,7 @@
     aspect-ratio: 0.78;
     perspective: none;
   }
+
 
 
   /* 모바일에서는 책등 제거 */
@@ -818,7 +841,7 @@
 @media (max-width: 360px) {
 
   .book-area {
-    padding: 0 12px 32px;
+    padding: 112px 12px 32px;
   }
 
 

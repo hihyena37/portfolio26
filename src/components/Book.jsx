@@ -13,7 +13,7 @@ import coverSound from '../assets/cover-sound.mp3'
 
 const COVER_OPEN_DURATION = 2000
 
-const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, isCoverClosing, setIsCoverClosing }) => {
+const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, isCoverClosing, setIsCoverClosing }) => {
   // 진입 시 자동으로 표지를 엽니다. (PC: 오른쪽 이동 + 열림, 모바일: 제자리에서 왼쪽으로 열림)
   const [isCoverOpening, setIsCoverOpening] = useState(isCoverClosed)
   const openingCover = isCoverClosed && isCoverOpening
@@ -183,6 +183,7 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, is
         <ProjectPage
           projectNumber={pageNumber - 1}
           side={side}
+          magnify={side === 'right' && currentPage === pageNumber && !isCoverClosed && !isCoverClosing}
         />
       )
     }
@@ -249,6 +250,7 @@ const Book = ({ currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, is
         inert={openingCover || isCoverClosing}
         aria-busy={openingCover || isCoverClosing}
       >
+        <div className="book-bookmarks">{nav}</div>
 
         {/* 펼친 뒤에도 속지 아래에 남아 있는 하드커버 */}
         <div className="book-hardcover" aria-hidden="true">

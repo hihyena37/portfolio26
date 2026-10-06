@@ -28,16 +28,18 @@ const Portfolio = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsC
 
       <div className="portfolio-content" style={{ '--portfolio-scale': desktopScale }}>
 
-        <Header
-          disabled={isCoverClosing}
-          setPage={setPage}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          isCoverClosed={isCoverClosed}
-          setIsCoverClosed={setIsCoverClosed}
-        />
-
+        {/* 책갈피 메뉴는 책 위치를 따라가도록 Book 안의 별도 레이어에 그립니다. */}
         <Book
+          nav={(
+            <Header
+              disabled={isCoverClosing}
+              setPage={setPage}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              isCoverClosed={isCoverClosed}
+              setIsCoverClosed={setIsCoverClosed}
+            />
+          )}
           isCoverClosing={isCoverClosing}
           setIsCoverClosing={setIsCoverClosing}
           currentPage={currentPage}

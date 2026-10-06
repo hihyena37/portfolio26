@@ -1,132 +1,169 @@
 /* =========================
-   HEADER WRAPPER
-========================= */
-
-.portfolio-content > header {
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-/* =========================
-   PORTFOLIO HEADER
+   BOOKMARK NAV
+   책 뒤에서 위로 꽂혀 나온 세로 책갈피
 ========================= */
 
 .portfolio-nav {
-  position: relative;
-  z-index: 500;
+  /* 책갈피 크기: 아래쪽 --bookmark-hidden 만큼은 책 뒤에 가려집니다. */
+  --bookmark-width: 52px;
+  --bookmark-height: 204px;
+  --bookmark-hidden: 42px;
 
-  width: fit-content;
+  position: absolute;
 
-  margin: 0 0 24px;
-  padding: 12px 28px;
+  /* 펼친 책의 오른쪽 페이지(닫힌 상태에서는 표지) 위쪽 중앙 */
+  left: 50%;
+  bottom: calc(100% - var(--bookmark-hidden));
+
+  width: 50%;
 
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 
-  gap: 40px;
+  gap: 10px;
 
-  border: 1px solid rgba(255, 230, 190, 0.18);
-  border-radius: 999px;
+  pointer-events: none;
+}
 
-  background: rgba(24, 16, 10, 0.48);
-
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+.portfolio-nav button:first-child {
+  margin-right: 26px;
 }
 
 
 /* =========================
-   MENU BUTTON
+   BOOKMARK
 ========================= */
 
 .portfolio-nav button {
+  --bookmark-color: #8a6a4a;
+  --bookmark-dark: #5e4329;
+  --bookmark-lift: 0px;
+
   position: relative;
 
-  padding: 8px 0;
+  flex-shrink: 0;
+
+  width: var(--bookmark-width);
+  height: var(--bookmark-height);
+
+  padding: 16px 0 0;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 
   border: 0;
+  border-radius: 4px 4px 0 0;
 
-  background: transparent;
+  background: var(--bookmark-color);
 
-  color: rgba(255, 245, 225, 0.78);
+  color: #fbf3e2;
 
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  box-shadow:
+    inset 1px 0 0 rgba(255, 255, 255, 0.12),
+    inset -2px 0 0 rgba(0, 0, 0, 0.12),
+    0 -2px 6px rgba(0, 0, 0, 0.18);
 
-  white-space: nowrap;
+  pointer-events: auto;
 
   cursor: image-set(url('/cursor_hover.png') 1.333333x) 18 12, pointer;
 
+  transform: translateY(var(--bookmark-lift));
+
   transition:
-    color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.25s ease,
+    background-color 0.25s ease;
 }
 
 
-/* =========================
-   HOVER
-========================= */
-
-.portfolio-nav button:hover {
-  color: #fff3cf;
-
-  transform: translateY(-1px);
-}
-
-
-.portfolio-nav button::after {
+/* 천 책갈피의 바느질 선 */
+.portfolio-nav button::before {
   content: '';
 
   position: absolute;
 
-  left: 50%;
-  bottom: 0;
+  inset: 5px 5px 0;
 
-  width: 0;
-  height: 1px;
+  border: 1px dashed rgba(255, 243, 220, 0.3);
+  border-bottom: 0;
+  border-radius: 2px 2px 0 0;
 
-  background: #d8aa5b;
-
-  transform: translateX(-50%);
-
-  transition: width 0.25s ease;
+  pointer-events: none;
 }
 
 
-.portfolio-nav button:hover::after {
-  width: 100%;
+/* 메뉴명은 글자를 쪼개지 않고 90도 회전해 세로로 읽힙니다. */
+.portfolio-nav button span {
+  position: relative;
+
+  writing-mode: vertical-rl;
+
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1;
+
+  white-space: nowrap;
+}
+
+
+/* 책 표지·종이와 어울리는 차분한 색 */
+.portfolio-nav button:nth-child(2) {
+  --bookmark-color: #9b5f4e;
+  --bookmark-dark: #6e3a2d;
+}
+
+.portfolio-nav button:nth-child(3) {
+  --bookmark-color: #75805e;
+  --bookmark-dark: #4a5338;
+}
+
+.portfolio-nav button:nth-child(4) {
+  --bookmark-color: #b08a4f;
+  --bookmark-dark: #7a5a2a;
+}
+
+.portfolio-nav button:nth-child(5) {
+  --bookmark-color: #63737c;
+  --bookmark-dark: #3d4a52;
 }
 
 
 /* =========================
-   ACTIVE MENU
+   HOVER / FOCUS / ACTIVE
 ========================= */
 
-.portfolio-nav button.active {
-  color: #f7d48a;
-
-  font-weight: 700;
-
-  text-shadow:
-    0 0 8px rgba(216, 170, 91, 0.35);
+.portfolio-nav button:hover,
+.portfolio-nav button:focus-visible {
+  --bookmark-lift: -12px;
 }
 
+.portfolio-nav button:focus-visible {
+  outline: 2px solid #f3d9a4;
+  outline-offset: 2px;
+}
 
-.portfolio-nav button.active::after {
-  width: 100%;
-  height: 2px;
+.portfolio-nav button.active {
+  --bookmark-lift: -30px;
+  transform: translateY(var(--bookmark-lift)) scaleX(1.1);
 
-  background: #d8aa5b;
+  background: var(--bookmark-dark);
+}
+
+.portfolio-nav button.active:hover,
+.portfolio-nav button.active:focus-visible {
+  --bookmark-lift: -34px;
+}
+
+.portfolio-nav button.active span {
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-nav button {
+    transition: background-color 0.25s ease;
+  }
 }
 
 
@@ -138,16 +175,16 @@
 @media (max-width: 1024px) {
 
   .portfolio-nav {
-    margin: 0 0 18px;
+    --bookmark-width: 46px;
+    --bookmark-height: 188px;
+    --bookmark-hidden: 42px;
 
-    padding: 8px 20px;
-
-    gap: 28px;
+    gap: 8px;
   }
 
 
-  .portfolio-nav button {
-    font-size: 13px;
+  .portfolio-nav button span {
+    font-size: 15px;
   }
 
 }
@@ -156,40 +193,31 @@
 /* =========================
    MOBILE
    361px ~ 767px
+   한 페이지 책이므로 전체 너비 기준 중앙 정렬
 ========================= */
 
 @media (max-width: 767px) {
 
-  .portfolio-content > header {
-    width: 100%;
-  }
-
-
   .portfolio-nav {
-    width: calc(100% - 32px);
+    --bookmark-width: 42px;
+    --bookmark-height: 170px;
+    --bookmark-hidden: 42px;
 
-    margin: 0 0 12px;
+    left: 0;
+    width: 100%;
 
-    padding: 8px 12px;
-
-    gap: 4px 8px;
-    flex-wrap: wrap;
-
-    justify-content: space-between;
-
-    border-radius: 16px;
+    gap: 6px;
   }
 
 
   .portfolio-nav button {
-    flex-shrink: 0;
+    padding-top: 12px;
+  }
 
-    padding: 8px 12px;
 
-    font-size: 12px;
-    letter-spacing: 0.02em;
-
-    white-space: nowrap;
+  .portfolio-nav button span {
+    font-size: 13px;
+    letter-spacing: 0.1em;
   }
 
 }
@@ -199,24 +227,18 @@
    SMALL MOBILE
    360px 이하
 ========================= */
-@media (max-width: 487px) {
-
-}
-
-
 
 @media (max-width: 360px) {
 
   .portfolio-nav {
-    width: calc(100% - 24px);
+    --bookmark-width: 38px;
+
+    gap: 5px;
   }
 
 
-  .portfolio-nav button {
-    font-size: 11px;
-
-    padding: 8px 12px;
-    letter-spacing: 0;
+  .portfolio-nav button span {
+    letter-spacing: 0.06em;
   }
 
 }

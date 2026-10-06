@@ -37,51 +37,38 @@ const Header = ({ setPage, currentPage, setCurrentPage, isCoverClosed, setIsCove
   }
 
 
+  const menus = [
+    { label: 'ABOUT ME', page: 0, active: currentPage === 0 },
+    { label: 'CONTENTS', page: 1, active: currentPage === 1 },
+    { label: 'WORKS', page: 2, active: currentPage >= 2 && currentPage <= 10 },
+    { label: 'CONTACT', page: 11, active: currentPage >= 11 },
+  ]
+
+
   return (
     <header inert={disabled}>
 
-      <nav className="portfolio-nav">
+      {/* 책 뒤에서 위로 꽂혀 나온 세로 책갈피 메뉴 */}
+      <nav className="portfolio-nav" aria-label="포트폴리오 메뉴">
 
         <button
+          type="button"
           onClick={moveToIntro}
         >
-          INTRO
+          <span>INTRO</span>
         </button>
 
-
-        <button
-          className={currentPage === 0 ? 'active' : ''}
-          onClick={() => moveToPage(0)}
-        >
-          ABOUT ME
-        </button>
-
-        <button
-          className={currentPage === 1 ? 'active' : ''}
-          onClick={() => moveToPage(1)}
-        >
-          CONTENTS
-        </button>
-
-
-        <button
-          className={
-            currentPage >= 2 && currentPage <= 10
-              ? 'active'
-              : ''
-          }
-          onClick={() => moveToPage(2)}
-        >
-          WORKS
-        </button>
-
-
-        <button
-          className={currentPage >= 11 ? 'active' : ''}
-          onClick={() => moveToPage(11)}
-        >
-          CONTACT
-        </button>
+        {menus.map(({ label, page, active }) => (
+          <button
+            key={label}
+            type="button"
+            className={active ? 'active' : ''}
+            aria-current={active ? 'page' : undefined}
+            onClick={() => moveToPage(page)}
+          >
+            <span>{label}</span>
+          </button>
+        ))}
 
       </nav>
 
