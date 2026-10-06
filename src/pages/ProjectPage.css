@@ -80,18 +80,6 @@
     display: block;
 
     width: 100%;
-    flex: 1 1 0;
-    height: auto;
-    min-height: 0;
-    overflow-y: auto;
-    touch-action: pan-y pinch-zoom;
-    -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
-    overscroll-behavior-y: contain;
-    scrollbar-gutter: stable;
-    scrollbar-width: thin;
-    scrollbar-color: #8c683c transparent;
-
 }
 
 .project-image {
@@ -306,24 +294,17 @@
   touch-action: pan-y pinch-zoom;
 }
 
-.project-preview-scroll .project-link {
-  overflow: visible;
-  scrollbar-gutter: auto;
-}
-
 .project-preview-scroll .project-image {
   height: auto;
 }
 
-/* 짧은 3번 이미지는 페이지의 미리보기 높이까지 확대 */
+/* 짧은 WORK 04 이미지는 페이지의 미리보기 높이까지 확대 */
 .project-preview-fill {
   container-type: size;
 }
 
 .project-preview-fill .project-image img {
   min-height: 100cqh;
-  object-fit: cover;
-  object-position: center top;
 }
 
 .mobile-project-details {

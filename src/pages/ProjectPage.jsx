@@ -137,7 +137,18 @@ const ProjectPage = ({ projectNumber, side, magnify = false }) => {
     area.addEventListener('pointerleave', hide)
     // 휠 스크롤 뒤에도 커서 아래 위치를 다시 계산합니다.
     area.addEventListener('scroll', update, { passive: true })
+    // 창 크기나 책 배율이 바뀌면 이전 좌표의 돋보기를 숨깁니다.
+    const resizeObserver = new ResizeObserver(hide)
+    resizeObserver.observe(frame)
+    resizeObserver.observe(image)
+    window.addEventListener('resize', hide)
+    window.addEventListener('blur', hide)
+    window.addEventListener('scroll', update, { passive: true })
     return () => {
+      resizeObserver.disconnect()
+      window.removeEventListener('resize', hide)
+      window.removeEventListener('blur', hide)
+      window.removeEventListener('scroll', update)
       area.removeEventListener('pointermove', onPointerMove)
       area.removeEventListener('pointerleave', hide)
       area.removeEventListener('scroll', update)
@@ -154,9 +165,6 @@ const ProjectPage = ({ projectNumber, side, magnify = false }) => {
       setShowScrollHint(area.scrollTop <= 1 && image.complete && image.naturalHeight > 0
         && area.clientHeight > 0 && area.scrollHeight > area.clientHeight + 2)
     }
-    const onScroll = () => {
-      updateHint()
-    }
     const observer = new ResizeObserver(updateHint)
     observer.observe(area)
     observer.observe(image)
@@ -164,13 +172,13 @@ const ProjectPage = ({ projectNumber, side, magnify = false }) => {
     if (details) observer.observe(details)
     image.addEventListener('load', updateHint)
     image.addEventListener('error', updateHint)
-    area.addEventListener('scroll', onScroll, { passive: true })
+    area.addEventListener('scroll', updateHint, { passive: true })
     updateHint()
     return () => {
       observer.disconnect()
       image.removeEventListener('load', updateHint)
       image.removeEventListener('error', updateHint)
-      area.removeEventListener('scroll', onScroll)
+      area.removeEventListener('scroll', updateHint)
     }
   }, [side, projectNumber])
 
@@ -307,9 +315,8 @@ const ProjectPage = ({ projectNumber, side, magnify = false }) => {
 
   const project = projects[projectNumber - 1]
   const hasProjectLink = project.link && !project.link.startsWith('https://example.com')
-  const isPdfPending = projectNumber === 5 && !hasProjectLink
   const viewUrl = hasProjectLink ? project.link : project.image
-  const viewLabel = project.viewLabel || (isPdfPending ? '작업 PDF 보기' : !hasProjectLink
+  const viewLabel = project.viewLabel || (!hasProjectLink
     ? '작업 이미지 크게 보기'
     : project.link.endsWith('.pdf') ? '작업 PDF 보기' : '사이트 보기')
 
@@ -412,19 +419,12 @@ const ProjectPage = ({ projectNumber, side, magnify = false }) => {
       </div>
 
       <div className="project-actions">
-        {isPdfPending ? (
-          <button className="project-view-button" type="button" disabled>
-            <span>{viewLabel}</span>
-            <i className="bi bi-file-earmark-pdf" aria-hidden="true"></i>
-          </button>
-        ) : (
         <a className="project-view-button" href={viewUrl} target="_blank" rel="noopener noreferrer"
           aria-label={`${project.title} ${viewLabel} (새 탭)`}>
           <span>{viewLabel}</span>
           <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
         </a>
-        )}
-        <span className="project-view-hint">{isPdfPending ? 'PDF 준비 중' : '새 탭에서 열립니다'}</span>
+        <span className="project-view-hint">새 탭에서 열립니다</span>
       </div>
 
     </section>
