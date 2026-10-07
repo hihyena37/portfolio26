@@ -65,7 +65,7 @@ const projects = [
     number: '04',
     title: '오늘 뭐먹지?',
     desc: 'VIBE CODING · REACT MEAL RECOMMENDATION',
-    summary: '사용자가 선택한 조건을 바탕으로 오늘의 메뉴를 추천하는 창작 웹사이트입니다. AI를 활용한 바이브 코딩 방식으로 React 기반 인터랙티브 서비스를 구현했습니다.',
+    summary: '사용자가 선택한 조건을 바탕으로 오늘의 메뉴를 추천하는 바이브코딩 웹 사이트입니다.',
     role: 'AI 활용 웹 제작',
     tools: 'React',
     ai: 'Antigravity AI · Claude AI',
