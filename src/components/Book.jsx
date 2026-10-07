@@ -41,6 +41,9 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
   const [desktopTurn, setDesktopTurn] = useState(null)
   const [crossedSheets, setCrossedSheets] = useState([])
   const [pageCache] = useState(() => new Map())
+  const [preparedPages, setPreparedPages] = useState(() => new Set(
+    [currentPage - 1, currentPage, currentPage + 1].filter((page) => page >= 0 && page <= 12)
+  ))
 
   const finishClosing = useCallback(() => {
     setIsCoverClosing(false)
@@ -91,6 +94,14 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
 
   // 헤더나 목차로 이동할 때도 같은 페이지 전환을 적용합니다.
   if (previousPage !== currentPage) {
+    // 방문한 종이는 유지해 먼 메뉴를 왕복할 때 이미지와 내용을 다시 마운트하지 않습니다.
+    setPreparedPages((pages) => {
+      const next = new Set(pages)
+      const first = Math.max(0, Math.min(previousPage, currentPage) - 1)
+      const last = Math.min(12, Math.max(previousPage, currentPage) + 1)
+      for (let page = first; page <= last; page++) next.add(page)
+      return next
+    })
     setPreviousPage(currentPage)
     setCrossedSheets([])
     const animate = window.matchMedia('(max-width: 767px)').matches &&
@@ -219,12 +230,9 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
     return null
   }
 
-  // 종이 12장의 회전 구조는 유지하되 현재·인접·넘김 중인 내용만 준비합니다.
-  const turn = desktopTurn || mobileTurn
-  const firstVisible = Math.max(0, Math.min(currentPage, turn?.from ?? currentPage) - 1)
-  const lastVisible = Math.min(12, Math.max(currentPage, turn?.from ?? currentPage) + 1)
+  // 처음에는 인접 페이지만 준비하고, 넘김에 사용한 내용은 재사용합니다.
   const renderPage = (pageNumber, side, slot = 'page') => {
-    if (pageNumber < firstVisible || pageNumber > lastVisible) return null
+    if (!preparedPages.has(pageNumber)) return null
     return (
       <BookPage cache={pageCache} pageKey={`${slot}-${pageNumber}-${side}`}>
         {renderPageContent(pageNumber, side)}
