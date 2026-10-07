@@ -299,7 +299,8 @@ const ProjectPage = ({ projectNumber, side, magnify = false }) => {
       ai: 'Codex',
       logo: `${import.meta.env.BASE_URL}logo7.png`,
       image: `${import.meta.env.BASE_URL}project7_full.jpg`,
-      link: 'https://example.com'
+      link: 'https://www.figma.com/design/qKwzvzmZKPVEtgvyx6VI2d/%EC%83%81%EC%84%B8%ED%8E%98%EC%9D%B4%EC%A7%80?node-id=0-1&t=RfNSPCo5W8lDyZZh-1',
+      viewLabel: '피그마로 보기'
     },
     {
       number: '08',
@@ -311,7 +312,8 @@ const ProjectPage = ({ projectNumber, side, magnify = false }) => {
       ai: 'Codex',
       logo: `${import.meta.env.BASE_URL}logo8.png`,
       image: `${import.meta.env.BASE_URL}project8_full.jpg`,
-      link: 'https://example.com'
+      link: 'https://www.figma.com/design/qKwzvzmZKPVEtgvyx6VI2d/%EC%83%81%EC%84%B8%ED%8E%98%EC%9D%B4%EC%A7%80?node-id=1-538&t=RfNSPCo5W8lDyZZh-1',
+      viewLabel: '피그마로 보기'
     },
     {
       number: '09',

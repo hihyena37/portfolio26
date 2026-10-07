@@ -624,7 +624,7 @@
 @media (max-width: 1024px) {
 
   .book-area {
-    padding: 180px 32px 48px;
+    padding: 140px 32px 16px;
   }
 
 
@@ -635,7 +635,13 @@
 
 
   .book-controls {
-    width: calc(100% + 48px);
+    grid-area: 2 / 1;
+    width: auto;
+    margin-top: 20px;
+    align-self: auto;
+    gap: 16px;
+    justify-content: center;
+    pointer-events: auto;
   }
 
 
@@ -666,14 +672,17 @@
   }
 
   .book-area {
-    padding: 160px 16px 40px;
+    padding: 112px 16px 12px;
   }
 
 
   .book {
     width: 100%;
 
-    aspect-ratio: 0.78;
+    /* 가로폭 제한 대신 화면 높이에서 책갈피·버튼 공간만 뺍니다. */
+    aspect-ratio: auto;
+    max-width: none;
+    height: max(280px, calc(100svh - 224px));
     perspective: none;
   }
 
@@ -706,6 +715,7 @@
     border-right: 1px solid rgba(73, 55, 37, 0.18);
     box-shadow: inset -6px 0 10px rgba(73, 55, 37, 0.08);
     pointer-events: none;
+    clip-path: inset(0 0 0 calc(100% - 16px));
   }
 
 
@@ -841,7 +851,7 @@
 @media (max-width: 360px) {
 
   .book-area {
-    padding: 112px 12px 32px;
+    padding: 112px 12px 12px;
   }
 
 

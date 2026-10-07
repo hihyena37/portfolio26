@@ -50,10 +50,16 @@
     width: 1400px;
     min-height: 0;
     flex-shrink: 0;
+    padding: 24px 0;
     zoom: var(--portfolio-scale, 1);
   }
 
+  .portfolio-content .book-area {
+    padding-top: 140px;
+  }
+
   .portfolio-content .book-controls {
+    width: calc(100% + 192px);
     max-width: calc((100vw - 24px) / var(--portfolio-scale, 1));
   }
 }
@@ -66,7 +72,7 @@
 @media (max-width: 1024px) {
 
   .portfolio-content {
-    padding: 60px 0 20px;
+    padding: 24px 0;
 
     gap: 16px;
   }
@@ -81,7 +87,13 @@
 
 @media (max-width: 767px) {
 
+  .portfolio-bg {
+    background-size: auto 120%;
+    background-position: center center;
+  }
+
   .portfolio-content {
+    padding: 12px 0;
     gap: 12px;
   }
 
@@ -96,7 +108,7 @@
 @media (max-width: 360px) {
 
   .portfolio-content {
-    padding: 56px 0 16px;
+    padding: 12px 0;
 
     gap: 10px;
   }

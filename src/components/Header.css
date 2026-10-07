@@ -6,7 +6,7 @@
 .portfolio-nav {
   /* 책갈피 크기: 아래쪽 --bookmark-hidden 만큼은 책 뒤에 가려집니다. */
   --bookmark-width: 52px;
-  --bookmark-height: 204px;
+  --bookmark-height: 166px;
   --bookmark-hidden: 42px;
 
   position: absolute;
@@ -145,7 +145,7 @@
 }
 
 .portfolio-nav button.active {
-  --bookmark-lift: -30px;
+  --bookmark-lift: -16px;
   transform: translateY(var(--bookmark-lift)) scaleX(1.1);
 
   background: var(--bookmark-dark);
@@ -153,7 +153,7 @@
 
 .portfolio-nav button.active:hover,
 .portfolio-nav button.active:focus-visible {
-  --bookmark-lift: -34px;
+  --bookmark-lift: -20px;
 }
 
 .portfolio-nav button.active span {
@@ -175,16 +175,37 @@
 @media (max-width: 1024px) {
 
   .portfolio-nav {
-    --bookmark-width: 46px;
-    --bookmark-height: 188px;
-    --bookmark-hidden: 42px;
+    --bookmark-width: 39px;
+    --bookmark-height: 125px;
+    --bookmark-hidden: 32px;
 
-    gap: 8px;
+    gap: 7px;
   }
 
+  .portfolio-nav button {
+    padding-top: 12px;
+  }
+
+  .portfolio-nav button:first-child {
+    margin-right: 20px;
+  }
+
+  .portfolio-nav button:hover,
+  .portfolio-nav button:focus-visible {
+    --bookmark-lift: -9px;
+  }
+
+  .portfolio-nav button.active {
+    --bookmark-lift: -12px;
+  }
+
+  .portfolio-nav button.active:hover,
+  .portfolio-nav button.active:focus-visible {
+    --bookmark-lift: -15px;
+  }
 
   .portfolio-nav button span {
-    font-size: 15px;
+    font-size: 12px;
   }
 
 }
@@ -199,9 +220,9 @@
 @media (max-width: 767px) {
 
   .portfolio-nav {
-    --bookmark-width: 42px;
-    --bookmark-height: 170px;
-    --bookmark-hidden: 42px;
+    --bookmark-width: 36px;
+    --bookmark-height: 120px;
+    --bookmark-hidden: 32px;
 
     left: 0;
     width: 100%;
@@ -216,7 +237,7 @@
 
 
   .portfolio-nav button span {
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 0.1em;
   }
 
@@ -231,7 +252,7 @@
 @media (max-width: 360px) {
 
   .portfolio-nav {
-    --bookmark-width: 38px;
+    --bookmark-width: 34px;
 
     gap: 5px;
   }
