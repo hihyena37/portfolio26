@@ -1,3 +1,4 @@
+import { setEffectsEnabled } from './utils/sound'
 import { useEffect, useRef, useState } from 'react'
 
 import Intro from './pages/Intro'
@@ -92,9 +93,11 @@ const App = () => {
     if (!audio) return
     if (!audio.paused) {
       musicEnabledRef.current = false
+      setEffectsEnabled(false)
       audio.pause()
     } else {
       musicEnabledRef.current = true
+      setEffectsEnabled(true)
       void startMusicRef.current?.()
     }
   }
@@ -120,7 +123,7 @@ const App = () => {
       <button
         className="music-button"
         onClick={toggleMusic}
-        aria-label={isMusicOn ? '음악 끄기' : '음악 켜기'}
+        aria-label={isMusicOn ? '배경음악과 효과음 끄기' : '배경음악과 효과음 켜기'}
         aria-pressed={isMusicOn}
       >
         <span className="music-label">

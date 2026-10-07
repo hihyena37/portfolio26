@@ -43,6 +43,8 @@
 ========================= */
 
 .mini-book {
+  --portfolio-text-scale: 1;
+  font-size: 16px;
   --portfolio-vw: 25.6px;
   --page-padding: 36px;
   --page-text: #493725;

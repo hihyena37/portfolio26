@@ -51,7 +51,7 @@
   }
 }
 
-/* PC에서는 책·글씨·메뉴를 같은 비율로 축소합니다. */
+/* PC에서는 책 크기를 축소하고 글씨는 지정된 크기를 유지합니다. */
 @media (min-width: 1025px) {
   .portfolio-content .book {
     aspect-ratio: 2 / 1.35;
@@ -59,6 +59,8 @@
 
   .portfolio-content {
     --portfolio-vw: 25.6px;
+    --portfolio-text-scale: var(--portfolio-scale, 1);
+    font-size: calc(16px / var(--portfolio-text-scale));
     width: 1400px;
     min-height: 0;
     flex-shrink: 0;

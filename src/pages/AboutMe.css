@@ -8,16 +8,18 @@
 }
 
 .about-left .writer {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 16px;
-  align-items: start;
+  align-items: end;
+  width: 100%;
 
   margin: clamp(12px, calc(var(--portfolio-vw, 1vw) * 2), 24px) 0;
   flex-shrink: 0;
 }
 
 .about-left .writer .text {
+  grid-column: 1 / -1;
   min-width: 0;
   height: fit-content;
 
@@ -31,14 +33,14 @@
 
 .writer .text span {
   color: #493725;
-  font-size: clamp(14px, calc(var(--portfolio-vw, 1vw) * 2), 18px);
+  font-size: calc(clamp(14px, calc(var(--portfolio-vw, 1vw) * 2), 18px) / var(--portfolio-text-scale, 1));
   height: fit-content;
   padding-right: 12px;
   border-right: 2px solid #b9935a;
 }
 
-.about-left .writer h3 {
-  font-size: clamp(18px, calc(var(--portfolio-vw, 1vw) * 2), 22px);
+.about-left .writer .text h3 {
+  font-size: calc(clamp(18px, calc(var(--portfolio-vw, 1vw) * 2), 22px) / var(--portfolio-text-scale, 1));
 }
 
 .about-left .writer .imgbox {
@@ -71,36 +73,35 @@
   scrollbar-color: #8c683c transparent;
 }
 
-.about-left .introduction h3 {
-  margin-bottom: 12px;
+.about-left .introduction-title {
+  margin: 0;
+  min-width: 0;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 
   font-family: 'DM Serif Display', 'Noto Sans KR', sans-serif;
-  font-size: clamp(18px, calc(var(--portfolio-vw, 1vw) * 1.7), 22px);
+  font-size: calc(clamp(20px, calc(var(--portfolio-vw, 1vw) * 1.7), 22px) / var(--portfolio-text-scale, 1));
   font-weight: 400;
 
-  line-height: 1.4;
+  line-height: 1.2;
 
   color: #493725;
 }
 
 .intro-ko {
-  font-size: 20px;
+  font-size: calc(20px / var(--portfolio-text-scale, 1));
   font-weight: 600;
 }
 
 .intro-ko strong {
-  font-size: clamp(24px, calc(var(--portfolio-vw, 1vw) * 3), 32px);
-}
-
-.intro-ko span {
-  margin-left: 8px;
+  font-size: calc(clamp(24px, calc(var(--portfolio-vw, 1vw) * 3), 32px) / var(--portfolio-text-scale, 1));
 }
 
 .intro-en {
-  display: inline-block;
-  margin-left: 10px;
+  display: block;
+  margin-top: 12px;
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(20px, calc(var(--portfolio-vw, 1vw) * 2), 24px);
+  font-size: calc(clamp(20px, calc(var(--portfolio-vw, 1vw) * 2), 24px) / var(--portfolio-text-scale, 1));
   font-weight: 400;
 
   letter-spacing: 0.08em;
@@ -110,8 +111,8 @@
 
 .about-left .introduction p,
 .about-right .rightbox p {
-  font-size: clamp(14px, calc(var(--portfolio-vw, 1vw) * 1.2), 16px);
-  line-height: 1.8;
+  font-size: calc(clamp(14px, calc(var(--portfolio-vw, 1vw) * 1.2), 16px) / var(--portfolio-text-scale, 1));
+  line-height: 1.5;
 
   word-break: keep-all;
   overflow-wrap: break-word;
@@ -150,7 +151,7 @@
   margin-bottom: 16px;
 
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(18px, calc(var(--portfolio-vw, 1vw) * 2), 22px);
+  font-size: calc(clamp(18px, calc(var(--portfolio-vw, 1vw) * 2), 22px) / var(--portfolio-text-scale, 1));
   font-weight: 600;
   letter-spacing: 0.08em;
 }
@@ -202,13 +203,25 @@
 @media (min-width: 1025px) {
   .about-left .introduction p,
   .about-right .rightbox p {
-    font-size: calc(16px / var(--portfolio-scale, 1));
+    font-size: calc(16px / var(--portfolio-text-scale, 1));
     line-height: 1.5;
   }
 }
 
-@media (max-width: 1024px) {
-  
+@media (min-width: 1920px) {
+  .about-left .writer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-left .introduction-title {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .about-left .introduction-title .intro-en {
+    margin-top: 0;
+  }
 }
 
 @media (max-width: 767px) {
@@ -250,9 +263,7 @@
   }
 
   .about-combined .writer {
-    justify-content: flex-start;
-    align-items: start;
-    gap: 24px;
+    gap: 24px 16px;
     margin: 12px 0 24px;
   }
 
@@ -270,7 +281,7 @@
 
   .about-combined .introduction p,
   .about-combined .about-right .rightbox p {
-    font-size: 16px;
+    font-size: calc(16px / var(--portfolio-text-scale, 1));
   }
 
   .about-combined .about-right-content {
@@ -278,7 +289,7 @@
   }
 
   .rightbox h3 {
-    font-size: 18px;
+    font-size: calc(18px / var(--portfolio-text-scale, 1));
     margin-bottom: 12px;
   }
 

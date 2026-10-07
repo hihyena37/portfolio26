@@ -18,7 +18,7 @@
 .contents-page h2 {
   flex-shrink: 0;
   margin: 0 0 16px;
-  font-size: clamp(24px, calc(var(--portfolio-vw, 1vw) * 2), 28px);
+  font-size: calc(clamp(24px, calc(var(--portfolio-vw, 1vw) * 2), 28px) / var(--portfolio-text-scale, 1));
 }
 
 /* =========================
@@ -30,7 +30,7 @@
   margin: 0;
   color: #493725;
 
-  font-size: clamp(14px, calc(var(--portfolio-vw, 1vw) * 1), 16px);
+  font-size: calc(20px / var(--portfolio-text-scale, 1));
   line-height: 1.7;
 
   word-break: keep-all;
@@ -51,7 +51,7 @@
   min-height: 0;
   flex: 1;
   gap: clamp(2px, calc(var(--portfolio-vw, 1vw) * 0.4), 6px);
-  font-size: clamp(12px, calc(var(--portfolio-vw, 1vw) * 1.2), 16px);
+  font-size: calc(clamp(12px, calc(var(--portfolio-vw, 1vw) * 1.2), 16px) / var(--portfolio-text-scale, 1));
 }
 
 
@@ -197,7 +197,7 @@
 
 @media (max-width: 767px) {
   .contents-list {
-    font-size: 16px;
+    font-size: calc(16px / var(--portfolio-text-scale, 1));
   }
 
   .contents-list button {
@@ -232,7 +232,7 @@
 /* 좁은 모바일에서도 긴 작업명이 한 줄에 들어가도록 글씨를 줄입니다. */
 @media (max-width: 456px) {
   .contents-list {
-    font-size: clamp(12px, calc(var(--portfolio-vw, 1vw) * 3.3), 15px);
+    font-size: calc(clamp(12px, calc(var(--portfolio-vw, 1vw) * 3.3), 15px) / var(--portfolio-text-scale, 1));
   }
 
   .contents-list button {

@@ -1,3 +1,4 @@
+import { playEffect } from '../utils/sound'
 import { useCallback, useEffect, useState } from 'react'
 import './Book.css'
 
@@ -33,7 +34,7 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
     if (coverTarget === 0) return
     const audio = new Audio(pageFlipSound)
     audio.volume = 0.4
-    audio.play().catch(() => {})
+    playEffect(audio)
     setCurrentPage(coverTarget)
   }, [coverTarget, setCoverTarget, setIsCoverClosed, setCurrentPage])
   const [previousPage, setPreviousPage] = useState(currentPage)
@@ -60,7 +61,7 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
     if (!isCoverClosing) return
     const audio = new Audio(coverSound)
     audio.volume = 0.4
-    audio.play().catch(() => {})
+    playEffect(audio)
     const timeout = window.setTimeout(finishClosing, COVER_OPEN_DURATION + 250)
     const query = window.matchMedia('(max-width: 767px)')
     query.addEventListener('change', finishClosing)
@@ -75,7 +76,7 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
     if (!openingCover) return
     const audio = new Audio(coverSound)
     audio.volume = 0.4
-    audio.play().catch(() => {})
+    playEffect(audio)
     return () => audio.pause()
   }, [openingCover])
 
@@ -145,7 +146,7 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
     const audio = new Audio(pageFlipSound)
 
     audio.volume = 0.4
-    audio.play()
+    playEffect(audio)
   }
 
 

@@ -1,3 +1,4 @@
+import { playEffect } from '../utils/sound'
 import { useEffect, useRef } from 'react'
 import './IntroMenu.css'
 
@@ -22,7 +23,7 @@ const IntroMenu = ({ onEnterBook }) => {
     if (!audio) return
     audio.currentTime = 0
     // 첫 클릭 전에는 브라우저가 호버 소리를 차단할 수 있어요.
-    audio.play().catch(() => {})
+    playEffect(audio)
   }
 
   return (

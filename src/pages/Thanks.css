@@ -35,7 +35,7 @@
 
   margin-bottom: 12px;
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(48px, calc(var(--portfolio-vw, 1vw) * 6), 76px);
+  font-size: calc(clamp(48px, calc(var(--portfolio-vw, 1vw) * 6), 76px) / var(--portfolio-text-scale, 1));
   line-height: 0.7;
 
   color: var(--page-accent);
@@ -46,7 +46,7 @@
   margin: 0;
 
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(18px, calc(var(--portfolio-vw, 1vw) * 2), 26px);
+  font-size: calc(clamp(18px, calc(var(--portfolio-vw, 1vw) * 2), 26px) / var(--portfolio-text-scale, 1));
   font-weight: 600;
   line-height: 1.7;
   word-break: keep-all;
@@ -58,7 +58,7 @@
 .quote-author {
   margin-top: 24px;
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(12px, calc(var(--portfolio-vw, 1vw) * 1.2), 15px);
+  font-size: calc(clamp(12px, calc(var(--portfolio-vw, 1vw) * 1.2), 15px) / var(--portfolio-text-scale, 1));
   font-style: italic;
 
   letter-spacing: 0.08em;
@@ -94,7 +94,7 @@
 
   font-family: 'DM Serif Display', serif;
 
-  font-size: clamp(56px, calc(var(--portfolio-vw, 1vw) * 7), 96px);
+  font-size: calc(clamp(56px, calc(var(--portfolio-vw, 1vw) * 7), 96px) / var(--portfolio-text-scale, 1));
   font-weight: 400;
 
   line-height: 0.88;
@@ -106,7 +106,7 @@
 
 .thanks-message p {
   margin-top: 28px;
-  font-size: clamp(13px, calc(var(--portfolio-vw, 1vw) * 1.3), 16px);
+  font-size: calc(clamp(13px, calc(var(--portfolio-vw, 1vw) * 1.3), 16px) / var(--portfolio-text-scale, 1));
   letter-spacing: 0.04em;
   color: #6e5943;
 }
@@ -114,7 +114,7 @@
 
 .thanks-signature {
   margin-top: 16px;
-  font-size: clamp(9px, calc(var(--portfolio-vw, 1vw) * 0.9), 11px);
+  font-size: calc(clamp(9px, calc(var(--portfolio-vw, 1vw) * 0.9), 11px) / var(--portfolio-text-scale, 1));
   letter-spacing: 0.18em;
   color: var(--page-accent);
 }
@@ -161,7 +161,7 @@
 
 
   .thanks-message h2 {
-    font-size: clamp(52px, calc(var(--portfolio-vw, 1vw) * 18), 76px);
+    font-size: calc(clamp(52px, calc(var(--portfolio-vw, 1vw) * 18), 76px) / var(--portfolio-text-scale, 1));
   }
 
 
@@ -182,7 +182,7 @@
   .thanks-mobile-quote p {
     font-family: 'Cormorant Garamond', serif;
 
-    font-size: 14px;
+    font-size: calc(14px / var(--portfolio-text-scale, 1));
     line-height: 1.7;
     word-break: keep-all;
   }
@@ -191,7 +191,7 @@
   .thanks-mobile-quote span {
     display: block;
     margin-top: 8px;
-    font-size: 10px;
+    font-size: calc(10px / var(--portfolio-text-scale, 1));
     letter-spacing: 0.08em;
     color: var(--page-accent);
   }

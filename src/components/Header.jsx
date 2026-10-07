@@ -1,3 +1,4 @@
+import { playEffect } from '../utils/sound'
 import './Header.css'
 
 import pageFlipSound from '../assets/page-flip.mp3'
@@ -8,7 +9,7 @@ const Header = ({ setPage, currentPage, setCurrentPage, isCoverClosed, openCover
   const moveToIntro = () => {
     const audio = new Audio(hoverSound)
     audio.volume = 0.4
-    audio.play().catch(() => {})
+    playEffect(audio)
     setPage('intro')
   }
 
@@ -16,7 +17,7 @@ const Header = ({ setPage, currentPage, setCurrentPage, isCoverClosed, openCover
     const audio = new Audio(pageFlipSound)
 
     audio.volume = 0.4
-    audio.play()
+    playEffect(audio)
   }
 
 
