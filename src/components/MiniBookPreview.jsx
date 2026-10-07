@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import './MiniBookPreview.css'
+import useMediaQuery from '../hooks/useMediaQuery'
 
 import AboutMe from '../pages/AboutMe'
 import Contents from '../pages/Contents'
@@ -17,13 +18,6 @@ const FADE_MS = 400
 const STAGE_WIDTH = 1340
 const STAGE_HEIGHT = 860
 
-const reducedMotionQuery = '(prefers-reduced-motion: reduce)'
-const subscribeReducedMotion = (callback) => {
-  const query = window.matchMedia(reducedMotionQuery)
-  query.addEventListener('change', callback)
-  return () => query.removeEventListener('change', callback)
-}
-const getReducedMotion = () => window.matchMedia(reducedMotionQuery).matches
 
 const subscribeDocumentVisibility = (callback) => {
   document.addEventListener('visibilitychange', callback)
@@ -53,7 +47,7 @@ const MiniBookPreview = ({ active }) => {
   const [scale, setScale] = useState(0)
   const [isInView, setIsInView] = useState(false)
 
-  const reducedMotion = useSyncExternalStore(subscribeReducedMotion, getReducedMotion, () => false)
+  const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
   const documentVisible = useSyncExternalStore(subscribeDocumentVisibility, getDocumentVisible, () => true)
   const running = active && isInView && documentVisible && !reducedMotion
 

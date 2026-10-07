@@ -7,6 +7,11 @@
   display: none;
 }
 
+.book-face-content {
+  width: 100%;
+  height: 100%;
+}
+
 .book-area {
   width: 100%;
   max-width: 1400px;
@@ -275,8 +280,6 @@
     6px 2px 0 #2f2318,
     0 14px 30px rgba(0, 0, 0, 0.35);
 
-  cursor: image-set(url('/cursor_hover.png') 1.333333x) 18 12, pointer;
-
   z-index: 150;
   transform-style: preserve-3d;
 }
@@ -369,7 +372,6 @@
   .book.is-cover-opening .book-cover {
     left: 49%;
     transform-origin: 1.923076923% center;
-    transform-style: preserve-3d;
     animation: desktopCoverOpen var(--cover-open-duration) ease-in-out both;
   }
 
@@ -574,8 +576,6 @@
   font-size: 22px;
   line-height: 1;
 
-  cursor: image-set(url('/cursor_hover.png') 1.333333x) 18 12, pointer;
-
   pointer-events: auto;
 
   transition:
@@ -677,7 +677,6 @@
 
 
   .book {
-    width: 100%;
 
     /* 가로폭 제한 대신 화면 높이에서 책갈피·버튼 공간만 뺍니다. */
     aspect-ratio: auto;
@@ -818,28 +817,6 @@
 
   /* 모바일에서는 화살표를 책 아래로 */
 
-  .book-controls {
-    grid-area: 2 / 1;
-
-    width: auto;
-
-    margin-top: 20px;
-
-    align-self: auto;
-
-    gap: 16px;
-
-    justify-content: center;
-
-    pointer-events: auto;
-  }
-
-
-  .book-control-button {
-    width: 44px;
-    height: 44px;
-  }
-
 }
 
 
@@ -880,7 +857,9 @@
 .book-cover-inside,
 .book-closing-page,
 .mobile-left-page,
-.mobile-turn-page {
+.mobile-turn-page,
+.mini-base,
+.mini-face {
   background-color: #f7f3ea;
   background-image: url('/pagebg.png');
   background-size: 100% 100%;

@@ -138,13 +138,6 @@
 
 @media (max-width: 767px) {
 
-    .project-right {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: flex-start;
-    }
-
 
     /* 모바일에서 프로젝트명 + 로고 표시 */
 
@@ -192,11 +185,6 @@
         min-height: 0;
     }
 
-    .project-image {
-        width: 100%;
-        height: 100%;
-    }
-
 }
 
 
@@ -206,10 +194,6 @@
 ========================= */
 
 @media (max-width: 360px) {
-
-    .mobile-project-info {
-        margin-bottom: 8px;
-    }
 
     .mobile-project-info .project-title {
         font-size: 20px;
@@ -384,12 +368,6 @@
   .project-view-button {
     width: 100%;
   }
-}
-
-.project-view-button:disabled {
-  opacity: 0.55;
-  cursor: default;
-  background: #493725;
 }
 
 .project-preview-frame {

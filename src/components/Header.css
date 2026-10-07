@@ -67,8 +67,6 @@
 
   pointer-events: auto;
 
-  cursor: image-set(url('/cursor_hover.png') 1.333333x) 18 12, pointer;
-
   transform: translateY(var(--bookmark-lift));
 
   transition:
@@ -231,13 +229,7 @@
   }
 
 
-  .portfolio-nav button {
-    padding-top: 12px;
-  }
-
-
   .portfolio-nav button span {
-    font-size: 12px;
     letter-spacing: 0.1em;
   }
 

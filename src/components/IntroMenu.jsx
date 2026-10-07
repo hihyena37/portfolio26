@@ -4,28 +4,25 @@ import './IntroMenu.css'
 import hoverSound from '../assets/hoverSound.mp3'
 
 const IntroMenu = ({ onEnterBook }) => {
-  const hoverSoundsRef = useRef(new Set())
+  const hoverSoundRef = useRef(null)
 
   useEffect(() => {
-    const sounds = hoverSoundsRef.current
+    const audio = new Audio(hoverSound)
+    audio.volume = 0.4
+    hoverSoundRef.current = audio
 
     return () => {
-      sounds.forEach((audio) => {
-        audio.pause()
-        audio.currentTime = 0
-      })
-      sounds.clear()
+      audio.pause()
+      hoverSoundRef.current = null
     }
   }, [])
 
   const playHoverSound = () => {
-    const audio = new Audio(hoverSound)
-    const sounds = hoverSoundsRef.current
-    audio.volume = 0.4
-    sounds.add(audio)
-    audio.addEventListener('ended', () => sounds.delete(audio), { once: true })
+    const audio = hoverSoundRef.current
+    if (!audio) return
+    audio.currentTime = 0
     // 첫 클릭 전에는 브라우저가 호버 소리를 차단할 수 있어요.
-    audio.play().catch(() => sounds.delete(audio))
+    audio.play().catch(() => {})
   }
 
   return (

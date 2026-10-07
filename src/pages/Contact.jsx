@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import './Contact.css'
+import useWheelScroll from '../hooks/useWheelScroll'
 
 const Contact = ({ side }) => {
 
@@ -26,23 +27,7 @@ const Contact = ({ side }) => {
     }
   }, [side])
 
-  useEffect(() => {
-    const area = scrollRef.current
-    if (!area) return
-
-    // 3D 책 페이지에서도 휠 입력을 연락처 영역 스크롤에 전달
-    const handleWheel = (event) => {
-      if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return
-      if (area.scrollHeight <= area.clientHeight) return
-
-      const unit = event.deltaMode === 1 ? 20 : event.deltaMode === 2 ? area.clientHeight : 1
-      event.preventDefault()
-      area.scrollTop += event.deltaY * unit
-    }
-
-    area.addEventListener('wheel', handleWheel, { passive: false })
-    return () => area.removeEventListener('wheel', handleWheel)
-  }, [side])
+  useWheelScroll(scrollRef, true, side)
 
   const copyEmail = async () => {
     await navigator.clipboard.writeText('hihyena37@gmail.com')
@@ -243,4 +228,4 @@ const Contact = ({ side }) => {
   )
 }
 
-export default Contact
+export default memo(Contact)

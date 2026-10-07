@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react'
 import IntroMenu from '../components/IntroMenu'
 import FloatingLeaves from '../components/FloatingLeaves'
+import useMediaQuery from '../hooks/useMediaQuery'
 
 import './intro.css'
 import bookshop1 from '../assets/bookshop1.gif'
@@ -12,11 +13,12 @@ const LIGHT_EASE = 0.08
 const Intro = ({ onEnterBook, playOpening }) => {
   const introRef = useRef(null)
   const lightRef = useRef(null)
+  const followPointer = useMediaQuery('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)')
 
   useEffect(() => {
     const light = lightRef.current
     const intro = introRef.current
-    if (!light || !intro) return
+    if (!followPointer || !light || !intro) return
 
     const target = { x: 0, y: 0 }
     const current = { x: 0, y: 0 }
@@ -58,7 +60,7 @@ const Intro = ({ onEnterBook, playOpening }) => {
       window.removeEventListener('resize', reset)
       window.cancelAnimationFrame(frame)
     }
-  }, [])
+  }, [followPointer])
 
   return (
     <main

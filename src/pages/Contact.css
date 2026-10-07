@@ -453,8 +453,6 @@
     grid-template-columns:
       32px minmax(0, 1fr) 24px;
 
-    gap: 12px;
-
     padding: 16px 8px;
   }
 
@@ -487,10 +485,6 @@
     margin-top: 24px;
 
     padding-bottom: 12px;
-
-    flex-direction: row;
-
-    align-items: center;
 
     font-size: 10px;
   }

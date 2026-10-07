@@ -1,27 +1,11 @@
-import { useEffect, useRef } from 'react'
+import { memo, useRef } from 'react'
 import './AboutMe.css'
+import useWheelScroll from '../hooks/useWheelScroll'
 
 const AboutMe = ({ side, compact = false }) => {
   const scrollRef = useRef(null)
 
-  useEffect(() => {
-    if (compact) return
-    const area = scrollRef.current
-    if (!area) return
-
-    // 3D 책 페이지에서도 휠 입력을 해당 내용 영역에 전달
-    const handleWheel = (event) => {
-      if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return
-      if (area.scrollHeight <= area.clientHeight) return
-
-      const unit = event.deltaMode === 1 ? 20 : event.deltaMode === 2 ? area.clientHeight : 1
-      event.preventDefault()
-      area.scrollTop += event.deltaY * unit
-    }
-
-    area.addEventListener('wheel', handleWheel, { passive: false })
-    return () => area.removeEventListener('wheel', handleWheel)
-  }, [side, compact])
+  useWheelScroll(scrollRef, !compact, side)
 
   if (side === 'combined') {
     return (
@@ -128,4 +112,4 @@ const AboutMe = ({ side, compact = false }) => {
   )
 }
 
-export default AboutMe
+export default memo(AboutMe)

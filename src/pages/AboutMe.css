@@ -34,7 +34,7 @@
   font-size: clamp(14px, calc(var(--portfolio-vw, 1vw) * 2), 18px);
   height: fit-content;
   padding-right: 12px;
-  border-right: 2px solid #b9935a;;
+  border-right: 2px solid #b9935a;
 }
 
 .about-left .writer h3 {
@@ -233,7 +233,6 @@
   }
 
   .about-combined .writer {
-    align-items: center;
     justify-content: flex-start;
     align-items: start;
     gap: 24px;

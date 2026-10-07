@@ -7,6 +7,7 @@ import ProjectPage from '../pages/ProjectPage'
 import Contact from '../pages/Contact'
 import Thanks from '../pages/Thanks'
 import MiniBookPreview from './MiniBookPreview'
+import BookPage from './BookPage'
 
 import pageFlipSound from '../assets/page-flip.mp3'
 import coverSound from '../assets/cover-sound.mp3'
@@ -39,6 +40,7 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
   const [mobileTurn, setMobileTurn] = useState(null)
   const [desktopTurn, setDesktopTurn] = useState(null)
   const [crossedSheets, setCrossedSheets] = useState([])
+  const [pageCache] = useState(() => new Map())
 
   const finishClosing = useCallback(() => {
     setIsCoverClosing(false)
@@ -171,7 +173,7 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
   }
 
 
-  const renderPage = (pageNumber, side) => {
+  const renderPageContent = (pageNumber, side) => {
 
     if (pageNumber === 0) {
       if (side === 'right') {
@@ -215,6 +217,19 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
     }
 
     return null
+  }
+
+  // 종이 12장의 회전 구조는 유지하되 현재·인접·넘김 중인 내용만 준비합니다.
+  const turn = desktopTurn || mobileTurn
+  const firstVisible = Math.max(0, Math.min(currentPage, turn?.from ?? currentPage) - 1)
+  const lastVisible = Math.min(12, Math.max(currentPage, turn?.from ?? currentPage) + 1)
+  const renderPage = (pageNumber, side, slot = 'page') => {
+    if (pageNumber < firstVisible || pageNumber > lastVisible) return null
+    return (
+      <BookPage cache={pageCache} pageKey={`${slot}-${pageNumber}-${side}`}>
+        {renderPageContent(pageNumber, side)}
+      </BookPage>
+    )
   }
 
 
@@ -278,7 +293,7 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
 
         {isCoverClosing && (
           <div className="book-closing-page" aria-hidden="true">
-            {renderPage(currentPage, 'right')}
+            {renderPage(currentPage, 'right', 'closing')}
           </div>
         )}
 
@@ -308,7 +323,7 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
             </span>
             <span className="book-cover-back" aria-hidden="true">
               <span className="book-cover-inside">
-                {renderPage(isCoverClosing ? currentPage : 0, 'left')}
+                {renderPage(isCoverClosing ? currentPage : 0, 'left', 'cover')}
               </span>
             </span>
           </button>
@@ -325,7 +340,7 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
         {papers}
 
         <div className="mobile-left-page" aria-hidden="true" inert>
-          {renderPage(currentPage, 'left')}
+          {renderPage(currentPage, 'left', 'mobile-left')}
         </div>
 
         {mobileTurn && (
@@ -341,7 +356,7 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
                 if (event.target === event.currentTarget) setMobileTurn(null)
               }}
             >
-              {renderPage(mobileTurn.from, 'right')}
+              {renderPage(mobileTurn.from, 'right', 'turn')}
             </div>
             <div
               className="mobile-turn-page turn-incoming"
@@ -349,7 +364,7 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
                 if (event.target === event.currentTarget) setMobileTurn(null)
               }}
             >
-              {renderPage(mobileTurn.to, 'right')}
+              {renderPage(mobileTurn.to, 'right', 'turn')}
             </div>
           </div>
         )}

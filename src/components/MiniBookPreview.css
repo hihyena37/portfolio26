@@ -117,11 +117,6 @@
 
 .mini-base,
 .mini-face {
-  background-color: #f7f3ea;
-  background-image: url('/pagebg.png');
-  background-size: 100% 100%;
-  background-position: center;
-  background-repeat: no-repeat;
 
   overflow: hidden;
 }

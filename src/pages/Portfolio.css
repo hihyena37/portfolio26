@@ -89,7 +89,6 @@
 
   .portfolio-bg {
     background-size: auto 120%;
-    background-position: center center;
   }
 
   .portfolio-content {
@@ -108,7 +107,6 @@
 @media (max-width: 360px) {
 
   .portfolio-content {
-    padding: 12px 0;
 
     gap: 10px;
   }

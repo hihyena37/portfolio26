@@ -21,7 +21,6 @@
   padding: 0;
   border: 0;
   background: transparent;
-  cursor: image-set(url('/cursor_hover.png') 1.333333x) 18 12, pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
