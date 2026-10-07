@@ -165,6 +165,13 @@
 }
 
 
+/* PC에서는 확대 보정된 메뉴 글씨가 종이에 가려지지 않도록 위로 더 노출합니다. */
+@media (min-width: 1025px) {
+  .portfolio-nav {
+    --bookmark-height: 196px;
+  }
+}
+
 /* =========================
    TABLET
    768px ~ 1024px

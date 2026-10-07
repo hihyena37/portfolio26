@@ -1,9 +1,28 @@
-import { memo, useRef } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import './AboutMe.css'
 import useWheelScroll from '../hooks/useWheelScroll'
 
 const AboutMe = ({ side, compact = false }) => {
   const scrollRef = useRef(null)
+  const [showScrollHint, setShowScrollHint] = useState(false)
+
+  useEffect(() => {
+    const area = scrollRef.current
+    if (side !== 'combined' || !area) return
+    const updateHint = () => {
+      setShowScrollHint(area.scrollTop <= 1
+        && area.clientHeight > 0 && area.scrollHeight > area.clientHeight + 2)
+    }
+    const observer = new ResizeObserver(updateHint)
+    observer.observe(area)
+    Array.from(area.children).forEach((child) => observer.observe(child))
+    area.addEventListener('scroll', updateHint, { passive: true })
+    updateHint()
+    return () => {
+      observer.disconnect()
+      area.removeEventListener('scroll', updateHint)
+    }
+  }, [side])
 
   useWheelScroll(scrollRef, !compact, side)
 
@@ -14,6 +33,11 @@ const AboutMe = ({ side, compact = false }) => {
           <AboutMe side="left" compact />
           <AboutMe side="right" compact />
         </div>
+        {showScrollHint && (
+          <div className="project-scroll-hint" role="img" aria-label="아래로 스크롤하여 자기소개 더 보기">
+            <i className="bi bi-mouse" aria-hidden="true"></i>
+          </div>
+        )}
       </section>
     )
   }

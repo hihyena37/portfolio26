@@ -235,6 +235,7 @@
   }
 
   .about-combined {
+    position: relative;
     display: flex;
     min-height: 0;
   }
