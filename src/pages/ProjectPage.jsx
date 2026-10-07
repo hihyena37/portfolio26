@@ -82,7 +82,7 @@ const projects = [
     tools: 'Figma · Photoshop',
     ai: 'Codex',
     logo: `${import.meta.env.BASE_URL}logo5.png`,
-    image: `${import.meta.env.BASE_URL}project5_full.jpg`,
+    image: `${import.meta.env.BASE_URL}optimized/project5_full.png`,
     link: `${import.meta.env.BASE_URL}project5_pdf.pdf`
   },
   {
@@ -94,7 +94,7 @@ const projects = [
     tools: 'Figma · Photoshop · Illustrator',
     ai: '',
     logo: `${import.meta.env.BASE_URL}logo6.png`,
-    image: `${import.meta.env.BASE_URL}project6_full.jpg`,
+    image: `${import.meta.env.BASE_URL}optimized/project6_full.png`,
     link: `${import.meta.env.BASE_URL}project6_pdf.pdf`
   },
   {
@@ -106,7 +106,7 @@ const projects = [
     tools: 'Figma · Photoshop',
     ai: 'Codex',
     logo: `${import.meta.env.BASE_URL}logo7.png`,
-    image: `${import.meta.env.BASE_URL}project7_full.jpg`,
+    image: `${import.meta.env.BASE_URL}optimized/project7_full.png`,
     link: 'https://www.figma.com/design/qKwzvzmZKPVEtgvyx6VI2d/%EC%83%81%EC%84%B8%ED%8E%98%EC%9D%B4%EC%A7%80?node-id=0-1&t=RfNSPCo5W8lDyZZh-1',
     viewLabel: '피그마로 보기'
   },
