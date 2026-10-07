@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import Intro from './pages/Intro'
 import Portfolio from './pages/Portfolio'
 import TopTicker from './components/TopTicker'
+import CursorSparkles from './components/CursorSparkles'
 
 import bgm from './assets/bgm.mp3'
 
@@ -102,6 +103,7 @@ const App = () => {
   return (
     <>
       {page === 'intro' && <TopTicker />}
+      <CursorSparkles screenKey={`${page}-${currentPage}-${isCoverClosed}`} />
 
       {/* 배경 음악 */}
       <audio

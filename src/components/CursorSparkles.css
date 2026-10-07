@@ -1,0 +1,47 @@
+.cursor-sparkles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 100000;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cursor-sparkles span {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  color: #e8c47a;
+  font-size: var(--size, 14px);
+  line-height: 1;
+  text-shadow:
+    0 0 4px #fff8dc,
+    0 0 10px #ffd978,
+    0 1px 2px #493725;
+  opacity: 0;
+  animation: cursorTwinkle 0.55s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.cursor-sparkles span:nth-child(1) { --x: -20px; --y: -18px; --size: 16px; --delay: 0s; }
+.cursor-sparkles span:nth-child(2) { --x: 22px;  --y: -14px; --size: 12px; --delay: -0.07s; color: #fff3cc; }
+.cursor-sparkles span:nth-child(3) { --x: -14px; --y: 22px;  --size: 20px; --delay: -0.14s; }
+.cursor-sparkles span:nth-child(4) { --x: 26px;  --y: 18px;  --size: 11px; --delay: -0.21s; color: #fff3cc; }
+.cursor-sparkles span:nth-child(5) { --x: 2px;   --y: -30px; --size: 10px; --delay: -0.28s; }
+.cursor-sparkles span:nth-child(6) { --x: -32px; --y: 2px;   --size: 12px; --delay: -0.35s; color: #fff3cc; }
+.cursor-sparkles span:nth-child(7) { --x: 34px;  --y: -2px;  --size: 14px; --delay: -0.42s; }
+.cursor-sparkles span:nth-child(8) { --x: 6px;   --y: 32px;  --size: 9px;  --delay: -0.49s; color: #fff3cc; }
+
+@keyframes cursorTwinkle {
+  0%   { opacity: 0;   transform: scale(0.2) rotate(0deg); }
+  40%  { opacity: 1;   transform: scale(1.25) rotate(45deg); }
+  70%  { opacity: 0.8; transform: scale(0.9) rotate(70deg); }
+  100% { opacity: 0;   transform: scale(0.2) rotate(90deg); }
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-sparkles { display: none; }
+  .cursor-sparkles span { animation: none; }
+}

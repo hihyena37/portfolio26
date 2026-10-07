@@ -126,3 +126,11 @@ input[type='submit'],
   }
 
 }
+
+@media (max-width: 500px) {
+
+  .music-label {
+    display: none;
+  }
+
+}
