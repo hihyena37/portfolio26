@@ -43,8 +43,20 @@
 }
 
 
+/* 두 페이지 화면에서는 같은 책상 확대 비율을 사용합니다. */
+@media (min-width: 768px) {
+  .portfolio-bg {
+    /* 원본 비율(1672:941)을 유지한 cover 크기보다 12% 확대합니다. */
+    background-size: max(112vw, 199.01svh) auto;
+  }
+}
+
 /* PC에서는 책·글씨·메뉴를 같은 비율로 축소합니다. */
 @media (min-width: 1025px) {
+  .portfolio-content .book {
+    aspect-ratio: 2 / 1.35;
+  }
+
   .portfolio-content {
     --portfolio-vw: 25.6px;
     width: 1400px;
@@ -77,6 +89,18 @@
     gap: 16px;
   }
 
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .portfolio-content .book-area {
+    padding-top: 112px;
+  }
+
+  .portfolio-content .book {
+    /* 너비가 좁아져도 책상 위 세로 공간을 유지합니다. */
+    aspect-ratio: auto;
+    height: clamp(480px, calc(100svh - 252px), 650px);
+  }
 }
 
 

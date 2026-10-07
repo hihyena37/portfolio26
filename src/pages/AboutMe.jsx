@@ -101,11 +101,15 @@ const AboutMe = ({ side, compact = false }) => {
 
             <img src={`${import.meta.env.BASE_URL}jq.png`} alt="jq" />
 
-            <img src={`${import.meta.env.BASE_URL}react.png`} alt="re" />
+            <img src={`${import.meta.env.BASE_URL}GitHub.png`} alt="GitHub" />
+
+            <img src={`${import.meta.env.BASE_URL}git.png`} alt="git" />
 
             <img src={`${import.meta.env.BASE_URL}codex.png`} alt="codex" />
 
-            <img src={`${import.meta.env.BASE_URL}GitHub.png`} alt="GitHub" />
+            <img src={`${import.meta.env.BASE_URL}claude.png`} alt="claude" />
+
+            <img src={`${import.meta.env.BASE_URL}react.png`} alt="re" />
           </div>
         </div>
 

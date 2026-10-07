@@ -92,7 +92,7 @@
   font-size: clamp(24px, calc(var(--portfolio-vw, 1vw) * 3), 32px);
 }
 
-.intro-ko span{
+.intro-ko span {
   margin-left: 8px;
 }
 
@@ -108,12 +108,17 @@
   color: #8c683c;
 }
 
-.about-left .introduction p {
+.about-left .introduction p,
+.about-right .rightbox p {
   font-size: clamp(14px, calc(var(--portfolio-vw, 1vw) * 1.2), 16px);
+  line-height: 1.8;
 
   word-break: keep-all;
   overflow-wrap: break-word;
   letter-spacing: 0.02em;
+}
+
+.about-left .introduction p {
   padding-right: 16px;
 }
 
@@ -194,6 +199,18 @@
   height: 100%;
 }
 
+@media (min-width: 1025px) {
+  .about-left .introduction p,
+  .about-right .rightbox p {
+    font-size: calc(16px / var(--portfolio-scale, 1));
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 1024px) {
+  
+}
+
 @media (max-width: 767px) {
   .about-desktop-side {
     display: none;
@@ -249,16 +266,20 @@
 
   .about-combined .introduction p {
     padding-right: 0;
-    font-size: 15px;
+  }
+
+  .about-combined .introduction p,
+  .about-combined .about-right .rightbox p {
+    font-size: 16px;
   }
 
   .about-combined .about-right-content {
     gap: 28px;
-    font-size: 15px;
   }
 
-  .about-combined .rightbox h3 {
+  .rightbox h3 {
     font-size: 18px;
     margin-bottom: 12px;
   }
+
 }
