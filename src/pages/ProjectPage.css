@@ -305,6 +305,11 @@
 }
 
 @media (max-width: 767px) {
+  .project-preview-scroll {
+    /* 스크롤바가 차지하는 폭을 왼쪽에도 확보해 작업물을 가운데 맞춥니다. */
+    scrollbar-gutter: stable both-edges;
+  }
+
   .mobile-project-details {
     display: block;
     margin-bottom: 12px;
