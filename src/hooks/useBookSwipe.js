@@ -12,7 +12,8 @@ export function bindBookSwipe(root, getOptions) {
     suppressClickUntil = 0
     const options = getOptions()
     if (!options.enabled || event.touches.length !== 1) return
-    if (event.target.closest?.('a, button, input, textarea, select, summary, [contenteditable="true"]')) return
+    // 목차 버튼·작업 링크에서도 스와이프를 허용하고, 탭과는 이동 거리로 구분합니다.
+    if (event.target.closest?.('.portfolio-nav, input, textarea, select, [contenteditable="true"]')) return
     const touch = event.touches[0]
     gesture = { id: touch.identifier, x: touch.clientX, y: touch.clientY, axis: null, page: options.page }
   }
@@ -25,9 +26,9 @@ export function bindBookSwipe(root, getOptions) {
     if (!touch) return reset()
     const dx = Math.abs(touch.clientX - gesture.x)
     const dy = Math.abs(touch.clientY - gesture.y)
-    if (!gesture.axis && Math.max(dx, dy) >= 12) {
-      if (dy >= dx) return reset() // 세로 스크롤로 시작하면 책장을 넘기지 않습니다.
-      if (dx > dy * 1.4) gesture.axis = 'horizontal'
+    if (!gesture.axis && Math.max(dx, dy) >= 10) {
+      if (dy > dx * 1.2) return reset() // 명확한 세로 스크롤만 제외합니다.
+      if (dx > dy * 1.2) gesture.axis = 'horizontal'
     }
     if (gesture.axis === 'horizontal' && event.cancelable) event.preventDefault()
   }
@@ -41,7 +42,7 @@ export function bindBookSwipe(root, getOptions) {
     if (!touch || !options.enabled || options.page !== saved.page || event.touches.length) return
     const dx = touch.clientX - saved.x
     const dy = touch.clientY - saved.y
-    if (Math.abs(dx) < 50 || Math.abs(dx) <= Math.abs(dy) * 1.4) return
+    if (Math.abs(dx) < 36 || Math.abs(dx) <= Math.abs(dy) * 1.2) return
     suppressClickUntil = Date.now() + 500
     options.onSwipe(dx < 0 ? 'next' : 'previous')
   }

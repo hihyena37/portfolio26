@@ -188,9 +188,16 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
 
 
   useBookSwipe(bookRef, {
-    enabled: !isCoverClosed && !openingCover && !isCoverClosing && !mobileTurn && !desktopTurn,
-    page: currentPage,
-    onSwipe: (direction) => direction === 'next' ? nextPage() : prevPage(),
+    enabled: !openingCover && !isCoverClosing && !mobileTurn && !desktopTurn,
+    page: isCoverClosed ? 'cover' : currentPage,
+    onSwipe: (direction) => {
+      if (isCoverClosed) {
+        if (direction === 'previous') openCover()
+        return
+      }
+      if (direction === 'next') nextPage()
+      else prevPage()
+    },
   })
 
   const renderPageContent = (pageNumber, side) => {
