@@ -31,6 +31,13 @@ export function bindBookSwipe(root, getOptions) {
       if (dx > dy * 1.2) gesture.axis = 'horizontal'
     }
     if (gesture.axis === 'horizontal' && event.cancelable) event.preventDefault()
+    // 표지는 터치 종료가 누락돼도 지정 방향으로 충분히 밀었을 때 바로 엽니다.
+    if (gesture.axis === 'horizontal' && options.openCoverOnSwipe
+      && touch.clientX - gesture.x >= 36 && dx > dy * 1.2) {
+      reset()
+      suppressClickUntil = Date.now() + 500
+      options.onSwipe('previous')
+    }
   }
 
   const end = (event) => {

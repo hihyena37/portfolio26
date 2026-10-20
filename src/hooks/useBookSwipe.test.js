@@ -39,6 +39,18 @@ test('horizontal swipes survive target/callback changes and turn once in either 
   s.cleanup()
 })
 
+test('closed cover opens on rightward movement without waiting for touchend, only once', () => {
+  const s = setup()
+  s.update({ page: 'cover', openCoverOnSwipe: true })
+  s.emit('touchstart', [s.touch(100, 200)], [], 'button')
+  s.emit('touchmove', [s.touch(145, 205)], [], 'button')
+  assert.deepEqual(s.turns, ['previous'])
+  s.emit('touchmove', [s.touch(180, 205)], [], 'button')
+  s.emit('touchend', [], [s.touch(180, 205)], 'button')
+  assert.deepEqual(s.turns, ['previous'])
+  assert.equal(s.emit('click', [], [], 'button').prevented, true)
+})
+
 test('vertical scrolling stays native even if the finger later moves sideways', () => {
   const s = setup()
   s.emit('touchstart', [s.touch(200, 100)])

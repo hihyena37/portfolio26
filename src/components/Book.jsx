@@ -190,6 +190,7 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
   useBookSwipe(bookRef, {
     enabled: !openingCover && !isCoverClosing && !mobileTurn && !desktopTurn,
     page: isCoverClosed ? 'cover' : currentPage,
+    openCoverOnSwipe: isCoverClosed,
     onSwipe: (direction) => {
       if (isCoverClosed) {
         if (direction === 'previous') openCover()
