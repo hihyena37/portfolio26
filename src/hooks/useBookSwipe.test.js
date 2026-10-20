@@ -131,3 +131,25 @@ test('short gestures, controls, multitouch, cancellation, and page changes do no
     s.cleanup()
   }
 })
+
+test('cover still opens when implicit touch capture on an inner element is released', () => {
+  const root = new EventTarget()
+  const turns = []
+  const cover = { setPointerCapture() {}, hasPointerCapture() { return true }, releasePointerCapture() {} }
+  const inner = { closest: (selector) => (selector === '.book-cover' ? cover : null) }
+  const emit = (type, extra = {}, target = inner) => {
+    const event = new Event(type, { cancelable: true })
+    Object.assign(event, { pointerId: 1, pointerType: 'touch', isPrimary: true, button: 0, clientX: 100, clientY: 200, ...extra })
+    Object.defineProperty(event, 'target', { value: target })
+    root.dispatchEvent(event)
+    return event
+  }
+  const cleanup = bindBookSwipe(root, () => ({ enabled: true, page: 'cover', openCoverOnSwipe: true, onSwipe: (d) => turns.push(d) }))
+  emit('pointerdown')
+  emit('lostpointercapture') // 내부 요소가 암묵적 캡처를 잃음
+  emit('touchstart', { touches: [{ identifier: 1, clientX: 100, clientY: 200 }] })
+  emit('pointermove', { clientX: 160 })
+  emit('touchmove', { touches: [{ identifier: 1, clientX: 160, clientY: 200 }] })
+  assert.deepEqual(turns, ['previous'])
+  cleanup()
+})
