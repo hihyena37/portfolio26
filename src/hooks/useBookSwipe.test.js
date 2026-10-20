@@ -51,6 +51,41 @@ test('closed cover opens on rightward movement without waiting for touchend, onl
   assert.equal(s.emit('click', [], [], 'button').prevented, true)
 })
 
+test('cover pointer capture opens once for touch and mouse without duplicating touch events', () => {
+  for (const pointerType of ['touch', 'mouse']) {
+    const root = new EventTarget()
+    const turns = []
+    let captured = false
+    const cover = {
+      setPointerCapture() { captured = true },
+      hasPointerCapture() { return captured },
+      releasePointerCapture() { captured = false },
+    }
+    const emit = (type, extra = {}) => {
+      const event = new Event(type, { cancelable: true })
+      Object.assign(event, {
+        pointerId: 1, pointerType, isPrimary: true, button: 0,
+        clientX: 100, clientY: 200, ...extra,
+      })
+      Object.defineProperty(event, 'target', { value: { closest: () => cover } })
+      root.dispatchEvent(event)
+      return event
+    }
+    const cleanup = bindBookSwipe(root, () => ({ enabled: true, page: 'cover', openCoverOnSwipe: true, onSwipe: (d) => turns.push(d) }))
+    emit('pointerdown')
+    assert.equal(captured, true)
+    emit('touchstart', { touches: [{ identifier: 1, clientX: 100, clientY: 200 }] })
+    emit('pointermove', { clientX: 180 })
+    assert.deepEqual(turns, ['previous'])
+    emit('pointerup', { clientX: 180 })
+    emit('touchend', { touches: [], changedTouches: [{ identifier: 1, clientX: 180, clientY: 200 }] })
+    assert.equal(turns.length, 1)
+    assert.equal(emit('click').defaultPrevented, true)
+    assert.equal(captured, false)
+    cleanup()
+  }
+})
+
 test('vertical scrolling stays native even if the finger later moves sideways', () => {
   const s = setup()
   s.emit('touchstart', [s.touch(200, 100)])

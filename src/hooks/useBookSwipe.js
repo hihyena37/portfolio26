@@ -4,12 +4,17 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
 export function bindBookSwipe(root, getOptions) {
   let gesture = null
   let suppressClickUntil = 0
+  let coverPointer = null
   const reset = () => { gesture = null }
   const findTouch = (touches, id) => Array.from(touches).find((touch) => touch.identifier === id)
 
   const start = (event) => {
     reset()
     suppressClickUntil = 0
+    if (coverPointer) {
+      if (event.touches.length > 1) cancelCoverPointer()
+      return
+    }
     const options = getOptions()
     if (!options.enabled || event.touches.length !== 1) return
     // 목차 버튼·작업 링크에서도 스와이프를 허용하고, 탭과는 이동 거리로 구분합니다.
@@ -60,12 +65,61 @@ export function bindBookSwipe(root, getOptions) {
     event.stopPropagation()
   }
 
+  // 표지 버튼이 포인터를 캡처해 이미지 밖으로 움직여도 계속 추적합니다.
+  const cancelCoverPointer = () => {
+    const id = coverPointer?.id
+    const target = coverPointer?.target
+    coverPointer = null
+    if (id !== undefined && target?.hasPointerCapture?.(id)) target.releasePointerCapture(id)
+  }
+  const coverDown = (event) => {
+    const options = getOptions()
+    if (!options.enabled || !options.openCoverOnSwipe) return
+    if (event.isPrimary === false) return cancelCoverPointer()
+    const target = event.target.closest?.('.book-cover')
+    if (event.button !== 0 || !target) return
+    reset()
+    suppressClickUntil = 0
+    coverPointer = { id: event.pointerId, x: event.clientX, y: event.clientY, target }
+    target.setPointerCapture?.(event.pointerId)
+  }
+  const coverMove = (event) => {
+    if (!coverPointer || coverPointer.id !== event.pointerId) return
+    const options = getOptions()
+    if (!options.enabled || !options.openCoverOnSwipe) return cancelCoverPointer()
+    const dx = event.clientX - coverPointer.x
+    const dy = event.clientY - coverPointer.y
+    if (dx < 36 || dx <= Math.abs(dy) * 1.2) return
+    if (event.cancelable) event.preventDefault()
+    cancelCoverPointer()
+    reset()
+    suppressClickUntil = Date.now() + 500
+    options.onSwipe('previous')
+  }
+  const coverUp = (event) => {
+    if (coverPointer?.id !== event.pointerId) return
+    coverMove(event)
+    cancelCoverPointer()
+  }
+
+  root.addEventListener('pointerdown', coverDown, true)
+  root.addEventListener('pointermove', coverMove, true)
+  root.addEventListener('pointerup', coverUp, true)
+  root.addEventListener('pointercancel', cancelCoverPointer, true)
+  root.addEventListener('lostpointercapture', cancelCoverPointer, true)
+
   root.addEventListener('touchstart', start, { capture: true, passive: true })
   root.addEventListener('touchmove', move, { capture: true, passive: false })
   root.addEventListener('touchend', end, { capture: true, passive: true })
   root.addEventListener('touchcancel', reset, true)
   root.addEventListener('click', click, true)
   return () => {
+    cancelCoverPointer()
+    root.removeEventListener('pointerdown', coverDown, true)
+    root.removeEventListener('pointermove', coverMove, true)
+    root.removeEventListener('pointerup', coverUp, true)
+    root.removeEventListener('pointercancel', cancelCoverPointer, true)
+    root.removeEventListener('lostpointercapture', cancelCoverPointer, true)
     reset()
     root.removeEventListener('touchstart', start, true)
     root.removeEventListener('touchmove', move, true)
