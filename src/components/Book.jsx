@@ -1,5 +1,6 @@
 import { playEffect } from '../utils/sound'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import useBookSwipe from '../hooks/useBookSwipe'
 import './Book.css'
 
 import AboutMe from '../pages/AboutMe'
@@ -16,6 +17,7 @@ import coverSound from '../assets/cover-sound.mp3'
 const COVER_OPEN_DURATION = 2000
 
 const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClosed, isCoverClosing, setIsCoverClosing, coverTarget = null, setCoverTarget }) => {
+  const bookRef = useRef(null)
   // 진입 시 자동으로 표지를 엽니다. (PC: 오른쪽 이동 + 열림, 모바일: 제자리에서 왼쪽으로 열림)
   const [isCoverOpening, setIsCoverOpening] = useState(isCoverClosed)
   const openingCover = isCoverClosed && isCoverOpening
@@ -185,6 +187,12 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
   }
 
 
+  useBookSwipe(bookRef, {
+    enabled: !isCoverClosed && !openingCover && !isCoverClosing && !mobileTurn && !desktopTurn,
+    page: currentPage,
+    onSwipe: (direction) => direction === 'next' ? nextPage() : prevPage(),
+  })
+
   const renderPageContent = (pageNumber, side) => {
 
     if (pageNumber === 0) {
@@ -288,6 +296,7 @@ const Book = ({ nav, currentPage, setCurrentPage, isCoverClosed, setIsCoverClose
 
       <div
         className={`book${isCoverClosed ? ' is-cover-closed' : ''}${openingCover ? ' is-cover-opening' : ''}${isCoverClosing ? ' is-cover-closing' : ''}`}
+        ref={bookRef}
         style={{ '--cover-open-duration': `${COVER_OPEN_DURATION}ms` }}
         inert={openingCover || isCoverClosing}
         aria-busy={openingCover || isCoverClosing}
